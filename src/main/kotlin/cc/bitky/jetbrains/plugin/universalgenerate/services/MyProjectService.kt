@@ -1,9 +1,9 @@
-package com.github.bitkylin.bitkyuniversalgenerate.services
+package cc.bitky.jetbrains.plugin.universalgenerate.services
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import com.github.bitkylin.bitkyuniversalgenerate.MyBundle
+import cc.bitky.jetbrains.plugin.universalgenerate.MyBundle
 
 @Service(Service.Level.PROJECT)
 class MyProjectService(project: Project) {

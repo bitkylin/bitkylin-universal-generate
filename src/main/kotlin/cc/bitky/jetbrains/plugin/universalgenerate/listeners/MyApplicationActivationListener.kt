@@ -1,4 +1,4 @@
-package com.github.bitkylin.bitkyuniversalgenerate.listeners
+package cc.bitky.jetbrains.plugin.universalgenerate.listeners
 
 import com.intellij.openapi.application.ApplicationActivationListener
 import com.intellij.openapi.diagnostic.thisLogger

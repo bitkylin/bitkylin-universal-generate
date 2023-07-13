@@ -1,4 +1,4 @@
-package com.github.bitkylin.bitkyuniversalgenerate.toolWindow
+package cc.bitky.jetbrains.plugin.universalgenerate.toolWindow
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.thisLogger
@@ -8,8 +8,8 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
-import com.github.bitkylin.bitkyuniversalgenerate.MyBundle
-import com.github.bitkylin.bitkyuniversalgenerate.services.MyProjectService
+import cc.bitky.jetbrains.plugin.universalgenerate.MyBundle
+import cc.bitky.jetbrains.plugin.universalgenerate.services.MyProjectService
 import javax.swing.JButton
 
 

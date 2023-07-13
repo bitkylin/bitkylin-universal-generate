@@ -1,4 +1,4 @@
-package com.github.bitkylin.bitkyuniversalgenerate
+package cc.bitky.jetbrains.plugin.universalgenerate
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

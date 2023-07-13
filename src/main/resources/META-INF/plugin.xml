@@ -1,18 +1,38 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.bitkylin.bitkyuniversalgenerate</id>
+    <id>cc.bitky.jetbrains.plugin.universalgenerate</id>
     <name>bitky-universal-generate Template</name>
     <vendor>bitkylin</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.bitkylin.bitkyuniversalgenerate.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory"
+                    id="MyToolWindow"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.bitkylin.bitkyuniversalgenerate.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="cc.bitky.jetbrains.plugin.universalgenerate.listeners.MyApplicationActivationListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="cc.bitky.jetbrains.plugin.universalgenerate.ref.SwaggerTool"
+                class="cc.bitky.jetbrains.plugin.universalgenerate.ref.SwaggerTool" text="SwaggerAnnotation"
+                description="Generate swagger annotation">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+        </action>
+
+        <action id="cc.bitky.jetbrains.plugin.universalgenerate.ref.BitkyDemoAction"
+                class="cc.bitky.jetbrains.plugin.universalgenerate.ref.BitkyDemoAction" text="通用替换"
+                description="通用替换描述">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+    </actions>
+
 </idea-plugin>
