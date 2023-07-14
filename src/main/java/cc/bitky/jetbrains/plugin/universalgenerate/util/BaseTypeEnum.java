@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.ref.utils;
+package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import java.util.Objects;
 

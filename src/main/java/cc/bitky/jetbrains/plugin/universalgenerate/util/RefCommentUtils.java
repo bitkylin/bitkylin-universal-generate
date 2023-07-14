@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.ref.utils;
+package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import com.intellij.psi.PsiType;
 import org.apache.commons.lang.StringUtils;
@@ -10,7 +10,7 @@ import java.util.Map;
  * @author pwhxbdk
  * @date 2020/4/6
  */
-public class CommentUtils {
+public class RefCommentUtils {
 
 
     public static String getDataType(String dataType, PsiType psiType) {

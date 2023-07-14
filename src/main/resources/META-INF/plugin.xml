@@ -21,14 +21,8 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="cc.bitky.jetbrains.plugin.universalgenerate.ref.SwaggerTool"
-                class="cc.bitky.jetbrains.plugin.universalgenerate.ref.SwaggerTool" text="SwaggerAnnotation"
-                description="Generate swagger annotation">
-            <add-to-group group-id="GenerateGroup" anchor="first"/>
-        </action>
-
-        <action id="cc.bitky.jetbrains.plugin.universalgenerate.ref.BitkyDemoAction"
-                class="cc.bitky.jetbrains.plugin.universalgenerate.ref.BitkyDemoAction" text="通用替换"
+        <action id="cc.bitky.jetbrains.plugin.universalgenerate.service.BitkylinDemoAction"
+                class="cc.bitky.jetbrains.plugin.universalgenerate.service.BitkylinDemoAction" text="通用替换"
                 description="通用替换描述">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
