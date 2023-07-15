@@ -40,7 +40,7 @@ public final class GenerateUtils {
      */
     public static void generateSelection(WriteContext writeContext, boolean isController) {
         PsiClass psiClass = writeContext.getPsiClass();
-        String selectionText = writeContext.getSelectionText();
+        String selectionText = null;//writeContext.getSelectionText();
         if (Objects.equals(selectionText, psiClass.getName())) {
             generateClassAnnotation(writeContext, isController);
         }

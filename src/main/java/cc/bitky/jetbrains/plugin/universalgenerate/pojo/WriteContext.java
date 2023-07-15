@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,12 +18,16 @@ import java.util.List;
 public class WriteContext {
 
     private Project project;
+
     private PsiFile psiFile;
+
     private PsiClass psiClass;
+
     private PsiElementFactory elementFactory;
-    private String selectionText;
+
 
     private SelectWrapper selectWrapper;
+
     private List<ClassWrapper> clzList;
 
     @Data
@@ -49,6 +54,8 @@ public class WriteContext {
 
         private List<PsiMethod> methodList;
 
+        private List<PsiClass> innerClassList;
+
     }
 
     public void addClassWrapper(ClassWrapper classWrapper) {
@@ -64,6 +71,12 @@ public class WriteContext {
         wrapper.setClz(clz);
         wrapper.setFieldList(List.of(clz.getFields()));
         wrapper.setMethodList(List.of(clz.getMethods()));
+
+        if (clz.isEnum()) {
+            return wrapper;
+        }
+
+        wrapper.setInnerClassList(Arrays.asList(clz.getAllInnerClasses()));
         return wrapper;
     }
 

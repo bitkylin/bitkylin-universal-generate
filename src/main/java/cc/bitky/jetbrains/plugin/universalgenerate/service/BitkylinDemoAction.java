@@ -17,7 +17,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilBase;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * @author bitkylin
@@ -29,13 +29,16 @@ public class BitkylinDemoAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         Project project = anActionEvent.getProject();
-        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
         Preconditions.checkNotNull(project);
+
+        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
         Preconditions.checkNotNull(editor);
 
         PsiFile psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
+        Preconditions.checkNotNull(psiFile);
+
         PsiClass psiClass = PsiTreeUtil.findChildOfAnyType(psiFile, PsiClass.class);
-        String selectionText = editor.getSelectionModel().getSelectedText();
+        Preconditions.checkNotNull(psiClass);
 
         // 通过光标偏移量获取当前psi元素
         PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
@@ -44,16 +47,16 @@ public class BitkylinDemoAction extends AnAction {
         writeContext.setProject(project);
         writeContext.setPsiFile(psiFile);
         writeContext.setPsiClass(psiClass);
-        writeContext.setSelectionText(selectionText);
         writeContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
 
         assemble(psiClass, currentElement, writeContext);
 
+
         WriteCommandAction.runWriteCommandAction(project, () -> {
             boolean selection = false;
-            if (StringUtils.isNotEmpty(selectionText)) {
-                selection = true;
-            }
+//            if (StringUtils.isNotEmpty(selectionText)) {
+//                selection = true;
+//            }
             // 遍历当前对象的所有属性
             boolean isController = DecisionUtils.isController(psiClass);
             if (selection) {
@@ -69,31 +72,52 @@ public class BitkylinDemoAction extends AnAction {
     private void assemble(PsiClass psiClass, PsiElement currentElement, WriteContext writeContext) {
         WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
         selectWrapper.setCurrentElement(currentElement);
+        writeContext.setSelectWrapper(selectWrapper);
+        int depth = 0;
+        query(depth, psiClass, currentElement, writeContext);
+
+
+    }
+
+    private void query(int depth, PsiClass psiClass, PsiElement currentElement, WriteContext writeContext) {
+
+        Preconditions.checkArgument(depth < 5);
+
+        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         if (currentElement.getTextOffset() == psiClass.getTextOffset()) {
             selectWrapper.setClz(psiClass);
         }
+        WriteContext.ClassWrapper classWrapper = WriteContext.createClassWrapper(psiClass);
+        writeContext.addClassWrapper(classWrapper);
 
-        for (PsiClass innerClass : psiClass.getAllInnerClasses()) {
+        for (PsiField field : classWrapper.getFieldList()) {
+            if (currentElement.getTextOffset() == field.getTextOffset()) {
+                selectWrapper.setField(field);
+                break;
+            }
+        }
+        for (PsiMethod method : classWrapper.getMethodList()) {
+            if (currentElement.getTextOffset() == method.getTextOffset()) {
+                selectWrapper.setMethod(method);
+                break;
+            }
+        }
+
+        if (CollectionUtils.isEmpty(classWrapper.getInnerClassList())) {
+            return;
+        }
+
+        for (PsiClass innerClass : classWrapper.getInnerClassList()) {
             if (currentElement.getTextOffset() == innerClass.getTextOffset()) {
                 selectWrapper.setClz(innerClass);
             }
 
-            WriteContext.ClassWrapper classWrapper = WriteContext.createClassWrapper(innerClass);
-            writeContext.addClassWrapper(classWrapper);
-            for (PsiField field : classWrapper.getFieldList()) {
-                if (currentElement.getTextOffset() == field.getTextOffset()) {
-                    selectWrapper.setField(field);
-                    break;
-                }
+            if (psiClass.isEnum()) {
+                continue;
             }
-            for (PsiMethod method : classWrapper.getMethodList()) {
-                if (currentElement.getTextOffset() == method.getTextOffset()) {
-                    selectWrapper.setMethod(method);
-                    break;
-                }
-            }
-        }
 
+            query(depth + 1, innerClass, currentElement, writeContext);
+        }
 
     }
 
