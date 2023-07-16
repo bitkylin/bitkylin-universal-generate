@@ -16,7 +16,7 @@ public class FileTypeEntrancePojoProcessor implements IFileTypeProcessor {
         PsiClass[] innerClasses = writeContext.getPsiClass().getInnerClasses();
         if (innerClasses.length > 0) {
             for (PsiClass innerClass : innerClasses) {
-                GenerateUtils.generateClassAnnotation(writeContext, false);
+                GenerateUtils.generateClassAnnotation(writeContext);
                 // 类属性列表
                 PsiField[] field = innerClass.getAllFields();
                 for (PsiField psiField : field) {

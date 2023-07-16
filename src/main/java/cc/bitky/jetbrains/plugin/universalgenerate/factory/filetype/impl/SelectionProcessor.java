@@ -8,7 +8,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
  */
 public class SelectionProcessor {
 
-    public void doWrite(WriteContext writeContext, boolean isController) {
-        GenerateUtils.generateSelection(writeContext, isController);
+    public void doWrite(WriteContext writeContext) {
+        GenerateUtils.generateSelection(writeContext);
     }
 }

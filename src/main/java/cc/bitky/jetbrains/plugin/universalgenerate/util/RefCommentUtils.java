@@ -1,9 +1,14 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
+import com.google.common.collect.Lists;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
-import org.apache.commons.lang.StringUtils;
+import com.intellij.psi.javadoc.PsiDocComment;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,45 +44,43 @@ public class RefCommentUtils {
 
 
     /**
-     * 获取注解说明  不写/@desc/@describe/@description
-     *
-     * @param comment 所有注释
-     * @return String
+     * 获取注解说明  不写/@desc/@describe/@description等 @*
      */
-    public static String getCommentDesc(String comment) {
-        String[] strings = comment.split("\n");
-        if (strings.length == 0) {
-            return "";
+    public static String beautifyCommentFromJavaDoc(PsiDocComment psiDocComment) {
+        List<String> commentList = getCommentFromJavaDoc(psiDocComment);
+        if (CollectionUtils.size(commentList) < 1) {
+            return StringUtils.EMPTY;
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String string : strings) {
-            String row = StringUtils.deleteWhitespace(string);
-            if (StringUtils.isEmpty(row) || StringUtils.startsWith(row, "/**")) {
+        if (CollectionUtils.size(commentList) == 1) {
+            return commentList.get(0);
+        }
+
+        return StringUtils.join(commentList, "\"\n + \"\\n\" + \"");
+    }
+
+    /**
+     * 获取注解说明  不写/@desc/@describe/@description等 @*
+     */
+    public static List<String> getCommentFromJavaDoc(PsiDocComment psiDocComment) {
+        if (psiDocComment == null) {
+            return Lists.newArrayList();
+        }
+        List<String> returnList = Lists.newArrayList();
+        PsiElement[] psiElements = psiDocComment.getDescriptionElements();
+        for (PsiElement psiElement : psiElements) {
+            String text = psiElement.getText();
+            if (StringUtils.startsWith(text, "@")) {
                 continue;
             }
-            if (StringUtils.startsWithIgnoreCase(row, "*@desc")
-                    && !StringUtils.startsWithIgnoreCase(row, "*@describe")
-                    && !StringUtils.startsWithIgnoreCase(row, "*@description")) {
-                appendComment(string, stringBuilder, 5);
-            }
-            if (StringUtils.startsWithIgnoreCase(row, "*@description")) {
-                appendComment(string, stringBuilder, 12);
-            }
-            if (StringUtils.startsWithIgnoreCase(row, "*@describe")) {
-                appendComment(string, stringBuilder, 9);
-            }
-            if (StringUtils.startsWith(row, "*@") || StringUtils.startsWith(row, "*/")) {
+            if (StringUtils.isBlank(text)) {
                 continue;
             }
-            int descIndex = StringUtils.ordinalIndexOf(string, "*", 1);
-            if (descIndex == -1) {
-                descIndex = StringUtils.ordinalIndexOf(string, "//", 1);
-                descIndex += 1;
+            if (StringUtils.startsWith(text, "<") && StringUtils.endsWith(text, ">")) {
+                continue;
             }
-            String desc = string.substring(descIndex + 1);
-            stringBuilder.append(desc);
+            returnList.add(StringUtils.trim(text));
         }
-        return StringUtils.trim(stringBuilder.toString());
+        return returnList;
     }
 
     /**
@@ -119,30 +122,4 @@ public class RefCommentUtils {
         }
         return resultMap;
     }
-
-
-    private static void appendComment(String string, StringBuilder stringBuilder, int index) {
-        String lowerCaseStr = string.toLowerCase();
-        int descIndex = StringUtils.ordinalIndexOf(lowerCaseStr, "@", 1);
-        descIndex += index;
-        String desc = string.substring(descIndex);
-        stringBuilder.append(desc);
-    }
-
-    /**
-     * dfdfdf
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-
-        System.out.println(getCommentMethodParam("/**\n" +
-                " * @describe pwhxbdk\n" +
-                " * @param pwhxbdk gggggg ggf f \n" +
-                "*@param 2020/4/6 fffff\n" +
-                " */"));
-//        System.out.println(StringUtils.ordinalIndexOf("*@desc fdfdfdfdf","c",1));
-    }
-
-
 }

@@ -19,6 +19,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Arrays;
+
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.doWrite;
+
 /**
  * @author bitkylin
  */
@@ -49,74 +53,84 @@ public class BitkylinDemoAction extends AnAction {
         writeContext.setPsiClass(psiClass);
         writeContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
 
-        assemble(psiClass, currentElement, writeContext);
+        WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
+        selectWrapper.setCurrentElement(currentElement);
+        writeContext.setSelectWrapper(selectWrapper);
 
+        assembleUniversalClassInfo(0, psiClass, writeContext);
 
         WriteCommandAction.runWriteCommandAction(project, () -> {
-            boolean selection = false;
-//            if (StringUtils.isNotEmpty(selectionText)) {
-//                selection = true;
-//            }
+
+
+            doWrite(writeContext, "Api", "io.swagger.annotations.Api", "@ApiModelProperty(\"一级类目ID列表\")", psiClass);
+            doWrite(writeContext, "Tag", "io.protostuff.Tag", "@Tag(value = 101, alias = \"testAlias\")", psiClass);
+
+            if (selectWrapper != null) {
+                return;
+            }
+
+
             // 遍历当前对象的所有属性
-            boolean isController = DecisionUtils.isController(psiClass);
-            if (selection) {
-                new SelectionProcessor().doWrite(writeContext, isController);
+            if (selectWrapper.isSelected()) {
+                new SelectionProcessor().doWrite(writeContext);
                 return;
             }
             // 获取注释
-            GenerateUtils.generateClassAnnotation(writeContext, isController);
+            GenerateUtils.generateClassAnnotation(writeContext);
             FileTypeProcessorFactory.decide(writeContext).doWrite(writeContext);
         });
     }
 
-    private void assemble(PsiClass psiClass, PsiElement currentElement, WriteContext writeContext) {
-        WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
-        selectWrapper.setCurrentElement(currentElement);
-        writeContext.setSelectWrapper(selectWrapper);
-        int depth = 0;
-        query(depth, psiClass, currentElement, writeContext);
+    private void assembleUniversalClassInfo(int depth, PsiClass psiClass, WriteContext writeContext) {
 
-
-    }
-
-    private void query(int depth, PsiClass psiClass, PsiElement currentElement, WriteContext writeContext) {
+        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
+        PsiElement currentElement = selectWrapper.getCurrentElement();
 
         Preconditions.checkArgument(depth < 5);
 
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
-        if (currentElement.getTextOffset() == psiClass.getTextOffset()) {
-            selectWrapper.setClz(psiClass);
-        }
         WriteContext.ClassWrapper classWrapper = WriteContext.createClassWrapper(psiClass);
         writeContext.addClassWrapper(classWrapper);
+        classWrapper.setController(DecisionUtils.isController(psiClass));
+
+        if (currentElement.getTextOffset() == psiClass.getTextOffset()) {
+            selectWrapper.setClz(psiClass);
+            selectWrapper.setSelectedClassWrapper(classWrapper);
+            selectWrapper.setSelected(true);
+        }
 
         for (PsiField field : classWrapper.getFieldList()) {
             if (currentElement.getTextOffset() == field.getTextOffset()) {
                 selectWrapper.setField(field);
+                selectWrapper.setSelectedClassWrapper(classWrapper);
+                selectWrapper.setSelected(true);
                 break;
             }
         }
         for (PsiMethod method : classWrapper.getMethodList()) {
             if (currentElement.getTextOffset() == method.getTextOffset()) {
                 selectWrapper.setMethod(method);
+                selectWrapper.setSelectedClassWrapper(classWrapper);
+                selectWrapper.setSelected(true);
                 break;
             }
         }
+
+        if (psiClass.isEnum()) {
+            return;
+        }
+
+        if (depth >= 1) {
+            return;
+        }
+
+        classWrapper.setInnerClassList(Arrays.asList(psiClass.getAllInnerClasses()));
 
         if (CollectionUtils.isEmpty(classWrapper.getInnerClassList())) {
             return;
         }
 
         for (PsiClass innerClass : classWrapper.getInnerClassList()) {
-            if (currentElement.getTextOffset() == innerClass.getTextOffset()) {
-                selectWrapper.setClz(innerClass);
-            }
-
-            if (psiClass.isEnum()) {
-                continue;
-            }
-
-            query(depth + 1, innerClass, currentElement, writeContext);
+            assembleUniversalClassInfo(depth + 1, innerClass, writeContext);
         }
 
     }

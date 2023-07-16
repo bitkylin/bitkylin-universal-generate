@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,7 +32,7 @@ public class WriteContext {
     @Data
     public static class SelectWrapper {
 
-        private ClassWrapper classWrapper;
+        private boolean selected;
 
         private PsiElement currentElement;
 
@@ -43,10 +42,24 @@ public class WriteContext {
 
         private PsiMethod method;
 
+        /**
+         * 被手动选中的类
+         */
+        private ClassWrapper selectedClassWrapper;
+
+        public boolean selectedClassIsController() {
+            if (selectedClassWrapper == null) {
+                return false;
+            }
+            return selectedClassWrapper.isController();
+        }
+
     }
 
     @Data
     public static class ClassWrapper {
+
+        private boolean controller;
 
         private PsiClass clz;
 
@@ -71,12 +84,6 @@ public class WriteContext {
         wrapper.setClz(clz);
         wrapper.setFieldList(List.of(clz.getFields()));
         wrapper.setMethodList(List.of(clz.getMethods()));
-
-        if (clz.isEnum()) {
-            return wrapper;
-        }
-
-        wrapper.setInnerClassList(Arrays.asList(clz.getAllInnerClasses()));
         return wrapper;
     }
 

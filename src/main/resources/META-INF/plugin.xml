@@ -12,6 +12,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory"
                     id="MyToolWindow"/>
+        <notificationGroup id="bitkylinErrorNotification"
+                           displayType="BALLOON"
+                           key="bitkylinErrorNotification"/>
     </extensions>
 
     <applicationListeners>

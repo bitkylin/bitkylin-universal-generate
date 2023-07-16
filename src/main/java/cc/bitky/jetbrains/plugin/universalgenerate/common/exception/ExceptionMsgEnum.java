@@ -12,6 +12,7 @@ public enum ExceptionMsgEnum {
      * BitkylinExceptionMsgEnum
      */
     TEST(10001, "测试描述"),
+    CLASS_NOT_FOUND(10002, "找不到指定的类"),
     ;
 
     private final Long code;
