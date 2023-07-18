@@ -18,14 +18,14 @@ public final class NotificationUtils {
     private NotificationUtils() {
     }
 
-    public static void notifyError(Project project, String title, String content) {
+    private static void notifyError(Project project, String title, String content) {
         NotificationGroupManager.getInstance()
                 .getNotificationGroup("bitkylinErrorNotification")
                 .createNotification(title, content, NotificationType.ERROR)
                 .notify(project);
     }
 
-    public static void notifyError(Project project, String content) {
+    private static void notifyError(Project project, String content) {
         notifyError(project, "", content);
     }
 

@@ -15,7 +15,7 @@ public final class FileTypeProcessorFactory {
     }
 
     public static IFileTypeProcessor decide(WriteContext writeContext) {
-        boolean isController = DecisionUtils.isController(writeContext.getPsiClass());
+        boolean isController = DecisionUtils.calcClassRole(writeContext.fetchFilePsiClass());
         if (isController) {
             return new FileTypeControllerProcessor();
         } else {

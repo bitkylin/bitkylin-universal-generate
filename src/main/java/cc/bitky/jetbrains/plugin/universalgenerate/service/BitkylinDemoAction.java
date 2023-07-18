@@ -2,8 +2,11 @@ package cc.bitky.jetbrains.plugin.universalgenerate.service;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.FileTypeProcessorFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.filetype.impl.SelectionProcessor;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.BitkylinPsiParseUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
 import com.google.common.base.Preconditions;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -18,10 +21,11 @@ import com.intellij.psi.util.PsiUtilBase;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.doWrite;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author bitkylin
@@ -48,10 +52,13 @@ public class BitkylinDemoAction extends AnAction {
         PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
 
         WriteContext writeContext = new WriteContext();
-        writeContext.setProject(project);
-        writeContext.setPsiFile(psiFile);
-        writeContext.setPsiClass(psiClass);
-        writeContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
+        WriteContext.PsiFileContext psiFileContext = new WriteContext.PsiFileContext();
+        writeContext.setPsiFileContext(psiFileContext);
+
+        psiFileContext.setProject(project);
+        psiFileContext.setPsiFile(psiFile);
+        psiFileContext.setPsiClass(psiClass);
+        psiFileContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
 
         WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
         selectWrapper.setCurrentElement(currentElement);
@@ -61,13 +68,13 @@ public class BitkylinDemoAction extends AnAction {
 
         WriteCommandAction.runWriteCommandAction(project, () -> {
 
-
-            doWrite(writeContext, "Api", "io.swagger.annotations.Api", "@ApiModelProperty(\"一级类目ID列表\")", psiClass);
-            doWrite(writeContext, "Tag", "io.protostuff.Tag", "@Tag(value = 101, alias = \"testAlias\")", psiClass);
-
-            if (selectWrapper != null) {
-                return;
-            }
+//
+//            doWrite(writeContext.getPsiFileContext(), ModifierAnnotationUtils.createWrapperApi("一级类目ID列表"), psiClass);
+//            doWrite(writeContext.getPsiFileContext(), ModifierAnnotationUtils.createWrapperTag(101), psiClass);
+//
+//            if (selectWrapper != null) {
+//                return;
+//            }
 
 
             // 遍历当前对象的所有属性
@@ -76,7 +83,7 @@ public class BitkylinDemoAction extends AnAction {
                 return;
             }
             // 获取注释
-            GenerateUtils.generateClassAnnotation(writeContext);
+            GenerateUtils.generateClassSwaggerAnnotation(writeContext);
             FileTypeProcessorFactory.decide(writeContext).doWrite(writeContext);
         });
     }
@@ -88,28 +95,34 @@ public class BitkylinDemoAction extends AnAction {
 
         Preconditions.checkArgument(depth < 5);
 
-        WriteContext.ClassWrapper classWrapper = WriteContext.createClassWrapper(psiClass);
-        writeContext.addClassWrapper(classWrapper);
-        classWrapper.setController(DecisionUtils.isController(psiClass));
+
+        PsiClassWrapper psiClassWrapper = createPsiClassWrapper(psiClass);
+        writeContext.addClassWrapper(psiClassWrapper);
+
+        if (depth == 0) {
+            writeContext.setFilePsiClassWrapper(psiClassWrapper);
+        }
 
         if (currentElement.getTextOffset() == psiClass.getTextOffset()) {
             selectWrapper.setClz(psiClass);
-            selectWrapper.setSelectedClassWrapper(classWrapper);
+            selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
             selectWrapper.setSelected(true);
         }
 
-        for (PsiField field : classWrapper.getFieldList()) {
-            if (currentElement.getTextOffset() == field.getTextOffset()) {
-                selectWrapper.setField(field);
-                selectWrapper.setSelectedClassWrapper(classWrapper);
+        for (PsiFieldWrapper field : psiClassWrapper.getFieldList()) {
+            PsiField psiField = field.getPsiField();
+            if (currentElement.getTextOffset() == psiField.getTextOffset()) {
+                selectWrapper.setField(psiField);
+                selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);
                 break;
             }
         }
-        for (PsiMethod method : classWrapper.getMethodList()) {
-            if (currentElement.getTextOffset() == method.getTextOffset()) {
-                selectWrapper.setMethod(method);
-                selectWrapper.setSelectedClassWrapper(classWrapper);
+        for (PsiMethodWrapper method : psiClassWrapper.getMethodList()) {
+            PsiMethod psiMethod = method.getPsiMethod();
+            if (currentElement.getTextOffset() == psiMethod.getTextOffset()) {
+                selectWrapper.setMethod(psiMethod);
+                selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);
                 break;
             }
@@ -123,16 +136,25 @@ public class BitkylinDemoAction extends AnAction {
             return;
         }
 
-        classWrapper.setInnerClassList(Arrays.asList(psiClass.getAllInnerClasses()));
+        psiClassWrapper.setInnerClassList(Arrays.stream(psiClass.getAllInnerClasses()).map(this::createPsiClassWrapper).collect(Collectors.toList()));
 
-        if (CollectionUtils.isEmpty(classWrapper.getInnerClassList())) {
+        if (CollectionUtils.isEmpty(psiClassWrapper.getInnerClassList())) {
             return;
         }
 
-        for (PsiClass innerClass : classWrapper.getInnerClassList()) {
-            assembleUniversalClassInfo(depth + 1, innerClass, writeContext);
+        for (PsiClassWrapper innerClass : psiClassWrapper.getInnerClassList()) {
+            assembleUniversalClassInfo(depth + 1, innerClass.getPsiClass(), writeContext);
         }
 
+    }
+
+    @NotNull
+    private PsiClassWrapper createPsiClassWrapper(PsiClass psiClass) {
+        PsiClassWrapper psiClassWrapper = new PsiClassWrapper();
+        psiClassWrapper.setPsiClass(psiClass);
+        psiClassWrapper.setFieldList(Stream.of(psiClass.getFields()).map(BitkylinPsiParseUtils::parsePsiField).toList());
+        psiClassWrapper.setMethodList(Stream.of(psiClass.getMethods()).map(BitkylinPsiParseUtils::parsePsiMethod).toList());
+        return psiClassWrapper;
     }
 
 }

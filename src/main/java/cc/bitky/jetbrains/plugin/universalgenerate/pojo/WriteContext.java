@@ -3,7 +3,6 @@ package cc.bitky.jetbrains.plugin.universalgenerate.pojo;
 import com.google.common.collect.Lists;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,20 +15,51 @@ import java.util.List;
 @Setter
 public class WriteContext {
 
-    private Project project;
+    private PsiClassWrapper filePsiClassWrapper;
 
-    private PsiFile psiFile;
-
-    private PsiClass psiClass;
-
-    private PsiElementFactory elementFactory;
-
+    private PsiFileContext psiFileContext;
 
     private SelectWrapper selectWrapper;
 
-    private List<ClassWrapper> clzList;
+    private List<PsiClassWrapper> clzList;
 
-    @Data
+    public Project fetchProject() {
+        return psiFileContext.getProject();
+    }
+
+    public PsiClass fetchFilePsiClass() {
+        return psiFileContext.getPsiClass();
+    }
+
+    public PsiClassWrapper.ClassRoleEnum fetchFilePsiClassRole() {
+        return filePsiClassWrapper.getClassRole();
+    }
+
+    public void addClassWrapper(PsiClassWrapper psiClassWrapper) {
+        if (clzList == null) {
+            clzList = Lists.newArrayList(psiClassWrapper);
+        } else {
+            clzList.add(psiClassWrapper);
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class PsiFileContext {
+
+        private Project project;
+
+        private PsiFile psiFile;
+
+        private PsiClass psiClass;
+
+        private PsiElementFactory elementFactory;
+
+
+    }
+
+    @Getter
+    @Setter
     public static class SelectWrapper {
 
         private boolean selected;
@@ -45,46 +75,15 @@ public class WriteContext {
         /**
          * 被手动选中的类
          */
-        private ClassWrapper selectedClassWrapper;
+        private PsiClassWrapper selectedPsiClassWrapper;
 
         public boolean selectedClassIsController() {
-            if (selectedClassWrapper == null) {
+            if (selectedPsiClassWrapper == null) {
                 return false;
             }
-            return selectedClassWrapper.isController();
+            return selectedPsiClassWrapper.isController();
         }
 
-    }
-
-    @Data
-    public static class ClassWrapper {
-
-        private boolean controller;
-
-        private PsiClass clz;
-
-        private List<PsiField> fieldList;
-
-        private List<PsiMethod> methodList;
-
-        private List<PsiClass> innerClassList;
-
-    }
-
-    public void addClassWrapper(ClassWrapper classWrapper) {
-        if (clzList == null) {
-            clzList = Lists.newArrayList(classWrapper);
-        } else {
-            clzList.add(classWrapper);
-        }
-    }
-
-    public static ClassWrapper createClassWrapper(PsiClass clz) {
-        ClassWrapper wrapper = new ClassWrapper();
-        wrapper.setClz(clz);
-        wrapper.setFieldList(List.of(clz.getFields()));
-        wrapper.setMethodList(List.of(clz.getMethods()));
-        return wrapper;
     }
 
 }
