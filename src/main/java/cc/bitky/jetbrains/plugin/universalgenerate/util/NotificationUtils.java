@@ -44,4 +44,13 @@ public final class NotificationUtils {
             }
         });
     }
+
+    /**
+     * checks都为true，不抛异常
+     */
+    public static BitkylinException notifyAndNewException(Project project, ExceptionMsgEnum exceptionMsgEnum) {
+        notifyError(project, "执行发生异常", exceptionMsgEnum.getShowMsg());
+        return new BitkylinException(exceptionMsgEnum);
+    }
+
 }

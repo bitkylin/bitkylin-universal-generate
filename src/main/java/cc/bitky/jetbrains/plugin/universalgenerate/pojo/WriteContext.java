@@ -17,6 +17,8 @@ public class WriteContext {
 
     private PsiClassWrapper filePsiClassWrapper;
 
+    private WriteCommand writeCommand;
+
     private PsiFileContext psiFileContext;
 
     private SelectWrapper selectWrapper;
@@ -76,13 +78,6 @@ public class WriteContext {
          * 被手动选中的类
          */
         private PsiClassWrapper selectedPsiClassWrapper;
-
-        public boolean selectedClassIsController() {
-            if (selectedPsiClassWrapper == null) {
-                return false;
-            }
-            return selectedPsiClassWrapper.isController();
-        }
 
     }
 

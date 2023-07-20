@@ -24,8 +24,8 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="cc.bitky.jetbrains.plugin.universalgenerate.service.BitkylinDemoAction"
-                class="cc.bitky.jetbrains.plugin.universalgenerate.service.BitkylinDemoAction" text="通用替换"
+        <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.ForceGenerateForFileAction"
+                class="cc.bitky.jetbrains.plugin.universalgenerate.action.ForceGenerateForFileAction" text="通用替换"
                 description="通用替换描述">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>

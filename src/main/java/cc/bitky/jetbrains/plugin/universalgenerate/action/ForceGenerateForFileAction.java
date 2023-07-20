@@ -1,13 +1,8 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.service;
+package cc.bitky.jetbrains.plugin.universalgenerate.action;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.FileTypeProcessorFactory;
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.filetype.impl.SelectionProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandScopeProcessorFactory;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.BitkylinPsiParseUtils;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
 import com.google.common.base.Preconditions;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -24,18 +19,37 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * 强制在当前文件中生成所有注解
+ *
  * @author bitkylin
  */
 @Slf4j
-public class BitkylinDemoAction extends AnAction {
+public class ForceGenerateForFileAction extends AnAction {
 
     @SneakyThrows
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
+        WriteContext writeContext = createWriteContext(anActionEvent);
+        writeContext.setWriteCommand(createCommand());
+
+        WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
+            CommandScopeProcessorFactory.decide(writeContext).process();
+        });
+    }
+
+    private WriteCommand createCommand() {
+        WriteCommand writeCommand = new WriteCommand();
+        writeCommand.setScope(WriteCommand.Scope.FILE);
+        writeCommand.setCommandSet(Set.of(WriteCommand.Command.WRITE_SWAGGER));
+        return writeCommand;
+    }
+
+    private WriteContext createWriteContext(AnActionEvent anActionEvent) {
         Project project = anActionEvent.getProject();
         Preconditions.checkNotNull(project);
 
@@ -66,26 +80,7 @@ public class BitkylinDemoAction extends AnAction {
 
         assembleUniversalClassInfo(0, psiClass, writeContext);
 
-        WriteCommandAction.runWriteCommandAction(project, () -> {
-
-//
-//            doWrite(writeContext.getPsiFileContext(), ModifierAnnotationUtils.createWrapperApi("一级类目ID列表"), psiClass);
-//            doWrite(writeContext.getPsiFileContext(), ModifierAnnotationUtils.createWrapperTag(101), psiClass);
-//
-//            if (selectWrapper != null) {
-//                return;
-//            }
-
-
-            // 遍历当前对象的所有属性
-            if (selectWrapper.isSelected()) {
-                new SelectionProcessor().doWrite(writeContext);
-                return;
-            }
-            // 获取注释
-            GenerateUtils.generateClassSwaggerAnnotation(writeContext);
-            FileTypeProcessorFactory.decide(writeContext).doWrite(writeContext);
-        });
+        return writeContext;
     }
 
     private void assembleUniversalClassInfo(int depth, PsiClass psiClass, WriteContext writeContext) {
