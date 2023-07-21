@@ -3,6 +3,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandScopeProcessorFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.BitkylinPsiParseUtils;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
 import com.google.common.base.Preconditions;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -20,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -91,7 +91,7 @@ public class ForceGenerateForFileAction extends AnAction {
         Preconditions.checkArgument(depth < 5);
 
 
-        PsiClassWrapper psiClassWrapper = createPsiClassWrapper(psiClass);
+        PsiClassWrapper psiClassWrapper = createPsiClassWrapper(psiClass, writeContext.getPsiFileContext());
         writeContext.addClassWrapper(psiClassWrapper);
 
         if (depth == 0) {
@@ -107,7 +107,7 @@ public class ForceGenerateForFileAction extends AnAction {
         for (PsiFieldWrapper field : psiClassWrapper.getFieldList()) {
             PsiField psiField = field.getPsiField();
             if (currentElement.getTextOffset() == psiField.getTextOffset()) {
-                selectWrapper.setField(psiField);
+                selectWrapper.setField(field);
                 selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);
                 break;
@@ -116,7 +116,7 @@ public class ForceGenerateForFileAction extends AnAction {
         for (PsiMethodWrapper method : psiClassWrapper.getMethodList()) {
             PsiMethod psiMethod = method.getPsiMethod();
             if (currentElement.getTextOffset() == psiMethod.getTextOffset()) {
-                selectWrapper.setMethod(psiMethod);
+                selectWrapper.setMethod(method);
                 selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);
                 break;
@@ -131,7 +131,9 @@ public class ForceGenerateForFileAction extends AnAction {
             return;
         }
 
-        psiClassWrapper.setInnerClassList(Arrays.stream(psiClass.getAllInnerClasses()).map(this::createPsiClassWrapper).collect(Collectors.toList()));
+        psiClassWrapper.setInnerClassList(Arrays.stream(psiClass.getAllInnerClasses())
+                .map(psiClassItem -> createPsiClassWrapper(psiClassItem, writeContext.getPsiFileContext()))
+                .toList());
 
         if (CollectionUtils.isEmpty(psiClassWrapper.getInnerClassList())) {
             return;
@@ -144,11 +146,13 @@ public class ForceGenerateForFileAction extends AnAction {
     }
 
     @NotNull
-    private PsiClassWrapper createPsiClassWrapper(PsiClass psiClass) {
+    private PsiClassWrapper createPsiClassWrapper(PsiClass psiClass, WriteContext.PsiFileContext psiFileContext) {
         PsiClassWrapper psiClassWrapper = new PsiClassWrapper();
         psiClassWrapper.setPsiClass(psiClass);
         psiClassWrapper.setFieldList(Stream.of(psiClass.getFields()).map(BitkylinPsiParseUtils::parsePsiField).toList());
         psiClassWrapper.setMethodList(Stream.of(psiClass.getMethods()).map(BitkylinPsiParseUtils::parsePsiMethod).toList());
+
+        DecisionUtils.assembleRoleAndLocation(psiClassWrapper, psiFileContext);
         return psiClassWrapper;
     }
 

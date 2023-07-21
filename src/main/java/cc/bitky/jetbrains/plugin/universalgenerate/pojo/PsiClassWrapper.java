@@ -13,8 +13,6 @@ import java.util.List;
 @Setter
 public class PsiClassWrapper {
 
-    private boolean controller;
-
     private PsiClass psiClass;
 
     private ClassLocationEnum classLocation;

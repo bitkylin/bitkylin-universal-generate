@@ -1,5 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.scope.impl;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.factory.ClassRoleProcessorFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.scope.ICommandScopeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
@@ -20,9 +21,13 @@ public class CommandScopeFileProcessor implements ICommandScopeProcessor {
     @Override
     public void process() {
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
-            GenerateUtils.generateClassSwaggerAnnotation(writeContext, writeContext.getPsiFileContext(), psiClassWrapper);
-            for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                GenerateUtils.generateFieldSwaggerAnnotation(writeContext.getPsiFileContext(), psiFieldWrapper.getPsiField());
+            ClassRoleProcessorFactory.decideClassProcess(psiClassWrapper, writeContext.getPsiFileContext()).process();
+            GenerateUtils.generateClassSwaggerAnnotation(writeContext.getPsiFileContext(), psiClassWrapper);
+
+            if (psiClassWrapper.getClassRole() == PsiClassWrapper.ClassRoleEnum.POJO) {
+                for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
+                    GenerateUtils.generateFieldSwaggerAnnotation(writeContext.getPsiFileContext(), psiFieldWrapper);
+                }
             }
         }
     }

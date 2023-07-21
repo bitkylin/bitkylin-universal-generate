@@ -16,15 +16,13 @@ public class WriteCommand {
 
     private Set<Command> commandSet;
 
-    public enum SwaggerOption{
-
-    }
-
     public enum Command {
 
         WRITE_SWAGGER,
 
         WRITE_TAG,
+
+        SWAGGER_TO_JAVA_DOC,
         ;
 
     }

@@ -12,12 +12,15 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
  */
 public final class CommandScopeProcessorFactory {
 
+    private CommandScopeProcessorFactory() {
+    }
+
     public static ICommandScopeProcessor decide(WriteContext writeContext) {
         switch (writeContext.getWriteCommand().getScope()) {
             case FILE -> {
                 return new CommandScopeFileProcessor(writeContext);
             }
-            case CLASS -> {
+            case ELEMENT -> {
                 return new CommandScopeElementProcessor(writeContext);
             }
             default ->

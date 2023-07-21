@@ -2,7 +2,10 @@ package cc.bitky.jetbrains.plugin.universalgenerate.pojo;
 
 import com.google.common.collect.Lists;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementFactory;
+import com.intellij.psi.PsiFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +34,10 @@ public class WriteContext {
 
     public PsiClass fetchFilePsiClass() {
         return psiFileContext.getPsiClass();
+    }
+
+    public PsiFile fetchPsiFile() {
+        return psiFileContext.getPsiFile();
     }
 
     public PsiClassWrapper.ClassRoleEnum fetchFilePsiClassRole() {
@@ -70,9 +77,9 @@ public class WriteContext {
 
         private PsiClass clz;
 
-        private PsiField field;
+        private PsiFieldWrapper field;
 
-        private PsiMethod method;
+        private PsiMethodWrapper method;
 
         /**
          * 被手动选中的类

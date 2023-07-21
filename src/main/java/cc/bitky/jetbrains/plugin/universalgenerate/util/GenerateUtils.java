@@ -5,13 +5,12 @@ import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationE
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.ModifierAnnotationWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper.ClassRoleEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.google.common.base.Preconditions;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
-
-import java.util.Objects;
 
 /**
  * @author bitkylin
@@ -22,31 +21,9 @@ public final class GenerateUtils {
     }
 
     /**
-     * 类是否为controller
-     */
-    public static void generateSelection(WriteContext writeContext) {
-        PsiClass psiClass = writeContext.fetchFilePsiClass();
-        String selectionText = null;//writeContext.getSelectionText();
-        if (Objects.equals(selectionText, psiClass.getName())) {
-            generateClassSwaggerAnnotation(writeContext);
-        }
-        PsiMethod[] methods = psiClass.getMethods();
-        for (PsiMethod psiMethod : methods) {
-            if (Objects.equals(selectionText, psiMethod.getName())) {
-                return;
-            }
-        }
-
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
-        if (selectWrapper.getField() != null) {
-            generateFieldSwaggerAnnotation(writeContext.getPsiFileContext(), selectWrapper.getField());
-        }
-    }
-
-    /**
      * 生成类的Swagger注解
      */
-    public static void generateClassSwaggerAnnotation(WriteContext writeContext, WriteContext.PsiFileContext psiFileContext, PsiClassWrapper psiClassWrapper) {
+    public static void generateClassSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiClassWrapper psiClassWrapper) {
         PsiClass psiClass = psiClassWrapper.getPsiClass();
         ClassRoleEnum classRole = psiClassWrapper.getClassRole();
         String commentDesc = RefCommentUtils.beautifyCommentFromJavaDoc(psiClass.getDocComment());
@@ -56,16 +33,17 @@ public final class GenerateUtils {
         } else if (ClassRoleEnum.POJO == classRole) {
             doWrite(psiFileContext, ModifierAnnotationUtils.createWrapperApiModel(commentDesc), psiClass);
         } else {
-            NotificationUtils.checks(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_ROLE_UNSUPPORTED);
+            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_ROLE_UNSUPPORTED);
         }
     }
 
     /**
      * 生成属性的Swagger注解
      *
-     * @param psiField 类属性元素
+     * @param psiFieldWrapper 类属性元素
      */
-    public static void generateFieldSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiField psiField) {
+    public static void generateFieldSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiFieldWrapper psiFieldWrapper) {
+        PsiField psiField = psiFieldWrapper.getPsiField();
         String commentDesc = RefCommentUtils.beautifyCommentFromJavaDoc(psiField.getDocComment());
         doWrite(psiFileContext, ModifierAnnotationUtils.createWrapperApiModelProperty(commentDesc), psiField);
     }
@@ -94,7 +72,7 @@ public final class GenerateUtils {
         // 待导入类没有时 让用户自行处理
         PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
         if (waiteImportClass == null) {
-            NotificationUtils.checks(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
+            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
         }
         PsiAnnotation existAnnotation = modifierList.findAnnotation(qualifiedName);
         if (existAnnotation != null) {
