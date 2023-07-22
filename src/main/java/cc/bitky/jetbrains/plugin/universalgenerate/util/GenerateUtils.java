@@ -3,14 +3,12 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.ModifierAnnotationWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper.ClassRoleEnum;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.google.common.base.Preconditions;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author bitkylin
@@ -21,51 +19,17 @@ public final class GenerateUtils {
     }
 
     /**
-     * 生成类的Swagger注解
-     */
-    public static void generateClassSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiClassWrapper psiClassWrapper) {
-        PsiClass psiClass = psiClassWrapper.getPsiClass();
-        ClassRoleEnum classRole = psiClassWrapper.getClassRole();
-        String commentDesc = RefCommentUtils.beautifyCommentFromJavaDoc(psiClass.getDocComment());
-
-        if (ClassRoleEnum.CONTROLLER == classRole) {
-            doWrite(psiFileContext, ModifierAnnotationUtils.createWrapperApi(commentDesc), psiClass);
-        } else if (ClassRoleEnum.POJO == classRole) {
-            doWrite(psiFileContext, ModifierAnnotationUtils.createWrapperApiModel(commentDesc), psiClass);
-        } else {
-            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_ROLE_UNSUPPORTED);
-        }
-    }
-
-    /**
-     * 生成属性的Swagger注解
-     *
-     * @param psiFieldWrapper 类属性元素
-     */
-    public static void generateFieldSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiFieldWrapper psiFieldWrapper) {
-        PsiField psiField = psiFieldWrapper.getPsiField();
-        String commentDesc = RefCommentUtils.beautifyCommentFromJavaDoc(psiField.getDocComment());
-        doWrite(psiFileContext, ModifierAnnotationUtils.createWrapperApiModelProperty(commentDesc), psiField);
-    }
-
-    /**
-     * 写入到文件
+     * 注解更新-原注解存在时不更新
      *
      * @param psiFileContext            文件上下文信息
      * @param modifierAnnotationWrapper 注解Wrapper
      * @param psiModifierListOwner      当前写入对象
      */
-    public static void doWrite(WriteContext.PsiFileContext psiFileContext,
-                               ModifierAnnotationWrapper modifierAnnotationWrapper,
-                               PsiModifierListOwner psiModifierListOwner) {
-        String name = modifierAnnotationWrapper.getAnnotationEnum().getName();
+    public static void doWriteAnnotationOriginalPrimary(WriteContext.PsiFileContext psiFileContext,
+                                                        ModifierAnnotationWrapper modifierAnnotationWrapper,
+                                                        PsiModifierListOwner psiModifierListOwner) {
         String qualifiedName = modifierAnnotationWrapper.getAnnotationEnum().getQualifiedName();
-        String annotationText = modifierAnnotationWrapper.getAnnotationText();
 
-        PsiElementFactory elementFactory = psiFileContext.getElementFactory();
-
-        PsiAnnotation psiAnnotationDeclare = elementFactory.createAnnotationFromText(annotationText, psiModifierListOwner);
-        final PsiNameValuePair[] attributes = psiAnnotationDeclare.getParameterList().getAttributes();
         PsiModifierList modifierList = psiModifierListOwner.getModifierList();
         Preconditions.checkNotNull(modifierList);
 
@@ -74,12 +38,73 @@ public final class GenerateUtils {
         if (waiteImportClass == null) {
             throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
         }
+
+        // 原注解存在时不更新
+        String annotationTextOriginal = CommentParseUtils.parseAnnotationText(modifierAnnotationWrapper.getAnnotationEnum(), psiModifierListOwner);
+        if (StringUtils.isNotBlank(annotationTextOriginal)) {
+            return;
+        }
+
+        // 原注解删除
         PsiAnnotation existAnnotation = modifierList.findAnnotation(qualifiedName);
         if (existAnnotation != null) {
             existAnnotation.delete();
         }
+
+        // 添加导入
         addImport(psiFileContext, modifierAnnotationWrapper.getAnnotationEnum());
+
+        // 添加注解
+        doAddAnnotation(psiFileContext, modifierAnnotationWrapper, psiModifierListOwner);
+    }
+
+    /**
+     * 注解强制更新
+     *
+     * @param psiFileContext            文件上下文信息
+     * @param modifierAnnotationWrapper 注解Wrapper
+     * @param psiModifierListOwner      当前写入对象
+     */
+    public static void doWriteAnnotationForce(WriteContext.PsiFileContext psiFileContext,
+                                              ModifierAnnotationWrapper modifierAnnotationWrapper,
+                                              PsiModifierListOwner psiModifierListOwner) {
+        String qualifiedName = modifierAnnotationWrapper.getAnnotationEnum().getQualifiedName();
+
+        PsiModifierList modifierList = psiModifierListOwner.getModifierList();
+        Preconditions.checkNotNull(modifierList);
+
+        // 待导入类没有时 让用户自行处理
+        PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
+        if (waiteImportClass == null) {
+            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
+        }
+
+        // 原注解删除
+        PsiAnnotation existAnnotation = modifierList.findAnnotation(qualifiedName);
+        if (existAnnotation != null) {
+            existAnnotation.delete();
+        }
+
+        // 添加导入
+        addImport(psiFileContext, modifierAnnotationWrapper.getAnnotationEnum());
+
+        // 添加注解
+        doAddAnnotation(psiFileContext, modifierAnnotationWrapper, psiModifierListOwner);
+    }
+
+    private static void doAddAnnotation(WriteContext.PsiFileContext psiFileContext,
+                                        ModifierAnnotationWrapper modifierAnnotationWrapper,
+                                        PsiModifierListOwner psiModifierListOwner) {
+        PsiElementFactory elementFactory = psiFileContext.getElementFactory();
+        PsiModifierList modifierList = psiModifierListOwner.getModifierList();
+        Preconditions.checkNotNull(modifierList);
+
+        String name = modifierAnnotationWrapper.getAnnotationEnum().getName();
         PsiAnnotation psiAnnotation = modifierList.addAnnotation(name);
+
+        String annotationText = modifierAnnotationWrapper.getAnnotationText();
+        PsiAnnotation psiAnnotationDeclare = elementFactory.createAnnotationFromText(annotationText, psiModifierListOwner);
+        final PsiNameValuePair[] attributes = psiAnnotationDeclare.getParameterList().getAttributes();
         for (PsiNameValuePair pair : attributes) {
             psiAnnotation.setDeclaredAttributeValue(pair.getName(), pair.getValue());
         }

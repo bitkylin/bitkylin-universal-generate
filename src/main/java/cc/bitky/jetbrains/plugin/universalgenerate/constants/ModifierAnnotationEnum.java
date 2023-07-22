@@ -12,15 +12,16 @@ public enum ModifierAnnotationEnum {
     /**
      * protostuff
      */
-    TAG("Tag", "io.protostuff.Tag"),
+    TAG("Tag", "io.protostuff.Tag", "value"),
 
 
     /**
      * swagger2.0
      */
-    API("Api", "io.swagger.annotations.Api"),
-    API_MODEL("ApiModel", "io.swagger.annotations.ApiModel"),
-    API_MODEL_PROPERTY("ApiModelProperty", "io.swagger.annotations.ApiModelProperty"),
+    API("Api", "io.swagger.annotations.Api", "tags"),
+    API_OPERATION("ApiOperation", "io.swagger.annotations.ApiOperation", "value"),
+    API_MODEL("ApiModel", "io.swagger.annotations.ApiModel", "description"),
+    API_MODEL_PROPERTY("ApiModelProperty", "io.swagger.annotations.ApiModelProperty", "value"),
     ;
 
     /**
@@ -35,9 +36,16 @@ public enum ModifierAnnotationEnum {
     @Getter
     private final String qualifiedName;
 
+    /**
+     * 主要的属性名称
+     */
+    @Getter
+    private final String primaryAttributeName;
 
-    ModifierAnnotationEnum(String name, String qualifiedName) {
+
+    ModifierAnnotationEnum(String name, String qualifiedName, String primaryAttributeName) {
         this.name = name;
         this.qualifiedName = qualifiedName;
+        this.primaryAttributeName = primaryAttributeName;
     }
 }

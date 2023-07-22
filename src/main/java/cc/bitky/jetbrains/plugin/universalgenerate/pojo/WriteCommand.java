@@ -3,8 +3,6 @@ package cc.bitky.jetbrains.plugin.universalgenerate.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
 /**
  * @author bitkylin
  */
@@ -14,13 +12,15 @@ public class WriteCommand {
 
     private Scope scope;
 
-    private Set<Command> commandSet;
+    private Command command;
 
     public enum Command {
 
-        WRITE_SWAGGER,
+        RENEW_WRITE_SWAGGER,
+        PADDING_WRITE_SWAGGER,
 
-        WRITE_TAG,
+        RENEW_WRITE_TAG,
+        PADDING_WRITE_TAG,
 
         SWAGGER_TO_JAVA_DOC,
         ;

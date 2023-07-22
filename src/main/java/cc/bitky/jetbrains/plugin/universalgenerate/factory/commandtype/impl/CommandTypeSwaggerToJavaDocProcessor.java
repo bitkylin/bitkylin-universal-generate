@@ -9,9 +9,13 @@ import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandT
  */
 public class CommandTypeSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
 
+    @Override
+    public void writeFile() {
+
+    }
 
     @Override
-    public void process() {
+    public void writeElement() {
 
     }
 }

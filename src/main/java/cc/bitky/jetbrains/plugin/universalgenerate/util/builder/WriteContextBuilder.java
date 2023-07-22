@@ -1,55 +1,41 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.action;
+package cc.bitky.jetbrains.plugin.universalgenerate.util.builder;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandScopeProcessorFactory;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.BitkylinPsiParseUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
 import com.google.common.base.Preconditions;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilBase;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * 强制在当前文件中生成所有注解
- *
  * @author bitkylin
  */
-@Slf4j
-public class ForceGenerateForFileAction extends AnAction {
+public final class WriteContextBuilder {
 
-    @SneakyThrows
-    @Override
-    public void actionPerformed(AnActionEvent anActionEvent) {
-        WriteContext writeContext = createWriteContext(anActionEvent);
-        writeContext.setWriteCommand(createCommand());
+    private final AnActionEvent anActionEvent;
 
-        WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandScopeProcessorFactory.decide(writeContext).process();
-        });
+    private WriteContextBuilder(AnActionEvent anActionEvent) {
+        this.anActionEvent = anActionEvent;
     }
 
-    private WriteCommand createCommand() {
-        WriteCommand writeCommand = new WriteCommand();
-        writeCommand.setScope(WriteCommand.Scope.FILE);
-        writeCommand.setCommandSet(Set.of(WriteCommand.Command.WRITE_SWAGGER));
-        return writeCommand;
+    public static WriteContext create(AnActionEvent anActionEvent) {
+        return new WriteContextBuilder(anActionEvent).innerCreate();
     }
 
-    private WriteContext createWriteContext(AnActionEvent anActionEvent) {
+    public WriteContext innerCreate() {
         Project project = anActionEvent.getProject();
         Preconditions.checkNotNull(project);
 

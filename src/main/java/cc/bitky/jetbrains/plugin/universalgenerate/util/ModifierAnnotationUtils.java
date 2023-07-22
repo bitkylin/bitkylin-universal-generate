@@ -16,12 +16,16 @@ public final class ModifierAnnotationUtils {
         return createModifierAnnotationWrapper(ModifierAnnotationEnum.API, "@%s(tags = {\"%s\"})", tag);
     }
 
+    public static ModifierAnnotationWrapper createWrapperApiOperation(String tag) {
+        return createModifierAnnotationWrapper(ModifierAnnotationEnum.API_OPERATION, "@%s(\"%s\")", tag);
+    }
+
     public static ModifierAnnotationWrapper createWrapperTag(int value) {
         return createModifierAnnotationWrapper(ModifierAnnotationEnum.TAG, "@%s(%s)", value);
     }
 
     public static ModifierAnnotationWrapper createWrapperApiModelProperty(String value) {
-        return createModifierAnnotationWrapper(ModifierAnnotationEnum.API_MODEL_PROPERTY, "@%s(value=\"%s\")", value);
+        return createModifierAnnotationWrapper(ModifierAnnotationEnum.API_MODEL_PROPERTY, "@%s(\"%s\")", value);
     }
 
     public static ModifierAnnotationWrapper createWrapperApiModel(String description) {

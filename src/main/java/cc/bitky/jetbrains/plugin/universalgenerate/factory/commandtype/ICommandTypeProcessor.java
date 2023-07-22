@@ -5,6 +5,8 @@ package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype;
  */
 public interface ICommandTypeProcessor {
 
-    void process();
+    void writeFile();
+
+    void writeElement();
 
 }
