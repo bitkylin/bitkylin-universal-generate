@@ -25,9 +25,6 @@ public class PaddingGenerateForFileAction extends AnAction {
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_SWAGGER).writeFile();
-        });
-
-        WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_TAG).writeFile();
         });
     }

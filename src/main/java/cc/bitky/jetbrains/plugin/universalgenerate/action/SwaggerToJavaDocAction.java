@@ -11,12 +11,12 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前文件中强制重新生成所有注解
+ *
  *
  * @author bitkylin
  */
 @Slf4j
-public class RenewGenerateForFileAction extends AnAction {
+public class SwaggerToJavaDocAction extends AnAction {
 
     @SneakyThrows
     @Override
@@ -24,8 +24,7 @@ public class RenewGenerateForFileAction extends AnAction {
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_SWAGGER).writeFile();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_TAG).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.SWAGGER_TO_JAVA_DOC).writeFile();
         });
     }
 

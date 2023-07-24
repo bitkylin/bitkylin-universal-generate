@@ -13,7 +13,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.doWriteAnnotationOriginalPrimary;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationOriginalPrimary;
 
 /**
  * Swagger注解填充处理器
@@ -82,7 +82,7 @@ public class CommandTypePaddingWriteSwaggerProcessor implements ICommandTypeProc
     private static void generateClassPojoSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiClassWrapper psiClassWrapper) {
         PsiClass psiClass = psiClassWrapper.getPsiClass();
         String commentDesc = CommentParseUtils.beautifyCommentFromJavaDoc(psiClass.getDocComment());
-        doWriteAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiModel(commentDesc), psiClass);
+        writeAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiModel(commentDesc), psiClass);
     }
 
     /**
@@ -91,7 +91,7 @@ public class CommandTypePaddingWriteSwaggerProcessor implements ICommandTypeProc
     private static void generateClassControllerSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiClassWrapper psiClassWrapper) {
         PsiClass psiClass = psiClassWrapper.getPsiClass();
         String commentDesc = CommentParseUtils.beautifyCommentFromJavaDoc(psiClass.getDocComment());
-        doWriteAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApi(commentDesc), psiClass);
+        writeAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApi(commentDesc), psiClass);
     }
 
     /**
@@ -102,7 +102,7 @@ public class CommandTypePaddingWriteSwaggerProcessor implements ICommandTypeProc
     private static void generateFieldSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiFieldWrapper psiFieldWrapper) {
         PsiField psiField = psiFieldWrapper.getPsiField();
         String commentDesc = CommentParseUtils.beautifyCommentFromJavaDoc(psiField.getDocComment());
-        doWriteAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiModelProperty(commentDesc), psiField);
+        writeAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiModelProperty(commentDesc), psiField);
     }
 
     /**
@@ -113,7 +113,7 @@ public class CommandTypePaddingWriteSwaggerProcessor implements ICommandTypeProc
     private static void generateMethodSwaggerAnnotation(WriteContext.PsiFileContext psiFileContext, PsiMethodWrapper psiMethodWrapper) {
         PsiMethod psiMethod = psiMethodWrapper.getPsiMethod();
         String commentDesc = CommentParseUtils.beautifyCommentFromJavaDoc(psiMethod.getDocComment());
-        doWriteAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiOperation(commentDesc), psiMethod);
+        writeAnnotationOriginalPrimary(psiFileContext, ModifierAnnotationUtils.createWrapperApiOperation(commentDesc), psiMethod);
     }
 
 }

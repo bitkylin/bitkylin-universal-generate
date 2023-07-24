@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.constants.ClassNameConstants;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.UniversalGenerateConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.QualifiedNameConstants;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper.ClassRoleEnum;
@@ -52,7 +52,7 @@ public final class DecisionUtils {
         }
 
         String className = psiFileContext.getPsiClass().getName();
-        if (ClassNameConstants.ENTRANCE_CLASS_NAME_SUFFIX_LIST.stream().anyMatch(suffix -> StringUtils.endsWith(className, suffix))) {
+        if (UniversalGenerateConfig.entranceClassNameSuffixList().stream().anyMatch(suffix -> StringUtils.endsWith(className, suffix))) {
             return PsiClassWrapper.ClassLocationEnum.INTERFACE_ENTRANCE;
         }
         return PsiClassWrapper.ClassLocationEnum.SERVICE_ENTRANCE;

@@ -1,10 +1,9 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl.CommandTypeRenewWriteTagProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl.CommandTypePaddingWriteSwaggerProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl.CommandTypeRenewWriteSwaggerProcessor;
+import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteCommand;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
@@ -26,8 +25,14 @@ public final class CommandCommandTypeProcessorFactory {
             case PADDING_WRITE_SWAGGER -> {
                 return new CommandTypePaddingWriteSwaggerProcessor(writeContext);
             }
+            case RENEW_WRITE_TAG -> {
+                return new CommandTypeRenewWriteTagProcessor(writeContext, new AnnotationTagConfig());
+            }
             case PADDING_WRITE_TAG -> {
-                return new CommandTypeRenewWriteTagProcessor(writeContext);
+                return new CommandTypePaddingWriteTagProcessor(writeContext, new AnnotationTagConfig());
+            }
+            case SWAGGER_TO_JAVA_DOC -> {
+                return new CommandTypeSwaggerToJavaDocProcessor(writeContext);
             }
             default ->
                     throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.COMMAND_SCOPE_UNSUPPORTED);

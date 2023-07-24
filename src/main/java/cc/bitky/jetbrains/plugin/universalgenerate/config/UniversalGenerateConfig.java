@@ -1,14 +1,12 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.constants;
+package cc.bitky.jetbrains.plugin.universalgenerate.config;
 
 import java.util.List;
 
 /**
  * @author bitkylin
  */
-public final class ClassNameConstants {
+public class UniversalGenerateConfig {
 
-    private ClassNameConstants() {
-    }
 
     /**
      * 入口类名后缀列表
@@ -18,5 +16,9 @@ public final class ClassNameConstants {
             "Request",
             "Response"
     );
+
+    public static List<String> entranceClassNameSuffixList() {
+        return ENTRANCE_CLASS_NAME_SUFFIX_LIST;
+    }
 
 }

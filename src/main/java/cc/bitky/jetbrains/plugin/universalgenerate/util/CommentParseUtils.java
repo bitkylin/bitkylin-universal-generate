@@ -8,7 +8,9 @@ import com.intellij.psi.javadoc.PsiDocComment;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bitkylin
@@ -16,6 +18,22 @@ import java.util.List;
 public final class CommentParseUtils {
 
     private CommentParseUtils() {
+    }
+
+
+    /**
+     * 查询注解中的属性值
+     *
+     * @param annotationEnum       注解
+     * @param psiModifierListOwner 当前写入对象
+     */
+    public static List<String> parseAnnotationTextList(ModifierAnnotationEnum annotationEnum,
+                                                       PsiModifierListOwner psiModifierListOwner) {
+        String annotationText = parseAnnotationText(annotationEnum, psiModifierListOwner);
+        return Arrays.stream(StringUtils.split(annotationText, '\n'))
+                .filter(StringUtils::isNotBlank)
+                .map(StringUtils::trim)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -26,10 +44,9 @@ public final class CommentParseUtils {
      */
     public static String parseAnnotationText(ModifierAnnotationEnum annotationEnum,
                                              PsiModifierListOwner psiModifierListOwner) {
-        String name = annotationEnum.getName();
         PsiModifierList modifierList = psiModifierListOwner.getModifierList();
         Preconditions.checkNotNull(modifierList);
-        PsiAnnotation psiAnnotation = modifierList.findAnnotation(name);
+        PsiAnnotation psiAnnotation = modifierList.findAnnotation(annotationEnum.getQualifiedName());
         if (psiAnnotation == null) {
             return StringUtils.EMPTY;
         }
@@ -44,7 +61,7 @@ public final class CommentParseUtils {
      * 获取注解说明  不写/@desc/@describe/@description等 @*
      */
     public static String beautifyCommentFromJavaDoc(PsiDocComment psiDocComment) {
-        List<String> commentList = getCommentFromJavaDoc(psiDocComment);
+        List<String> commentList = parseCommentListFromJavaDoc(psiDocComment);
         if (CollectionUtils.size(commentList) < 1) {
             return StringUtils.EMPTY;
         }
@@ -58,7 +75,7 @@ public final class CommentParseUtils {
     /**
      * 获取注解说明  不写/@desc/@describe/@description等 @*
      */
-    private static List<String> getCommentFromJavaDoc(PsiDocComment psiDocComment) {
+    public static List<String> parseCommentListFromJavaDoc(PsiDocComment psiDocComment) {
         if (psiDocComment == null) {
             return Lists.newArrayList();
         }
@@ -79,5 +96,6 @@ public final class CommentParseUtils {
         }
         return returnList;
     }
+
 
 }

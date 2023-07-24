@@ -50,6 +50,13 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
 
+        <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.SwaggerToJavaDocAction"
+                class="cc.bitky.jetbrains.plugin.universalgenerate.action.SwaggerToJavaDocAction"
+                text="Swagger转JavaDoc"
+                description="Swagger转JavaDoc">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
     </actions>
 
 </idea-plugin>

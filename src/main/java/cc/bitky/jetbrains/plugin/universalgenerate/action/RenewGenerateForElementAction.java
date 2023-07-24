@@ -25,9 +25,6 @@ public class RenewGenerateForElementAction extends AnAction {
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_SWAGGER).writeElement();
-        });
-
-        WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_TAG).writeElement();
         });
     }

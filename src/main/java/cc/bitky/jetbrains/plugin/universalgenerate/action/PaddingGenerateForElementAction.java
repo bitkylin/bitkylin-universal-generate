@@ -25,9 +25,6 @@ public class PaddingGenerateForElementAction extends AnAction {
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_SWAGGER).writeElement();
-        });
-
-        WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_TAG).writeElement();
         });
     }
