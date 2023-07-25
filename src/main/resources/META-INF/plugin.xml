@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>cc.bitky.jetbrains.plugin.universalgenerate</id>
-    <name>bitkylin-universal-generate</name>
+    <name>Bitkylin-Universal-Generate</name>
     <vendor>bitkylin</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -10,20 +10,21 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory"
-                    id="MyToolWindow"/>
+        <!--        <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory"-->
+        <!--                    id="MyToolWindow"/>-->
         <notificationGroup id="bitkylinErrorNotification"
                            displayType="BALLOON"
                            key="bitkylinErrorNotification"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="cc.bitky.jetbrains.plugin.universalgenerate.listeners.MyApplicationActivationListener"
-                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <!--        <listener class="cc.bitky.jetbrains.plugin.universalgenerate.listeners.MyApplicationActivationListener"-->
+        <!--                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>-->
     </applicationListeners>
 
     <actions>
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation" text="生成Swagger和Protostuff注解" popup="true">
+        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation"
+               text="生成Swagger和Protostuff注解" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
             <!-- Add your actions here -->
@@ -49,7 +50,8 @@
             </action>
         </group>
 
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc" text="移除注解并生成JavaDoc" popup="true">
+        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc" text="移除注解并生成JavaDoc"
+               popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
 
             <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.MergeSwaggerToJavaDocForFileAction"

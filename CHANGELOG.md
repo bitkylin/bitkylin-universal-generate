@@ -2,7 +2,7 @@
 
 # Changelog
 
-## [0.8.2]
+## [0.8.3]
 
 ### Canary Edition - 2023-07-24
 
