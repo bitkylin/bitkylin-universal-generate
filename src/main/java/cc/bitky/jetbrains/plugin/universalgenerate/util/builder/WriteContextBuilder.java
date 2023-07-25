@@ -15,6 +15,7 @@ import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilBase;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -135,11 +136,35 @@ public final class WriteContextBuilder {
     private PsiClassWrapper createPsiClassWrapper(PsiClass psiClass, WriteContext.PsiFileContext psiFileContext) {
         PsiClassWrapper psiClassWrapper = new PsiClassWrapper();
         psiClassWrapper.setPsiClass(psiClass);
-        psiClassWrapper.setFieldList(Stream.of(psiClass.getFields()).map(BitkylinPsiParseUtils::parsePsiField).toList());
-        psiClassWrapper.setMethodList(Stream.of(psiClass.getMethods()).map(BitkylinPsiParseUtils::parsePsiMethod).toList());
-
+        psiClassWrapper.setFieldList(Stream.of(psiClass.getFields())
+                .map(BitkylinPsiParseUtils::parsePsiField)
+                .filter(this::filterSpecialPsiField)
+                .toList());
+        psiClassWrapper.setMethodList(Stream.of(psiClass.getMethods())
+                .map(BitkylinPsiParseUtils::parsePsiMethod)
+                .filter(this::filterSpecialPsiMethod)
+                .toList());
         DecisionUtils.assembleRoleAndLocation(psiClassWrapper, psiFileContext);
         return psiClassWrapper;
+    }
+
+    private boolean filterSpecialPsiField(PsiFieldWrapper psiFieldWrapper) {
+        PsiField psiField = psiFieldWrapper.getPsiField();
+        if (!psiField.isPhysical()) {
+            return false;
+        }
+        if (StringUtils.equals("serialVersionUID", psiField.getName())) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean filterSpecialPsiMethod(PsiMethodWrapper psiMethodWrapper) {
+        PsiMethod psiMethod = psiMethodWrapper.getPsiMethod();
+        if (!psiMethod.isPhysical()) {
+            return false;
+        }
+        return true;
     }
 
 }

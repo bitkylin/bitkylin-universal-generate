@@ -1,1 +1,1 @@
-rootProject.name = "bitky-universal-generate"
+rootProject.name = "bitkylin-universal-generate"

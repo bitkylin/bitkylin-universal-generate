@@ -7,7 +7,6 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.builder.WriteContextBuil
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.WriteCommandAction;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaddingGenerateForElementAction extends AnAction {
 
-    @SneakyThrows
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);

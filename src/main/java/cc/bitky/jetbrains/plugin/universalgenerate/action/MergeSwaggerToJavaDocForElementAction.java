@@ -10,20 +10,17 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前元素中强制重新生成所有注解
- *
  * @author bitkylin
  */
 @Slf4j
-public class RenewGenerateForElementAction extends AnAction {
+public class MergeSwaggerToJavaDocForElementAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_SWAGGER).writeElement();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_TAG).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.MERGE_SWAGGER_TO_JAVA_DOC).writeElement();
         });
     }
 

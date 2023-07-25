@@ -47,9 +47,9 @@ public class CommandTypeAbstractWriteTagProcessor {
         if (psiClassWrapper.getClassRole() != PsiClassWrapper.ClassRoleEnum.POJO) {
             return false;
         }
-        if (psiClassWrapper.getClassLocation() != PsiClassWrapper.ClassLocationEnum.INTERFACE_ENTRANCE) {
-            return false;
-        }
+//        if (psiClassWrapper.getClassLocation() != PsiClassWrapper.ClassLocationEnum.INTERFACE_ENTRANCE) {
+//            return false;
+//        }
         if (psiClassWrapper.getPsiClass().isEnum()) {
             return false;
         }

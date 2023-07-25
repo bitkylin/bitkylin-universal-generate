@@ -1,6 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
@@ -57,7 +58,7 @@ public class CommandTypeRenewWriteTagProcessor extends CommandTypeAbstractWriteT
             return;
         }
 
-        deleteAnnotation(psiFileContext, ModifierAnnotationUtils.createWrapperTag(0), fieldWrapper.getPsiField());
+        deleteAnnotation(ModifierAnnotationEnum.TAG, fieldWrapper.getPsiField());
 
         selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
             Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();

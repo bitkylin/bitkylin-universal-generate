@@ -22,7 +22,8 @@ public class WriteCommand {
         RENEW_WRITE_TAG,
         PADDING_WRITE_TAG,
 
-        SWAGGER_TO_JAVA_DOC,
+        MERGE_SWAGGER_TO_JAVA_DOC,
+        PADDING_SWAGGER_TO_JAVA_DOC,
         ;
 
     }

@@ -1,6 +1,6 @@
-# bitky-universal-generate
+# bitkylin-universal-generate
 
-![Build](https://github.com/bitkylin/bitky-universal-generate/workflows/Build/badge.svg)
+![Build](https://github.com/bitkylin/bitkylin-universal-generate/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
@@ -17,23 +17,32 @@
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+### bitkylin-universal-generate
+Canary Edition
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+Acting on Controller class or POJO class, you can easily generate Protostuff annotation "@Tag" with one click, and can directly convert JavaDoc to Swagger2.0 annotations. In turn, you can easily convert Swagger2.0 annotations to JavaDoc with a single click.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+More convenient features will be added later, so stay tuned!
+
+### bitkylin-通用生成
+金丝雀版
+
+作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
+
+后续会添加更多方便的功能，敬请期待吧！
+
 <!-- Plugin description end -->
 
 ## Installation
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "bitky-universal-generate"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "bitkylin-universal-generate"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/bitkylin/bitky-universal-generate/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/bitkylin/bitkylin-universal-generate/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 

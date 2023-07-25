@@ -31,8 +31,11 @@ public final class CommandCommandTypeProcessorFactory {
             case PADDING_WRITE_TAG -> {
                 return new CommandTypePaddingWriteTagProcessor(writeContext, new AnnotationTagConfig());
             }
-            case SWAGGER_TO_JAVA_DOC -> {
-                return new CommandTypeSwaggerToJavaDocProcessor(writeContext);
+            case MERGE_SWAGGER_TO_JAVA_DOC -> {
+                return new CommandTypeMergeSwaggerToJavaDocProcessor(writeContext);
+            }
+            case PADDING_SWAGGER_TO_JAVA_DOC -> {
+                return new CommandTypePaddingSwaggerToJavaDocProcessor(writeContext);
             }
             default ->
                     throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.COMMAND_SCOPE_UNSUPPORTED);
