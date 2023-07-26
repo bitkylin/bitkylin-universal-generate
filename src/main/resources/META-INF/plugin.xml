@@ -15,6 +15,13 @@
         <notificationGroup id="bitkylinErrorNotification"
                            displayType="BALLOON"
                            key="bitkylinErrorNotification"/>
+        <applicationService
+                serviceImplementation="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
+                id="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
+                displayName="SDK: Application Settings Example"/>
     </extensions>
 
     <applicationListeners>
@@ -24,57 +31,15 @@
 
     <actions>
         <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation"
+               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.GenerateAnnotationActionGroup"
                text="生成Swagger和Protostuff注解" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-
-            <!-- Add your actions here -->
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.RenewGenerateForFileAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.RenewGenerateForFileAction"
-                    text="文件范围重新生成注解"
-                    description="全局重新生成描述">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingGenerateForFileAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingGenerateForFileAction"
-                    text="文件范围填充不存在的注解"
-                    description="全局重新生成描述">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.RenewGenerateForElementAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.RenewGenerateForElementAction"
-                    text="元素范围重新生成注解"
-                    description="全局重新生成描述">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingGenerateForElementAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingGenerateForElementAction"
-                    text="元素范围填充不存在的注解"
-                    description="全局重新生成描述">
-            </action>
         </group>
 
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc" text="移除注解并生成JavaDoc"
-               popup="true">
+        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc"
+               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.SwaggerToJavaDocActionGroup"
+               text="移除注解并生成JavaDoc" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.MergeSwaggerToJavaDocForFileAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.MergeSwaggerToJavaDocForFileAction"
-                    text="文件范围合并到JavaDoc"
-                    description="Swagger转JavaDoc-全局合并">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.MergeSwaggerToJavaDocForElementAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.MergeSwaggerToJavaDocForElementAction"
-                    text="元素范围合并到JavaDoc"
-                    description="Swagger转JavaDoc-元素合并">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingSwaggerToJavaDocForFileAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingSwaggerToJavaDocForFileAction"
-                    text="文件范围填充不存在的JavaDoc"
-                    description="文件范围填充到JavaDoc">
-            </action>
-            <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingSwaggerToJavaDocForElementAction"
-                    class="cc.bitky.jetbrains.plugin.universalgenerate.action.PaddingSwaggerToJavaDocForElementAction"
-                    text="元素范围填充不存在的JavaDoc"
-                    description="Swagger转JavaDoc-元素填充">
-            </action>
-
         </group>
 
     </actions>

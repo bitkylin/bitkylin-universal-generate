@@ -1,4 +1,5 @@
 import org.jetbrains.changelog.Changelog
+import org.jetbrains.changelog.ChangelogPluginConstants
 import org.jetbrains.changelog.markdownToHTML
 
 fun properties(key: String) = providers.gradleProperty(key)
@@ -59,7 +60,11 @@ intellij {
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
-    groups.empty()
+    groups =  listOf(
+        "Canary Edition",
+        "金丝雀版"
+    )
+
     repositoryUrl = properties("pluginRepositoryUrl")
 }
 
@@ -105,11 +110,7 @@ tasks {
 
         val changelog = project.changelog // local variable for configuration cache compatibility
         // Get the latest available change notes from the changelog file
-        changeNotes = properties("pluginVersion").map { pluginVersion ->
-            with(changelog) {
-                render(Changelog.OutputType.HTML)
-            }
-        }
+        changeNotes = changelog.render(Changelog.OutputType.HTML)
     }
 
     // Configure UI tests plugin

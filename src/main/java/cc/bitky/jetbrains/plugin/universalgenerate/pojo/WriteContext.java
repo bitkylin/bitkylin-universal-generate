@@ -40,6 +40,13 @@ public class WriteContext {
         return psiFileContext.getPsiFile();
     }
 
+    public boolean fetchSelected() {
+        if (selectWrapper == null) {
+            return false;
+        }
+        return selectWrapper.isSelected();
+    }
+
     public PsiClassWrapper.ClassRoleEnum fetchFilePsiClassRole() {
         return filePsiClassWrapper.getClassRole();
     }

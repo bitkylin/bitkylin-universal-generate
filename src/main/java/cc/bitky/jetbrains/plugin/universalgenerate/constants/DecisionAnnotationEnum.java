@@ -7,21 +7,19 @@ import lombok.Getter;
  */
 public enum DecisionAnnotationEnum {
 
-    /**
-     * protostuff
-     */
-    SERVICE("Service","org.springframework.stereotype.Service"),
+    CONTROLLER("Controller", "org.springframework.stereotype.Controller"),
+    REST_CONTROLLER("RestController", "org.springframework.web.bind.annotation.RestController"),
+    SERVICE("Service", "org.springframework.stereotype.Service"),
+    COMPONENT("Component", "org.springframework.stereotype.Component"),
+    REPOSITORY("Repository", "org.springframework.stereotype.Repository"),
 
 
-    /**
-     * swagger2.0
-     */
-    API("Api","io.swagger.annotations.Api"),
+    DATA("Data", "lombok.Data"),
+    GETTER("Getter", "lombok.Getter"),
+    SETTER("Setter", "lombok.Setter"),
+    VALUE("Value", "lombok.Value"),
 
-    API_MODEL("ApiModel","io.swagger.annotations.ApiModel"),
-
-    API_MODEL_PROPERTY("ApiModelProperty","io.swagger.annotations.ApiModelProperty"),
-            ;
+    ;
 
     /**
      * 注解名称
