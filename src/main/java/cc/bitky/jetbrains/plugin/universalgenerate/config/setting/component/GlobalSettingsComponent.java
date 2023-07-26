@@ -31,9 +31,18 @@ public class GlobalSettingsComponent {
 
     public void setLanguage(GlobalSettingsState.LanguageEnum language) {
         switch (language) {
-            case ENGLISH -> radioButtonLanguageEnglish.setSelected(true);
-            case CHINESE -> radioButtonLanguageChinese.setSelected(true);
-            default -> radioButtonLanguageEnglish.setSelected(true);
+            case ENGLISH -> {
+                getRadioButtonLanguageEnglish().setSelected(true);
+                getRadioButtonLanguageChinese().setSelected(false);
+            }
+            case CHINESE -> {
+                getRadioButtonLanguageEnglish().setSelected(false);
+                getRadioButtonLanguageChinese().setSelected(true);
+            }
+            default -> {
+                getRadioButtonLanguageEnglish().setSelected(true);
+                getRadioButtonLanguageChinese().setSelected(false);
+            }
         }
     }
 

@@ -32,18 +32,6 @@ public class GlobalSettingsConfigurable implements Configurable {
     @Override
     public JComponent createComponent() {
         globalSettingsComponent = new GlobalSettingsComponent();
-        IGlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.getLocalizationConfig();
-        globalSettingsComponent.getLabelLanguage().setText(localizationConfig.labelLanguage());
-        globalSettingsComponent.getRadioButtonLanguageEnglish().setText(localizationConfig.radioButtonLanguageEnglish());
-        globalSettingsComponent.getRadioButtonLanguageChinese().setText(localizationConfig.radioButtonLanguageChinese());
-
-        GlobalSettingsState settingsState = GlobalSettingsState.getInstance();
-        switch (settingsState.getLanguage()) {
-            case ENGLISH -> globalSettingsComponent.getRadioButtonLanguageEnglish().setSelected(true);
-            case CHINESE -> globalSettingsComponent.getRadioButtonLanguageChinese().setSelected(true);
-            default -> globalSettingsComponent.getRadioButtonLanguageEnglish().setSelected(true);
-        }
-
         return globalSettingsComponent.getMainPanel();
     }
 
@@ -64,7 +52,13 @@ public class GlobalSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        globalSettingsComponent.setLanguage(GlobalSettingsState.LanguageEnum.ENGLISH);
+        IGlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.getLocalizationConfig();
+        globalSettingsComponent.setLabelLanguage(localizationConfig.labelLanguage());
+        globalSettingsComponent.setRadioButtonLanguageEnglish(localizationConfig.radioButtonLanguageEnglish());
+        globalSettingsComponent.setRadioButtonLanguageChinese(localizationConfig.radioButtonLanguageChinese());
+
+        GlobalSettingsState settingsState = GlobalSettingsState.getInstance();
+        globalSettingsComponent.setLanguage(settingsState.getLanguage());
     }
 
     @Override

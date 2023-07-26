@@ -11,7 +11,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSe
 public class LocalizationConfigFactory {
 
     private static GlobalSettingsState globalSettingsState() {
-        return new GlobalSettingsState();
+        return GlobalSettingsState.getInstance();
     }
 
     public static IGlobalSettingLocalizationConfig getLocalizationConfig() {
