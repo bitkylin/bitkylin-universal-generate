@@ -138,6 +138,10 @@ public final class CommentParseUtils {
         if (StringUtils.isBlank(annotationText)) {
             return Lists.newArrayList();
         }
+        annotationText = StringUtils.trim(annotationText);
+        if (StringUtils.startsWith(annotationText, "{") && StringUtils.endsWith(annotationText, "}")) {
+            annotationText = StringUtils.substring(annotationText, 1, -1);
+        }
         return Arrays.stream(StringUtils.split(annotationText, '\n'))
                 .flatMap(item -> Arrays.stream(StringUtils.split(item, "\"")))
                 .map(StringUtils::trim)
@@ -164,9 +168,6 @@ public final class CommentParseUtils {
             return false;
         }
         if (StringUtils.equals("+", annotationTextItem)) {
-            return false;
-        }
-        if (StringUtils.equals("{}", annotationTextItem)) {
             return false;
         }
         return true;

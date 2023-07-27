@@ -1,53 +1,66 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.config;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
 import com.google.common.collect.Maps;
 
 import java.util.Map;
+
+import static cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum.*;
 
 /**
  * @author bitkylin
  */
 public class ActionConfig {
 
-    public static final Map<ActionEnum, String> ACTION_MAP = Maps.newHashMap();
-    public static final Map<ActionGroupEnum, String> ACTION_GROUP_MAP = Maps.newHashMap();
+    public static final Map<ActionEnum, LocalizationEnum> ACTION_MAP = Maps.newHashMap();
+    public static final Map<ActionGroupEnum, LocalizationEnum> ACTION_GROUP_MAP = Maps.newHashMap();
 
     static {
-        ACTION_MAP.put(ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT, "合并到JavaDoc");
-        ACTION_MAP.put(ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_FILE, "合并到JavaDoc");
-        ACTION_MAP.put(ActionEnum.PADDING_GENERATE_FOR_ELEMENT, "填充不存在的注解");
-        ACTION_MAP.put(ActionEnum.PADDING_GENERATE_FOR_FILE, "填充不存在的注解");
-        ACTION_MAP.put(ActionEnum.PADDING_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT, "填充不存在的JavaDoc");
-        ACTION_MAP.put(ActionEnum.PADDING_SWAGGER_TO_JAVA_DOC_FOR_FILE, "填充不存在的JavaDoc");
-        ACTION_MAP.put(ActionEnum.RENEW_GENERATE_FOR_ELEMENT, "重新生成注解");
-        ACTION_MAP.put(ActionEnum.RENEW_GENERATE_FOR_FILE, "重新生成注解");
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT, RE_GENERATE_TO_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_FILE, RE_GENERATE_TO_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_ELEMENT, POPULATE_MISSING_ANNOTATION);
+        ACTION_MAP.put(ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_FILE, POPULATE_MISSING_ANNOTATION);
+        ACTION_MAP.put(ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT, POPULATE_MISSING_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE, POPULATE_MISSING_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_ANNOTATION_FOR_ELEMENT, RE_GENERATE_ANNOTATION);
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_ANNOTATION_FOR_FILE, RE_GENERATE_ANNOTATION);
 
-        ACTION_GROUP_MAP.put(ActionGroupEnum.SWAGGER_TO_JAVA_DOC, "注解转JavaDoc");
-        ACTION_GROUP_MAP.put(ActionGroupEnum.GENERATE_ANNOTATION, "生成入口注解");
+        ACTION_GROUP_MAP.put(ActionGroupEnum.SWAGGER_TO_JAVA_DOC, ANNOTATION_TO_JAVA_DOC);
+        ACTION_GROUP_MAP.put(ActionGroupEnum.GENERATE_ANNOTATION, GENERATE_ENTRY_ANNOTATION);
     }
 
     public String fetchActionTitleByActionEnum(ActionEnum actionEnum) {
-        String title = ACTION_MAP.get(actionEnum);
-        if (title == null) {
-            return "空";
+        LocalizationEnum localizationEnum = ACTION_MAP.get(actionEnum);
+        if (localizationEnum == null) {
+            return localizedText(LocalizationEnum.EMPTY);
         }
-        return title;
+        return localizedText(localizationEnum);
     }
 
     public String fetchActionGroupTitleByActionGroupEnum(ActionGroupEnum actionGroupEnum) {
-        String title = ACTION_GROUP_MAP.get(actionGroupEnum);
-        if (title == null) {
-            return "空";
+        LocalizationEnum localizationEnum = ACTION_GROUP_MAP.get(actionGroupEnum);
+        if (localizationEnum == null) {
+            return localizedText(LocalizationEnum.EMPTY);
         }
-        return title;
+        return localizedText(localizationEnum);
     }
 
     public String fetchTextForFile() {
-        return "整个文件";
+        return localizedText(LocalizationEnum.FULL_DOCUMENT);
     }
+
     public String fetchTextForElement() {
-        return "当前元素";
+        return localizedText(LocalizationEnum.CURRENT_ELEMENT);
+    }
+
+    public String fetchTextForDumbMode() {
+        return localizedText(LocalizationEnum.DUMB_MODE);
+    }
+
+    private String localizedText(LocalizationEnum localizationEnum) {
+        return LocalizationConfigFactory.name(localizationEnum);
     }
 }

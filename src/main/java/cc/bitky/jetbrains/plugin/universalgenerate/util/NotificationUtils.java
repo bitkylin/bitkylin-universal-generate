@@ -2,6 +2,8 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.BitkylinException;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
+import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.project.Project;
@@ -34,13 +36,21 @@ public final class NotificationUtils {
      */
     public static void checks(Project project, ExceptionMsgEnum exceptionMsgEnum, Boolean... checks) {
         if (ArrayUtils.isEmpty(checks)) {
-            notifyError(project, "执行发生异常", exceptionMsgEnum.getShowMsg());
-            throw new BitkylinException(exceptionMsgEnum);
+            String localizationDesc = LocalizationConfigFactory.name(exceptionMsgEnum.getLocalizationEnum());
+            notifyError(project,
+                    LocalizationConfigFactory.name(LocalizationEnum.NOTIFICATION_TITLE),
+                    localizationDesc
+            );
+            throw new BitkylinException(exceptionMsgEnum, localizationDesc);
         }
         Arrays.stream(checks).forEach(check -> {
             if (BooleanUtils.isNotTrue(check)) {
-                notifyError(project, "执行发生异常", exceptionMsgEnum.getShowMsg());
-                throw new BitkylinException(exceptionMsgEnum);
+                String localizationDesc = LocalizationConfigFactory.name(exceptionMsgEnum.getLocalizationEnum());
+                notifyError(project,
+                        LocalizationConfigFactory.name(LocalizationEnum.NOTIFICATION_TITLE),
+                        localizationDesc
+                );
+                throw new BitkylinException(exceptionMsgEnum, localizationDesc);
             }
         });
     }
@@ -49,8 +59,12 @@ public final class NotificationUtils {
      * checks都为true，不抛异常
      */
     public static BitkylinException notifyAndNewException(Project project, ExceptionMsgEnum exceptionMsgEnum) {
-        notifyError(project, "执行发生异常", exceptionMsgEnum.getShowMsg());
-        return new BitkylinException(exceptionMsgEnum);
+        String localizationDesc = LocalizationConfigFactory.name(exceptionMsgEnum.getLocalizationEnum());
+        notifyError(project,
+                LocalizationConfigFactory.name(LocalizationEnum.NOTIFICATION_TITLE),
+                localizationDesc
+        );
+        return new BitkylinException(exceptionMsgEnum, localizationDesc);
     }
 
 }

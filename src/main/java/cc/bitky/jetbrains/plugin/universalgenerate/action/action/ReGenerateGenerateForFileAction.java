@@ -11,18 +11,18 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前元素中填充所有注解
+ * 在当前文件中强制重新生成所有注解
  *
  * @author bitkylin
  */
 @Slf4j
-public class PaddingGenerateForElementAction extends AbstractBitkylinUniversalGenerateAction {
+public class ReGenerateGenerateForFileAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public PaddingGenerateForElementAction(String text) {
+    public ReGenerateGenerateForFileAction(String text) {
         super(text);
     }
 
-    public PaddingGenerateForElementAction() {
+    public ReGenerateGenerateForFileAction() {
         super();
     }
 
@@ -31,13 +31,13 @@ public class PaddingGenerateForElementAction extends AbstractBitkylinUniversalGe
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_SWAGGER).writeElement();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_TAG).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeFile();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.PADDING_GENERATE_FOR_ELEMENT;
+        return ActionEnum.RE_GENERATE_ANNOTATION_FOR_FILE;
     }
 }

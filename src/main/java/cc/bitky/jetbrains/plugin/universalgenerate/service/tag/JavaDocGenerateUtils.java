@@ -1,6 +1,5 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.service.tag;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.CommentParseUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
@@ -21,7 +20,7 @@ public final class JavaDocGenerateUtils {
     private JavaDocGenerateUtils() {
     }
 
-    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void mergeWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
+    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void reGenerateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
         GenerateUtils.deleteAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {
@@ -38,7 +37,7 @@ public final class JavaDocGenerateUtils {
         psiOwner.addBefore(psiDocCommentNew, psiOwner.getFirstChild());
     }
 
-    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void paddingWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
+    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void populateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
         GenerateUtils.deleteAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {

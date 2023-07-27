@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AbstractBitkylinUniversalGenerateAction extends AnAction {
 
-    public AbstractBitkylinUniversalGenerateAction(String text) {
+    protected AbstractBitkylinUniversalGenerateAction(String text) {
         super(text);
     }
 
-    public AbstractBitkylinUniversalGenerateAction() {
+    protected AbstractBitkylinUniversalGenerateAction() {
         super();
     }
 

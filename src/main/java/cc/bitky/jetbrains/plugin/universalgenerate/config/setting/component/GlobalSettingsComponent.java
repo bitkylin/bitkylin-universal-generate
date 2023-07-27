@@ -14,6 +14,11 @@ public class GlobalSettingsComponent {
     private JRadioButton radioButtonLanguageChinese;
     private JLabel labelLanguage;
     private JPanel mainPanel;
+    private JLabel labelEffectsTo;
+    private JCheckBox checkBoxSwaggerEffected;
+    private JCheckBox checkBoxProtostuffEffected;
+    private JLabel labelEnabled;
+    private JCheckBox checkBoxEnabled;
 
     public JPanel getMainPanel() {
         return mainPanel;

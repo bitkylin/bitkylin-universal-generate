@@ -22,23 +22,24 @@ public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenera
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
+        ActionConfig actionConfig = new ActionConfig();
         if (DumbService.isDumb(anActionEvent.getProject())) {
             anActionEvent.getPresentation().setEnabled(false);
+            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForDumbMode());
             return new AnAction[0];
         }
-        ActionConfig actionConfig = new ActionConfig();
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
             updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForElement());
             return new AnAction[]{
-                    ActionFactory.create(actionConfig, ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.PADDING_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT)
+                    ActionFactory.create(actionConfig, ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT),
+                    ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT)
             };
         }
         updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForFile());
         return new AnAction[]{
-                ActionFactory.create(actionConfig, ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_FILE),
-                ActionFactory.create(actionConfig, ActionEnum.PADDING_SWAGGER_TO_JAVA_DOC_FOR_FILE)
+                ActionFactory.create(actionConfig, ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE),
+                ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_FILE)
         };
     }
 

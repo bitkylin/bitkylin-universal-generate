@@ -11,18 +11,16 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前文件中填充所有注解
- *
  * @author bitkylin
  */
 @Slf4j
-public class PaddingGenerateForFileAction extends AbstractBitkylinUniversalGenerateAction {
+public class PopulateSwaggerToJavaDocForFileAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public PaddingGenerateForFileAction(String text) {
+    public PopulateSwaggerToJavaDocForFileAction(String text) {
         super(text);
     }
 
-    public PaddingGenerateForFileAction() {
+    public PopulateSwaggerToJavaDocForFileAction() {
         super();
     }
 
@@ -31,13 +29,12 @@ public class PaddingGenerateForFileAction extends AbstractBitkylinUniversalGener
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_SWAGGER).writeFile();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_WRITE_TAG).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeFile();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.PADDING_GENERATE_FOR_FILE;
+        return ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE;
     }
 }

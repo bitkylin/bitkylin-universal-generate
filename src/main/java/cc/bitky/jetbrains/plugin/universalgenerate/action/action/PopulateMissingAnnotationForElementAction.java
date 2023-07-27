@@ -11,18 +11,18 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前元素中强制重新生成所有注解
+ * 在当前元素中填充所有注解
  *
  * @author bitkylin
  */
 @Slf4j
-public class RenewGenerateForElementAction extends AbstractBitkylinUniversalGenerateAction {
+public class PopulateMissingAnnotationForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public RenewGenerateForElementAction(String text) {
+    public PopulateMissingAnnotationForElementAction(String text) {
         super(text);
     }
 
-    public RenewGenerateForElementAction() {
+    public PopulateMissingAnnotationForElementAction() {
         super();
     }
 
@@ -31,13 +31,13 @@ public class RenewGenerateForElementAction extends AbstractBitkylinUniversalGene
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_SWAGGER).writeElement();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_TAG).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_SWAGGER).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_TAG).writeElement();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.RENEW_GENERATE_FOR_ELEMENT;
+        return ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_ELEMENT;
     }
 }

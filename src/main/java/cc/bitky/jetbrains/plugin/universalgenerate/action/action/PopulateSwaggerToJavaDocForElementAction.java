@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
  * @author bitkylin
  */
 @Slf4j
-public class MergeSwaggerToJavaDocForElementAction extends AbstractBitkylinUniversalGenerateAction {
+public class PopulateSwaggerToJavaDocForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public MergeSwaggerToJavaDocForElementAction(String text) {
+    public PopulateSwaggerToJavaDocForElementAction(String text) {
         super(text);
     }
 
-    public MergeSwaggerToJavaDocForElementAction() {
+    public PopulateSwaggerToJavaDocForElementAction() {
         super();
     }
 
@@ -29,12 +29,12 @@ public class MergeSwaggerToJavaDocForElementAction extends AbstractBitkylinUnive
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.MERGE_SWAGGER_TO_JAVA_DOC).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeElement();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT;
+        return ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT;
     }
 }

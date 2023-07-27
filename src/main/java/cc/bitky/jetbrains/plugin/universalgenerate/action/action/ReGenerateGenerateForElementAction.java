@@ -11,18 +11,18 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前文件中强制重新生成所有注解
+ * 在当前元素中强制重新生成所有注解
  *
  * @author bitkylin
  */
 @Slf4j
-public class RenewGenerateForFileAction extends AbstractBitkylinUniversalGenerateAction {
+public class ReGenerateGenerateForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public RenewGenerateForFileAction(String text) {
+    public ReGenerateGenerateForElementAction(String text) {
         super(text);
     }
 
-    public RenewGenerateForFileAction() {
+    public ReGenerateGenerateForElementAction() {
         super();
     }
 
@@ -31,13 +31,13 @@ public class RenewGenerateForFileAction extends AbstractBitkylinUniversalGenerat
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_SWAGGER).writeFile();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RENEW_WRITE_TAG).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeElement();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.RENEW_GENERATE_FOR_FILE;
+        return ActionEnum.RE_GENERATE_ANNOTATION_FOR_ELEMENT;
     }
 }

@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
  * @author bitkylin
  */
 @Slf4j
-public class PaddingSwaggerToJavaDocForFileAction extends AbstractBitkylinUniversalGenerateAction {
+public class ReGenerateSwaggerToJavaDocForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public PaddingSwaggerToJavaDocForFileAction(String text) {
+    public ReGenerateSwaggerToJavaDocForElementAction(String text) {
         super(text);
     }
 
-    public PaddingSwaggerToJavaDocForFileAction() {
+    public ReGenerateSwaggerToJavaDocForElementAction() {
         super();
     }
 
@@ -29,12 +29,12 @@ public class PaddingSwaggerToJavaDocForFileAction extends AbstractBitkylinUniver
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.PADDING_SWAGGER_TO_JAVA_DOC).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_SWAGGER_TO_JAVA_DOC).writeElement();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.PADDING_SWAGGER_TO_JAVA_DOC_FOR_FILE;
+        return ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT;
     }
 }

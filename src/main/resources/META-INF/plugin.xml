@@ -21,7 +21,7 @@
                 parentId="tools"
                 instance="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
                 id="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
-                displayName="Bitkylin Universal Generate Init"/>
+                displayName="Bitkylin Universal Generate"/>
     </extensions>
 
     <applicationListeners>

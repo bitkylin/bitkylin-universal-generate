@@ -19,23 +19,23 @@ public final class CommandCommandTypeProcessorFactory {
     public static ICommandTypeProcessor decide(WriteContext writeContext, WriteCommand.Command command) {
 
         switch (command) {
-            case RENEW_WRITE_SWAGGER -> {
-                return new CommandTypeRenewWriteSwaggerProcessor(writeContext);
+            case RE_GENERATE_WRITE_SWAGGER -> {
+                return new CommandTypeReGenerateWriteSwaggerProcessor(writeContext);
             }
-            case PADDING_WRITE_SWAGGER -> {
-                return new CommandTypePaddingWriteSwaggerProcessor(writeContext);
+            case POPULATE_WRITE_SWAGGER -> {
+                return new CommandTypePopulateWriteSwaggerProcessor(writeContext);
             }
-            case RENEW_WRITE_TAG -> {
-                return new CommandTypeRenewWriteTagProcessor(writeContext, new AnnotationTagConfig());
+            case RE_GENERATE_WRITE_TAG -> {
+                return new CommandTypeReGenerateWriteTagProcessor(writeContext, new AnnotationTagConfig());
             }
-            case PADDING_WRITE_TAG -> {
-                return new CommandTypePaddingWriteTagProcessor(writeContext, new AnnotationTagConfig());
+            case POPULATE_WRITE_TAG -> {
+                return new CommandTypePopulateWriteTagProcessor(writeContext, new AnnotationTagConfig());
             }
-            case MERGE_SWAGGER_TO_JAVA_DOC -> {
-                return new CommandTypeMergeSwaggerToJavaDocProcessor(writeContext);
+            case RE_GENERATE_SWAGGER_TO_JAVA_DOC -> {
+                return new CommandTypeReGenerateSwaggerToJavaDocProcessor(writeContext);
             }
-            case PADDING_SWAGGER_TO_JAVA_DOC -> {
-                return new CommandTypePaddingSwaggerToJavaDocProcessor(writeContext);
+            case POPULATE_SWAGGER_TO_JAVA_DOC -> {
+                return new CommandTypePopulateSwaggerToJavaDocProcessor(writeContext);
             }
             default ->
                     throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.COMMAND_SCOPE_UNSUPPORTED);

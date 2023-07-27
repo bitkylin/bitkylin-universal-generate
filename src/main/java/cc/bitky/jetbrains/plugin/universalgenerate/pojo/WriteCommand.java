@@ -16,14 +16,14 @@ public class WriteCommand {
 
     public enum Command {
 
-        RENEW_WRITE_SWAGGER,
-        PADDING_WRITE_SWAGGER,
+        RE_GENERATE_WRITE_SWAGGER,
+        POPULATE_WRITE_SWAGGER,
 
-        RENEW_WRITE_TAG,
-        PADDING_WRITE_TAG,
+        RE_GENERATE_WRITE_TAG,
+        POPULATE_WRITE_TAG,
 
-        MERGE_SWAGGER_TO_JAVA_DOC,
-        PADDING_SWAGGER_TO_JAVA_DOC,
+        RE_GENERATE_SWAGGER_TO_JAVA_DOC,
+        POPULATE_SWAGGER_TO_JAVA_DOC,
         ;
 
     }

@@ -8,18 +8,18 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGenerateUtils.mergeWriteJavaDoc;
+import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGenerateUtils.populateWriteJavaDoc;
 
 /**
- * 移除swagger注解，并转换为JavaDoc
+ * 移除swagger注解，并转换为JavaDoc，JavaDoc存在时不变更
  *
  * @author bitkylin
  */
-public class CommandTypeMergeSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
+public class CommandTypePopulateSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
 
     private final WriteContext writeContext;
 
-    public CommandTypeMergeSwaggerToJavaDocProcessor(WriteContext writeContext) {
+    public CommandTypePopulateSwaggerToJavaDocProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
     }
 
@@ -27,12 +27,12 @@ public class CommandTypeMergeSwaggerToJavaDocProcessor implements ICommandTypePr
     public void writeFile() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
-            mergeWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
+            populateWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
             for (PsiMethodWrapper psiMethodWrapper : psiClassWrapper.getMethodList()) {
-                mergeWriteJavaDoc(psiFileContext, psiMethodWrapper.getPsiMethod());
+                populateWriteJavaDoc(psiFileContext, psiMethodWrapper.getPsiMethod());
             }
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                mergeWriteJavaDoc(psiFileContext, psiFieldWrapper.getPsiField());
+                populateWriteJavaDoc(psiFileContext, psiFieldWrapper.getPsiField());
             }
         }
     }
@@ -46,17 +46,17 @@ public class CommandTypeMergeSwaggerToJavaDocProcessor implements ICommandTypePr
         }
 
         if (selectWrapper.getClz() != null) {
-            mergeWriteJavaDoc(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
+            populateWriteJavaDoc(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
             return;
         }
 
         if (selectWrapper.getMethod() != null) {
-            mergeWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
+            populateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
             return;
         }
 
         if (selectWrapper.getField() != null) {
-            mergeWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
+            populateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
         }
     }
 

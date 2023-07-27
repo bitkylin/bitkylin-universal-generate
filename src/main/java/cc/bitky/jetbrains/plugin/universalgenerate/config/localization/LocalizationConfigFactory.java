@@ -1,30 +1,36 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.config.localization;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.api.IGlobalSettingLocalizationConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.cn.GlobalSettingLocalizationCnConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.en.GlobalSettingLocalizationEnConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
 
 /**
  * @author bitkylin
  */
-public class LocalizationConfigFactory {
+public final class LocalizationConfigFactory {
+
+    private LocalizationConfigFactory() {
+    }
 
     private static GlobalSettingsState globalSettingsState() {
         return GlobalSettingsState.getInstance();
     }
 
-    public static IGlobalSettingLocalizationConfig getLocalizationConfig() {
+    public static GlobalSettingLocalizationConfig config() {
+        return new GlobalSettingLocalizationConfig();
+    }
+
+    public static String name(LocalizationEnum localizationEnum) {
         switch (globalSettingsState().getLanguage()) {
             case ENGLISH -> {
-                return new GlobalSettingLocalizationEnConfig();
+                return localizationEnum.getEnglish();
             }
             case CHINESE -> {
-                return new GlobalSettingLocalizationCnConfig();
+                return localizationEnum.getChinese();
             }
             default -> {
-                return new GlobalSettingLocalizationCnConfig();
+                return localizationEnum.getEnglish();
             }
         }
+
     }
 }

@@ -22,23 +22,24 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
+        ActionConfig actionConfig = new ActionConfig();
         if (DumbService.isDumb(anActionEvent.getProject())) {
             anActionEvent.getPresentation().setEnabled(false);
+            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForDumbMode());
             return new AnAction[0];
         }
-        ActionConfig actionConfig = new ActionConfig();
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
             updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForElement());
             return new AnAction[]{
-                    ActionFactory.create(actionConfig, ActionEnum.PADDING_GENERATE_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.RENEW_GENERATE_FOR_ELEMENT)
+                    ActionFactory.create(actionConfig, ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_ELEMENT),
+                    ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ANNOTATION_FOR_ELEMENT)
             };
         }
         updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForFile());
         return new AnAction[]{
-                ActionFactory.create(actionConfig, ActionEnum.PADDING_GENERATE_FOR_FILE),
-                ActionFactory.create(actionConfig, ActionEnum.RENEW_GENERATE_FOR_FILE)
+                ActionFactory.create(actionConfig, ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_FILE),
+                ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ANNOTATION_FOR_FILE)
         };
     }
 

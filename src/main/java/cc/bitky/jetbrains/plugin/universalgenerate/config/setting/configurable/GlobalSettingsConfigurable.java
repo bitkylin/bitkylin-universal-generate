@@ -5,7 +5,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable;
  */
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.api.IGlobalSettingLocalizationConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.GlobalSettingLocalizationConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.component.GlobalSettingsComponent;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
 import com.intellij.openapi.options.Configurable;
@@ -21,7 +21,7 @@ public class GlobalSettingsConfigurable implements Configurable {
 
     @Override
     public String getDisplayName() {
-        return LocalizationConfigFactory.getLocalizationConfig().settingDisplayName();
+        return LocalizationConfigFactory.config().settingDisplayName();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GlobalSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        IGlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.getLocalizationConfig();
+        GlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.config();
         globalSettingsComponent.setLabelLanguage(localizationConfig.labelLanguage());
         globalSettingsComponent.setRadioButtonLanguageEnglish(localizationConfig.radioButtonLanguageEnglish());
         globalSettingsComponent.setRadioButtonLanguageChinese(localizationConfig.radioButtonLanguageChinese());

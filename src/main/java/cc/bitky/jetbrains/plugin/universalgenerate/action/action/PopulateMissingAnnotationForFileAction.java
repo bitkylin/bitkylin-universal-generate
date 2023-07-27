@@ -11,16 +11,18 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 在当前文件中填充所有注解
+ *
  * @author bitkylin
  */
 @Slf4j
-public class MergeSwaggerToJavaDocForFileAction extends AbstractBitkylinUniversalGenerateAction {
+public class PopulateMissingAnnotationForFileAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public MergeSwaggerToJavaDocForFileAction(String text) {
+    public PopulateMissingAnnotationForFileAction(String text) {
         super(text);
     }
 
-    public MergeSwaggerToJavaDocForFileAction() {
+    public PopulateMissingAnnotationForFileAction() {
         super();
     }
 
@@ -29,12 +31,13 @@ public class MergeSwaggerToJavaDocForFileAction extends AbstractBitkylinUniversa
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.MERGE_SWAGGER_TO_JAVA_DOC).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_SWAGGER).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_TAG).writeFile();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.MERGE_SWAGGER_TO_JAVA_DOC_FOR_FILE;
+        return ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_FILE;
     }
 }

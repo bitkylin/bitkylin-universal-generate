@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [0.8.6] - 2023-07-26
+
+### Canary Edition
+
+- Add multi-language support, now support English and Chinese, you can configure the language by "settings".
+
+### 金丝雀版
+
+- 添加多语言支持，现在支持英文和中文，可以通过「settings」配置语言。
+
 ## [0.8.5] - 2023-07-25
 
 ### Canary Edition

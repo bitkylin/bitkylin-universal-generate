@@ -8,18 +8,18 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGenerateUtils.paddingWriteJavaDoc;
+import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGenerateUtils.reGenerateWriteJavaDoc;
 
 /**
- * 移除swagger注解，并转换为JavaDoc，JavaDoc存在时不变更
+ * 移除swagger注解，并转换为JavaDoc
  *
  * @author bitkylin
  */
-public class CommandTypePaddingSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
+public class CommandTypeReGenerateSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
 
     private final WriteContext writeContext;
 
-    public CommandTypePaddingSwaggerToJavaDocProcessor(WriteContext writeContext) {
+    public CommandTypeReGenerateSwaggerToJavaDocProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
     }
 
@@ -27,12 +27,12 @@ public class CommandTypePaddingSwaggerToJavaDocProcessor implements ICommandType
     public void writeFile() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
-            paddingWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
+            reGenerateWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
             for (PsiMethodWrapper psiMethodWrapper : psiClassWrapper.getMethodList()) {
-                paddingWriteJavaDoc(psiFileContext, psiMethodWrapper.getPsiMethod());
+                reGenerateWriteJavaDoc(psiFileContext, psiMethodWrapper.getPsiMethod());
             }
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                paddingWriteJavaDoc(psiFileContext, psiFieldWrapper.getPsiField());
+                reGenerateWriteJavaDoc(psiFileContext, psiFieldWrapper.getPsiField());
             }
         }
     }
@@ -46,17 +46,17 @@ public class CommandTypePaddingSwaggerToJavaDocProcessor implements ICommandType
         }
 
         if (selectWrapper.getClz() != null) {
-            paddingWriteJavaDoc(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
+            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
             return;
         }
 
         if (selectWrapper.getMethod() != null) {
-            paddingWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
+            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
             return;
         }
 
         if (selectWrapper.getField() != null) {
-            paddingWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
+            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
         }
     }
 
