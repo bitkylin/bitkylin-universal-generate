@@ -61,8 +61,12 @@ intellij {
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
     groups =  listOf(
-        "Canary Edition",
-        "金丝雀版"
+        "Added",
+        "Fixed",
+        "Changed",
+        "添加",
+        "修复",
+        "变更"
     )
 
     repositoryUrl = properties("pluginRepositoryUrl")

@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiFile;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class WriteContext {
 
     private SelectWrapper selectWrapper;
 
-    private List<PsiClassWrapper> clzList;
+    private List<PsiClassWrapper> clzList = Lists.newArrayList();
 
     public Project fetchProject() {
         return psiFileContext.getProject();
@@ -71,6 +72,9 @@ public class WriteContext {
 
         private PsiElementFactory elementFactory;
 
+        public boolean valid() {
+            return project != null && psiFile != null && psiClass != null && elementFactory != null;
+        }
 
     }
 
@@ -80,6 +84,7 @@ public class WriteContext {
 
         private boolean selected;
 
+        @Nullable
         private PsiElement currentElement;
 
         private PsiClass clz;

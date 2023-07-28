@@ -21,6 +21,6 @@ public class AbstractBitkylinUniversalGenerateActionGroup extends DefaultActionG
                                    ActionConfig actionConfig,
                                    ActionGroupEnum actionGroupEnum,
                                    String scope) {
-        anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitleByActionGroupEnum(actionGroupEnum) + "-" + scope);
+        anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + scope);
     }
 }

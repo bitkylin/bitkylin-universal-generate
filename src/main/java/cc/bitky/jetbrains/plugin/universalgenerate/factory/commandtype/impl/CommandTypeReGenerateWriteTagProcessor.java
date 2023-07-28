@@ -3,6 +3,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
+import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
@@ -32,7 +33,7 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
     }
 
     @Override
-    public void writeFile() {
+    public void doWriteFile() {
         int num = beginNumValue;
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
             if (!canWriteAnnotationTag(psiClassWrapper)) {
@@ -46,7 +47,7 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
     }
 
     @Override
-    public void writeElement() {
+    public void doWriteElement() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
         WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiFieldWrapper fieldWrapper = selectWrapper.getField();

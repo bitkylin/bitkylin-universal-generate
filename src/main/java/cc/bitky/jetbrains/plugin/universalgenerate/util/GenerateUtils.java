@@ -39,7 +39,7 @@ public final class GenerateUtils {
         // 待导入类没有时 让用户自行处理
         PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
         if (waiteImportClass == null) {
-            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
+            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
         }
 
         // 原注解存在时不更新
@@ -76,7 +76,7 @@ public final class GenerateUtils {
         // 待导入类没有时 让用户自行处理
         PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
         if (waiteImportClass == null) {
-            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND);
+            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
         }
 
         // 原注解删除
@@ -118,7 +118,7 @@ public final class GenerateUtils {
         }
     }
 
-    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void deleteAnnotation(T psiElement) {
+    public static <T extends PsiModifierListOwner> void deleteSwaggerAnnotation(T psiElement) {
         if (psiElement == null) {
             return;
         }
@@ -126,6 +126,12 @@ public final class GenerateUtils {
         GenerateUtils.deleteAnnotation(ModifierAnnotationEnum.API_OPERATION, psiElement);
         GenerateUtils.deleteAnnotation(ModifierAnnotationEnum.API_MODEL, psiElement);
         GenerateUtils.deleteAnnotation(ModifierAnnotationEnum.API_MODEL_PROPERTY, psiElement);
+    }
+
+    public static <T extends PsiModifierListOwner> void deleteTagAnnotation(T psiElement) {
+        if (psiElement == null) {
+            return;
+        }
         GenerateUtils.deleteAnnotation(ModifierAnnotationEnum.TAG, psiElement);
     }
 

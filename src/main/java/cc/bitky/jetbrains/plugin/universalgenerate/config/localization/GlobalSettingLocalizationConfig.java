@@ -26,6 +26,26 @@ public class GlobalSettingLocalizationConfig {
         return localizedText(LocalizationEnum.RADIO_BUTTON_LANGUAGE_CHINESE);
     }
 
+    public String labelScopeOfEffect() {
+        return localizedText(LocalizationEnum.LABEL_SCOPE_OF_EFFECT);
+    }
+
+    public String checkBoxSwaggerEffected() {
+        return localizedText(LocalizationEnum.CHECK_BOX_SWAGGER_EFFECTED);
+    }
+
+    public String checkBoxProtostuffEffected() {
+        return localizedText(LocalizationEnum.CHECK_BOX_PROTOSTUFF_EFFECTED);
+    }
+
+    public String labelContextMenu() {
+        return localizedText(LocalizationEnum.LABEL_CONTEXT_MENU);
+    }
+
+    public String checkBoxShowed() {
+        return localizedText(LocalizationEnum.CHECK_BOX_SHOWED);
+    }
+
 
     private String localizedText(LocalizationEnum localizationEnum) {
         return LocalizationConfigFactory.name(localizationEnum);

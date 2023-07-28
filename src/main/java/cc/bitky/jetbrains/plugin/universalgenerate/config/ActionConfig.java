@@ -32,7 +32,7 @@ public class ActionConfig {
         ACTION_GROUP_MAP.put(ActionGroupEnum.GENERATE_ANNOTATION, GENERATE_ENTRY_ANNOTATION);
     }
 
-    public String fetchActionTitleByActionEnum(ActionEnum actionEnum) {
+    public String fetchActionTitle(ActionEnum actionEnum) {
         LocalizationEnum localizationEnum = ACTION_MAP.get(actionEnum);
         if (localizationEnum == null) {
             return localizedText(LocalizationEnum.EMPTY);
@@ -40,7 +40,7 @@ public class ActionConfig {
         return localizedText(localizationEnum);
     }
 
-    public String fetchActionGroupTitleByActionGroupEnum(ActionGroupEnum actionGroupEnum) {
+    public String fetchActionGroupTitle(ActionGroupEnum actionGroupEnum) {
         LocalizationEnum localizationEnum = ACTION_GROUP_MAP.get(actionGroupEnum);
         if (localizationEnum == null) {
             return localizedText(LocalizationEnum.EMPTY);

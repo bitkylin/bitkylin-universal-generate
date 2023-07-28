@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.config.localization;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
 
 /**
@@ -11,8 +11,8 @@ public final class LocalizationConfigFactory {
     private LocalizationConfigFactory() {
     }
 
-    private static GlobalSettingsState globalSettingsState() {
-        return GlobalSettingsState.getInstance();
+    private static GlobalSettingsStateHelper globalSettingsState() {
+        return GlobalSettingsStateHelper.getInstance();
     }
 
     public static GlobalSettingLocalizationConfig config() {

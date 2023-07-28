@@ -2,6 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
+import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.AbstractCommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
@@ -15,7 +16,7 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGen
  *
  * @author bitkylin
  */
-public class CommandTypePopulateSwaggerToJavaDocProcessor implements ICommandTypeProcessor {
+public class CommandTypePopulateSwaggerToJavaDocProcessor extends AbstractCommandTypeProcessor implements ICommandTypeProcessor {
 
     private final WriteContext writeContext;
 
@@ -24,7 +25,7 @@ public class CommandTypePopulateSwaggerToJavaDocProcessor implements ICommandTyp
     }
 
     @Override
-    public void writeFile() {
+    public void doWriteFile() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
             populateWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
@@ -38,7 +39,7 @@ public class CommandTypePopulateSwaggerToJavaDocProcessor implements ICommandTyp
     }
 
     @Override
-    public void writeElement() {
+    public void doWriteElement() {
         WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiClassWrapper psiClassWrapper = selectWrapper.getSelectedPsiClassWrapper();
         if (!selectWrapper.isSelected()) {

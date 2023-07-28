@@ -20,9 +20,13 @@ public final class JavaDocGenerateUtils {
     private JavaDocGenerateUtils() {
     }
 
+    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void deleteTagAnnotation(T psiOwner) {
+        GenerateUtils.deleteTagAnnotation(psiOwner);
+    }
+
     public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void reGenerateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
-        GenerateUtils.deleteAnnotation(psiOwner);
+        GenerateUtils.deleteSwaggerAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {
             return;
         }
@@ -39,7 +43,7 @@ public final class JavaDocGenerateUtils {
 
     public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void populateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
-        GenerateUtils.deleteAnnotation(psiOwner);
+        GenerateUtils.deleteSwaggerAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {
             return;
         }

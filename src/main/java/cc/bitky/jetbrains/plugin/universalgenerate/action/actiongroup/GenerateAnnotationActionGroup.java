@@ -2,6 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base.AbstractBitkylinUniversalGenerateActionGroup;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.ActionFactory;
@@ -24,6 +25,9 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
         ActionConfig actionConfig = new ActionConfig();
         if (DumbService.isDumb(anActionEvent.getProject())) {
+            if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
+                anActionEvent.getPresentation().setVisible(false);
+            }
             anActionEvent.getPresentation().setEnabled(false);
             updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForDumbMode());
             return new AnAction[0];

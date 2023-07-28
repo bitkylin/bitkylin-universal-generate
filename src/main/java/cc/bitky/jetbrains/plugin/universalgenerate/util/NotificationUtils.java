@@ -59,7 +59,15 @@ public final class NotificationUtils {
      * checks都为true，不抛异常
      */
     public static BitkylinException notifyAndNewException(Project project, ExceptionMsgEnum exceptionMsgEnum) {
+        return notifyAndNewException(project, exceptionMsgEnum, "");
+    }
+
+    /**
+     * checks都为true，不抛异常
+     */
+    public static BitkylinException notifyAndNewException(Project project, ExceptionMsgEnum exceptionMsgEnum, String exceptionParam) {
         String localizationDesc = LocalizationConfigFactory.name(exceptionMsgEnum.getLocalizationEnum());
+        localizationDesc = String.format(localizationDesc, exceptionParam);
         notifyError(project,
                 LocalizationConfigFactory.name(LocalizationEnum.NOTIFICATION_TITLE),
                 localizationDesc

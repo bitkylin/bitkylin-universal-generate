@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
+package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
@@ -11,7 +11,7 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.Annotation
 /**
  * @author bitkylin
  */
-public class CommandTypeAbstractWriteTagProcessor {
+public abstract class CommandTypeAbstractWriteTagProcessor extends AbstractCommandTypeProcessor {
 
     protected WriteContext writeContext;
 

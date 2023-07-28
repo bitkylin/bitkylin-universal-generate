@@ -4,24 +4,32 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state;
  * @author bitkylin
  */
 
-import com.google.common.base.Enums;
-import com.intellij.openapi.application.ApplicationManager;
+import com.google.common.collect.Lists;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @State(
         name = "cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.globalSettingsState",
         storages = @Storage("bitkylinUniversalGenerateSettings.xml")
 )
+@Getter
+@Setter
 public class GlobalSettingsState implements PersistentStateComponent<GlobalSettingsState> {
 
     private String language = "ENGLISH";
 
-    public static GlobalSettingsState getInstance() {
-        return ApplicationManager.getApplication().getService(GlobalSettingsState.class);
-    }
+    private List<String> annotationAffectedList = Lists.newArrayList(
+            AnnotationAffectedEnum.SWAGGER.name(),
+            AnnotationAffectedEnum.PROTOSTUFF.name()
+    );
+
+    private Boolean contextMenuShowed = true;
 
     @Override
     public GlobalSettingsState getState() {
@@ -33,17 +41,16 @@ public class GlobalSettingsState implements PersistentStateComponent<GlobalSetti
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    public void setLanguage(LanguageEnum language) {
-        this.language = language.name();
-    }
-
-    public LanguageEnum getLanguage() {
-        return Enums.getIfPresent(LanguageEnum.class, language).or(LanguageEnum.ENGLISH);
-    }
 
     public enum LanguageEnum {
         ENGLISH,
         CHINESE,
+        ;
+    }
+
+    public enum AnnotationAffectedEnum {
+        SWAGGER,
+        PROTOSTUFF,
         ;
     }
 

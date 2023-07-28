@@ -37,29 +37,37 @@ public final class WriteContextBuilder {
     }
 
     public WriteContext innerCreate() {
-        Project project = anActionEvent.getProject();
-        Preconditions.checkNotNull(project);
-
-        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
-        Preconditions.checkNotNull(editor);
-
-        PsiFile psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
-        Preconditions.checkNotNull(psiFile);
-
-        PsiClass psiClass = PsiTreeUtil.findChildOfAnyType(psiFile, PsiClass.class);
-        Preconditions.checkNotNull(psiClass);
-
-        // 通过光标偏移量获取当前psi元素
-        PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
 
         WriteContext writeContext = new WriteContext();
         WriteContext.PsiFileContext psiFileContext = new WriteContext.PsiFileContext();
         writeContext.setPsiFileContext(psiFileContext);
 
+        Project project = anActionEvent.getProject();
+        if (project == null) {
+            return writeContext;
+        }
         psiFileContext.setProject(project);
-        psiFileContext.setPsiFile(psiFile);
-        psiFileContext.setPsiClass(psiClass);
         psiFileContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
+
+        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
+        if (editor == null) {
+            return writeContext;
+        }
+
+        PsiFile psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
+        if (psiFile == null) {
+            return writeContext;
+        }
+        psiFileContext.setPsiFile(psiFile);
+
+        PsiClass psiClass = PsiTreeUtil.findChildOfAnyType(psiFile, PsiClass.class);
+        if (psiClass == null) {
+            return writeContext;
+        }
+        psiFileContext.setPsiClass(psiClass);
+
+        // 通过光标偏移量获取当前psi元素
+        PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
 
         WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
         selectWrapper.setCurrentElement(currentElement);
@@ -85,7 +93,7 @@ public final class WriteContextBuilder {
             writeContext.setFilePsiClassWrapper(psiClassWrapper);
         }
 
-        if (currentElement.getTextOffset() == psiClass.getTextOffset()) {
+        if (currentElement != null && currentElement.getTextOffset() == psiClass.getTextOffset()) {
             selectWrapper.setClz(psiClass);
             selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
             selectWrapper.setSelected(true);
@@ -93,7 +101,7 @@ public final class WriteContextBuilder {
 
         for (PsiFieldWrapper field : psiClassWrapper.getFieldList()) {
             PsiField psiField = field.getPsiField();
-            if (currentElement.getTextOffset() == psiField.getTextOffset()) {
+            if (currentElement != null && currentElement.getTextOffset() == psiField.getTextOffset()) {
                 selectWrapper.setField(field);
                 selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);
@@ -102,7 +110,7 @@ public final class WriteContextBuilder {
         }
         for (PsiMethodWrapper method : psiClassWrapper.getMethodList()) {
             PsiMethod psiMethod = method.getPsiMethod();
-            if (currentElement.getTextOffset() == psiMethod.getTextOffset()) {
+            if (currentElement != null && currentElement.getTextOffset() == psiMethod.getTextOffset()) {
                 selectWrapper.setMethod(method);
                 selectWrapper.setSelectedPsiClassWrapper(psiClassWrapper);
                 selectWrapper.setSelected(true);

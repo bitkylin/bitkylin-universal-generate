@@ -21,15 +21,26 @@ public enum LocalizationEnum {
 
     LABEL_LANGUAGE("language", "语言"),
 
-    RADIO_BUTTON_LANGUAGE_ENGLISH("English", "英文"),
+    RADIO_BUTTON_LANGUAGE_ENGLISH("English", "English"),
 
     RADIO_BUTTON_LANGUAGE_CHINESE("Chinese", "中文"),
+
+    LABEL_SCOPE_OF_EFFECT("Scope of effect", "作用范围"),
+
+    CHECK_BOX_SWAGGER_EFFECTED("Swagger", "Swagger"),
+
+    CHECK_BOX_PROTOSTUFF_EFFECTED("Protostuff", "Protostuff"),
+
+    LABEL_CONTEXT_MENU("Context Menu", "右键菜单"),
+
+    CHECK_BOX_SHOWED("Showed", "显示"),
+
 
     // endregion
 
     // region --------- 异常描述 -----------
 
-    CLASS_NOT_FOUND("The specified class could not be found", "找不到指定的类"),
+    CLASS_NOT_FOUND("The specified class could not be found : %s", "找不到指定的类 : %s"),
     ANNOTATION_TAG_ERROR("Incorrect information about @Tag annotations", "@Tag注解信息有误"),
     CLASS_ROLE_UNSUPPORTED("Class roles are not supported", "类的角色不被支持"),
     COMMAND_SCOPE_UNSUPPORTED("The current command scope is not supported", "当前的指令作用范围不被支持"),

@@ -24,6 +24,7 @@ public class WriteCommand {
 
         RE_GENERATE_SWAGGER_TO_JAVA_DOC,
         POPULATE_SWAGGER_TO_JAVA_DOC,
+        DELETE_TAG,
         ;
 
     }

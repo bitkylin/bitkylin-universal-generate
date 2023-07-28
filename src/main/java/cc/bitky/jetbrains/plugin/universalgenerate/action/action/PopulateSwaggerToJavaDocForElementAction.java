@@ -30,6 +30,7 @@ public class PopulateSwaggerToJavaDocForElementAction extends AbstractBitkylinUn
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_TAG).writeElement();
         });
     }
 

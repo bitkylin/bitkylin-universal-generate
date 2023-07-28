@@ -37,20 +37,20 @@
               <text value="English"/>
             </properties>
           </component>
-          <component id="b37a8" class="javax.swing.JLabel" binding="labelEffectsTo">
+          <component id="b37a8" class="javax.swing.JLabel" binding="labelScopeOfEffect">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value="scope of effect"/>
             </properties>
           </component>
-          <component id="362e8" class="javax.swing.JCheckBox" binding="checkBoxSwaggerEffected">
+          <component id="362e8" class="javax.swing.JCheckBox" binding="checkBoxSwaggerAffected">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="CheckBox"/>
+              <text value="Swagger"/>
             </properties>
           </component>
           <component id="8b331" class="javax.swing.JRadioButton" binding="radioButtonLanguageChinese">
@@ -61,28 +61,28 @@
               <text value="中文"/>
             </properties>
           </component>
-          <component id="30bd7" class="javax.swing.JCheckBox" binding="checkBoxProtostuffEffected">
+          <component id="30bd7" class="javax.swing.JCheckBox" binding="checkBoxProtostuffAffected">
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="CheckBox"/>
+              <text value="Protostuff"/>
             </properties>
           </component>
-          <component id="39070" class="javax.swing.JLabel" binding="labelEnabled">
+          <component id="39070" class="javax.swing.JLabel" binding="labelContextMenu">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value="context menu"/>
             </properties>
           </component>
-          <component id="56324" class="javax.swing.JCheckBox" binding="checkBoxEnabled">
+          <component id="56324" class="javax.swing.JCheckBox" binding="checkBoxShowed">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="CheckBox"/>
+              <text value="showed"/>
             </properties>
           </component>
         </children>

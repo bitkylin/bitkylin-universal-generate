@@ -11,7 +11,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 public class ActionFactory {
 
     public static AbstractBitkylinUniversalGenerateAction create(ActionConfig actionConfig, ActionEnum actionEnum) {
-        String titleText = actionConfig.fetchActionTitleByActionEnum(actionEnum);
+        String titleText = actionConfig.fetchActionTitle(actionEnum);
         return switch (actionEnum) {
             case RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT -> new ReGenerateSwaggerToJavaDocForElementAction(titleText);
             case RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_FILE -> new ReGenerateSwaggerToJavaDocForFileAction(titleText);

@@ -30,6 +30,7 @@ public class ReGenerateSwaggerToJavaDocForFileAction extends AbstractBitkylinUni
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_SWAGGER_TO_JAVA_DOC).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_TAG).writeFile();
         });
     }
 

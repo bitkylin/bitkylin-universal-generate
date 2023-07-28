@@ -30,6 +30,7 @@ public class PopulateSwaggerToJavaDocForFileAction extends AbstractBitkylinUnive
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_TAG).writeFile();
         });
     }
 

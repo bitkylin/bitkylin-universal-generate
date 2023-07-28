@@ -17,19 +17,62 @@
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-### bitkylin-universal-generate
-Canary Edition
 
-Acting on Controller class or POJO class, you can easily generate Protostuff annotation "@Tag" with one click, and can directly convert JavaDoc to Swagger2.0 annotations. In turn, you can easily convert Swagger2.0 annotations to JavaDoc with a single click.
+### What's this?
 
-More convenient features will be added later, so stay tuned!
+- Acting on Controller classes or POJO classes, you can easily generate Protostuff annotations (@Tag) with a single click and directly convert JavaDoc to Swagger annotations (@Api, @ApiOperation, @ApiModel, @ApiModelProperty) with a single click.
 
-### bitkylin-通用生成
-金丝雀版
+### 有什么用呢？
 
-作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
+- 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解(@Tag)，并且可以一键直接将JavaDoc转换为Swagger注解(@Api, @ApiOperation, @ApiModel, @ApiModelProperty)。反过来，你也可以一键将Swagger注解转换为JavaDoc。
 
-后续会添加更多方便的功能，敬请期待吧！
+### Features
+
+1. You can generate Swagger annotations (@Api, @ApiOperation, @ApiModel, @ApiModelProperty) with one click, and Protostuff annotations (@Tag) with one click via the right-click menu.
+2. you can through the right-click menu , one-click Swagger annotations converted to JavaDoc annotations .
+3. Currently supports two languages, English and Chinese, you can switch through the "settings -> tools -> Bitkylin Universal Generate" page.
+4. If you only need to manipulate Swagger annotations but not Protostuff annotations , and vice versa, don't worry, you can switch through the "settings -> tools -> Bitkylin Universal Generate" page.
+
+### 特性
+
+1. 你可以通过右键菜单，一键生成Swagger注解(@Api, @ApiOperation, @ApiModel, @ApiModelProperty), 一键生成Protostuff注解(@Tag)。
+2. 你可以通过右键菜单，一键将Swagger注解转换为JavaDoc注释。
+3. 当前支持两种语言，英文和中文，可以通过 "settings -> tools -> Bitkylin Universal Generate" 页面进行切换。
+4. 如果你只需要操作Swagger注解而不需要操作Protostuff注解，反之亦然，不用担心，你可以通过 "settings -> tools -> Bitkylin Universal Generate" 页面进行切换。
+
+### Tip.
+
+#### NO.1
+
+If you want to generate @Tag annotations for the entire document according to a customized starting number, just set the starting number in the first field in the class, then execute "Generate Entry Annotation" ,for example:
+
+如果你想按照自定义的起始序号，生成整个文档的@Tag注解，只需要在类中的第一个字段设置起始序号即可，然后执行"生成入口注解" ,例如：
+
+```java
+@Data
+public class TestRequest {
+
+    @Tag(105)
+    private String name;
+
+    /**
+     * bitkylin age
+     */
+    private Integer age;
+
+    private Address address;
+
+    public static class Address {
+
+        @Tag(208)
+        private String province;
+
+        private String city;
+
+        private String detailedAddress;
+    }
+}
+```
 
 <!-- Plugin description end -->
 

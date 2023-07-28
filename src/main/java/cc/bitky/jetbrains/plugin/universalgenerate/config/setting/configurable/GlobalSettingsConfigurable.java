@@ -4,11 +4,14 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable;
  * @author bitkylin
  */
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.GlobalSettingLocalizationConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.component.GlobalSettingsComponent;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
+import com.google.common.collect.Sets;
 import com.intellij.openapi.options.Configurable;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.SetUtils;
 
 import javax.swing.*;
 
@@ -37,8 +40,14 @@ public class GlobalSettingsConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        GlobalSettingsState settings = GlobalSettingsState.getInstance();
+        GlobalSettingsStateHelper settings = GlobalSettingsStateHelper.getInstance();
         if (globalSettingsComponent.getLanguage() != settings.getLanguage()) {
+            return true;
+        }
+        if (!SetUtils.isEqualSet(Sets.newHashSet(globalSettingsComponent.getAnnotationAffectedList()), Sets.newHashSet(settings.getAnnotationAffectedList()))) {
+            return true;
+        }
+        if (globalSettingsComponent.contextMenuShowed() != settings.isContextMenuShowed()) {
             return true;
         }
         return false;
@@ -46,19 +55,41 @@ public class GlobalSettingsConfigurable implements Configurable {
 
     @Override
     public void apply() {
-        GlobalSettingsState settings = GlobalSettingsState.getInstance();
+        GlobalSettingsStateHelper settings = GlobalSettingsStateHelper.getInstance();
         settings.setLanguage(globalSettingsComponent.getLanguage());
+        settings.setAnnotationAffectedList(globalSettingsComponent.getAnnotationAffectedList());
+        if (CollectionUtils.isEmpty(globalSettingsComponent.getAnnotationAffectedList())) {
+            settings.setContextMenuShowed(false);
+            globalSettingsComponent.setContextMenuShowed(false);
+        } else {
+            settings.setContextMenuShowed(globalSettingsComponent.contextMenuShowed());
+        }
     }
 
     @Override
     public void reset() {
         GlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.config();
-        globalSettingsComponent.setLabelLanguage(localizationConfig.labelLanguage());
-        globalSettingsComponent.setRadioButtonLanguageEnglish(localizationConfig.radioButtonLanguageEnglish());
-        globalSettingsComponent.setRadioButtonLanguageChinese(localizationConfig.radioButtonLanguageChinese());
+        globalSettingsComponent.setTextBlockLanguage(
+                localizationConfig.labelLanguage(),
+                localizationConfig.radioButtonLanguageEnglish(),
+                localizationConfig.radioButtonLanguageChinese()
+        );
 
-        GlobalSettingsState settingsState = GlobalSettingsState.getInstance();
+        globalSettingsComponent.setTextBlockScopeOfEffect(
+                localizationConfig.labelScopeOfEffect(),
+                localizationConfig.checkBoxSwaggerEffected(),
+                localizationConfig.checkBoxProtostuffEffected()
+        );
+
+        globalSettingsComponent.setTextBlockEnabled(
+                localizationConfig.labelContextMenu(),
+                localizationConfig.checkBoxShowed()
+        );
+
+        GlobalSettingsStateHelper settingsState = GlobalSettingsStateHelper.getInstance();
         globalSettingsComponent.setLanguage(settingsState.getLanguage());
+        globalSettingsComponent.setAnnotationAffectedList(settingsState.getAnnotationAffectedList());
+        globalSettingsComponent.setContextMenuShowed(settingsState.isContextMenuShowed());
     }
 
     @Override

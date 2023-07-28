@@ -32,13 +32,13 @@
     <actions>
         <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation"
                class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.GenerateAnnotationActionGroup"
-               text="生成Swagger和Protostuff注解" popup="true">
+               text="Generate Entry Annotation" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </group>
 
         <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc"
                class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.SwaggerToJavaDocActionGroup"
-               text="移除注解并生成JavaDoc" popup="true">
+               text="Annotation to JavaDoc - Init" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </group>
 
