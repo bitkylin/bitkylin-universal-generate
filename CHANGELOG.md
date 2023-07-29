@@ -4,17 +4,19 @@
 
 ## [Unreleased]
 
-## [0.9.1] - 2023-07-28
+## [0.9.2] - 2023-07-29
 
 ### Added
 
 - If you only need to manipulate Swagger annotations and not Protostuff annotations , and vice versa, don't worry, you can switch via the "settings -> tools -> Bitkylin Universal Generate" page.
+- Some problem fixes.
 
 ### 添加
 
 - 如果你只需要操作Swagger注解而不需要操作Protostuff注解，反之亦然，不用担心，你可以通过 "settings -> tools -> Bitkylin Universal Generate" 页面进行切换。
+- 一些问题修复。
 
-## [0.8.6] - 2023-07-26
+## [0.8.6] - 2023-07-27
 
 ### Added
 

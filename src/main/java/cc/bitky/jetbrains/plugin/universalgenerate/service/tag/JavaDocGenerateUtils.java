@@ -52,7 +52,7 @@ public final class JavaDocGenerateUtils {
         List<String> tagList = CommentParseUtils.parseTagListFromWholeJavaDoc(psiOwner.getDocComment());
 
 
-        if (CollectionUtils.isNotEmpty(commentList) || CollectionUtils.isNotEmpty(tagList)) {
+        if (CollectionUtils.isNotEmpty(commentList)) {
             return;
         }
 
