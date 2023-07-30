@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+- Add support for Kotlin language.
+- Add automatic generation of JavaDoc
+- 支持Kotlin语言
+- 添加自动生成JavaDoc
+
 ## [0.9.2] - 2023-07-29
 
 ### Added
@@ -41,11 +46,9 @@
 ### Added
 
 - Acting on Controller class or POJO class, you can easily generate Protostuff annotation "@Tag" with one click, and can directly convert JavaDoc to Swagger2.0 annotations. In turn, you can easily convert Swagger2.0 annotations to JavaDoc with a single click.
-
 - More convenient features will be added later, so stay tuned!
 
 ### 添加
 
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
-
 - 后续会添加更多方便的功能，敬请期待吧！
