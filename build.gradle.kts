@@ -38,7 +38,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
     implementation("org.apache.commons:commons-collections4:4.4")
     // https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
-    implementation("com.alibaba.fastjson2:fastjson2:2.0.36")
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.38")
 
 //    implementation(libs.annotations)
 }
