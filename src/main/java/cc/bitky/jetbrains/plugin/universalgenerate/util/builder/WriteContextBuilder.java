@@ -1,5 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util.builder;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
@@ -41,6 +42,8 @@ public final class WriteContextBuilder {
         WriteContext writeContext = new WriteContext();
         WriteContext.PsiFileContext psiFileContext = new WriteContext.PsiFileContext();
         writeContext.setPsiFileContext(psiFileContext);
+
+        psiFileContext.setLanguage(GlobalSettingsStateHelper.getInstance().getLanguage());
 
         Project project = anActionEvent.getProject();
         if (project == null) {

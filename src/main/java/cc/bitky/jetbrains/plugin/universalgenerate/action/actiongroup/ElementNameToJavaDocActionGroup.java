@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * @author bitkylin
  */
 @Slf4j
-public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenerateActionGroup {
+public class ElementNameToJavaDocActionGroup extends AbstractBitkylinUniversalGenerateActionGroup {
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
@@ -29,21 +29,21 @@ public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenera
                 anActionEvent.getPresentation().setVisible(false);
             }
             anActionEvent.getPresentation().setEnabled(false);
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForDumbMode());
+            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForDumbMode());
             return new AnAction[0];
         }
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForElement());
+            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForElement());
             return new AnAction[]{
-                    ActionFactory.create(actionConfig, ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT)
+                    ActionFactory.create(actionConfig, ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT),
+                    ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT)
             };
         }
-        updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForFile());
+        updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForFile());
         return new AnAction[]{
-                ActionFactory.create(actionConfig, ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE),
-                ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_FILE)
+                ActionFactory.create(actionConfig, ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE),
+                ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE)
         };
     }
 

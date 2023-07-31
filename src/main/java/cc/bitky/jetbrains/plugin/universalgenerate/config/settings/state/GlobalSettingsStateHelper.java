@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state;
+package cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.util.ListUtils;
 import com.google.common.base.Enums;

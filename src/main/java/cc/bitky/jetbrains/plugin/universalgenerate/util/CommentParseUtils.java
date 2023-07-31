@@ -1,6 +1,8 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.ElementNameSuffixInfo;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.intellij.psi.*;
@@ -9,9 +11,7 @@ import com.intellij.psi.javadoc.PsiDocTag;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author bitkylin
@@ -19,6 +19,40 @@ import java.util.List;
 public final class CommentParseUtils {
 
     private CommentParseUtils() {
+    }
+
+    public static List<String> parseCommentFromElementName(WriteContext.PsiFileContext psiFileContext, PsiField psiField) {
+        String pureFieldName = psiField.getName();
+        ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(pureFieldName);
+
+        if (elementNameSuffixInfoAdded != null) {
+            pureFieldName = elementNameSuffixInfoAdded.getElementName();
+        }
+
+        List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, pureFieldName);
+
+        if (CollectionUtils.isNotEmpty(commentList)) {
+            return createElementName(commentList, elementNameSuffixInfoAdded);
+        }
+
+        commentList = CommentQueryUtils.queryFieldJavaDocByNameFuzzy(psiFileContext, pureFieldName);
+
+        if (CollectionUtils.isNotEmpty(commentList)) {
+            return createElementName(commentList, elementNameSuffixInfoAdded);
+        }
+
+        return org.apache.commons.compress.utils.Lists.newArrayList();
+    }
+
+    private static List<String> createElementName(List<String> list, ElementNameSuffixInfo elementNameSuffixInfoAdded) {
+        Set<String> set = new LinkedHashSet<>();
+        for (String elementName : list) {
+            if (elementNameSuffixInfoAdded != null) {
+                elementName = elementName + " - " + elementNameSuffixInfoAdded.getSuffixName();
+            }
+            set.add(elementName);
+        }
+        return new ArrayList<>(set);
     }
 
     /**

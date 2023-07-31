@@ -53,6 +53,7 @@ public enum LocalizationEnum {
     // region --------- Action Group -----------
 
     EMPTY("empty space", "空白的"),
+    ELEMENT_NAME_TO_JAVA_DOC("Search JavaDoc", "查询JavaDoc"),
     ANNOTATION_TO_JAVA_DOC("Annotation to JavaDoc", "注解转JavaDoc"),
     GENERATE_ENTRY_ANNOTATION("Generate Entry Annotation", "生成入口注解"),
     FULL_DOCUMENT("Full Document", "整个文档"),
@@ -67,6 +68,18 @@ public enum LocalizationEnum {
     POPULATE_MISSING_ANNOTATION("Populate Missing Annotation", "填充缺失的注解"),
     POPULATE_MISSING_JAVA_DOC("Populate Missing JavaDoc", "填充缺失的JavaDoc"),
     RE_GENERATE_ANNOTATION("Re-Generate Annotation", "重新生成注解"),
+    POPULATE_ELEMENT_NAME_TO_JAVA_DOC("Populate Missing JavaDoc", "填充缺失的JavaDoc"),
+    RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC("Re-Generate JavaDoc", "重新生成JavaDoc"),
+
+    // endregion
+
+    // region --------- Action -----------
+
+    ELEMENT_NAME_SUFFIX_LIST("list", "列表"),
+    ELEMENT_NAME_SUFFIX_MAP("map", "Map"),
+    ELEMENT_NAME_SUFFIX_SET("set", "set"),
+    ELEMENT_NAME_SUFFIX_ARRAY("array", "数组"),
+    ELEMENT_NAME_SUFFIX_S("array", "集合"),
 
     // endregion
 

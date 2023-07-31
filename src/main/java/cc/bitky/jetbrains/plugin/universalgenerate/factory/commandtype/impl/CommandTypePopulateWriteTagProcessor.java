@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.calcNextGroupBeginNum;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcNextGroupBeginNum;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationForce;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationOriginalPrimary;
 

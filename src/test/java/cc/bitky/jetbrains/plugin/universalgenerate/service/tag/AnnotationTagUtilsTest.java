@@ -2,8 +2,8 @@ package cc.bitky.jetbrains.plugin.universalgenerate.service.tag;
 
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.calcCurrentGroupBeginNum;
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.calcNextGroupBeginNum;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcCurrentGroupBeginNum;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcNextGroupBeginNum;
 
 /**
  * @author bitkylin

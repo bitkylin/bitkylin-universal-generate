@@ -9,7 +9,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.JavaDocGenerateUtils.reGenerateWriteJavaDoc;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.reGenerateWriteJavaDocFromAnnotation;
 
 /**
  * 移除swagger注解，并转换为JavaDoc
@@ -28,12 +28,12 @@ public class CommandTypeReGenerateSwaggerToJavaDocProcessor extends AbstractComm
     public void doWriteFile() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
-            reGenerateWriteJavaDoc(psiFileContext, psiClassWrapper.getPsiClass());
+            reGenerateWriteJavaDocFromAnnotation(psiFileContext, psiClassWrapper.getPsiClass());
             for (PsiMethodWrapper psiMethodWrapper : psiClassWrapper.getMethodList()) {
-                reGenerateWriteJavaDoc(psiFileContext, psiMethodWrapper.getPsiMethod());
+                reGenerateWriteJavaDocFromAnnotation(psiFileContext, psiMethodWrapper.getPsiMethod());
             }
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                reGenerateWriteJavaDoc(psiFileContext, psiFieldWrapper.getPsiField());
+                reGenerateWriteJavaDocFromAnnotation(psiFileContext, psiFieldWrapper.getPsiField());
             }
         }
     }
@@ -47,17 +47,17 @@ public class CommandTypeReGenerateSwaggerToJavaDocProcessor extends AbstractComm
         }
 
         if (selectWrapper.getClz() != null) {
-            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
+            reGenerateWriteJavaDocFromAnnotation(writeContext.getPsiFileContext(), psiClassWrapper.getPsiClass());
             return;
         }
 
         if (selectWrapper.getMethod() != null) {
-            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
+            reGenerateWriteJavaDocFromAnnotation(writeContext.getPsiFileContext(), selectWrapper.getMethod().getPsiMethod());
             return;
         }
 
         if (selectWrapper.getField() != null) {
-            reGenerateWriteJavaDoc(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
+            reGenerateWriteJavaDocFromAnnotation(writeContext.getPsiFileContext(), selectWrapper.getField().getPsiField());
         }
     }
 

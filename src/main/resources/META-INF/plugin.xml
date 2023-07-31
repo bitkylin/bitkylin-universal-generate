@@ -16,11 +16,11 @@
                            displayType="BALLOON"
                            key="bitkylinErrorNotification"/>
         <applicationService
-                serviceImplementation="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState"/>
+                serviceImplementation="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState"/>
         <applicationConfigurable
                 parentId="tools"
-                instance="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
-                id="cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable.GlobalSettingsConfigurable"
+                instance="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
+                id="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
                 displayName="Bitkylin Universal Generate"/>
     </extensions>
 
@@ -41,6 +41,18 @@
                text="Annotation to JavaDoc - Init" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </group>
+
+        <group id="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.element-name-to-java-doc-action-group"
+               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.ElementNameToJavaDocActionGroup"
+               text="Search JavaDoc - Init" popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </group>
+
+        <!--        <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.DemoAnAction"-->
+        <!--               class="cc.bitky.jetbrains.plugin.universalgenerate.action.DemoAnAction"-->
+        <!--               text="DEMO" popup="true">-->
+        <!--            <add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+        <!--        </action>-->
 
     </actions>
 

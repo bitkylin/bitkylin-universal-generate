@@ -13,8 +13,8 @@ import com.google.common.collect.Sets;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.calcNextGroupBeginNum;
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.generateFieldTagAnnotation;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcNextGroupBeginNum;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.generateFieldTagAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.deleteAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationForce;
 

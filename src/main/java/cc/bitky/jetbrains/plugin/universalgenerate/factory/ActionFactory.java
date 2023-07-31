@@ -21,6 +21,10 @@ public class ActionFactory {
             case POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE -> new PopulateSwaggerToJavaDocForFileAction(titleText);
             case RE_GENERATE_ANNOTATION_FOR_ELEMENT -> new ReGenerateGenerateForElementAction(titleText);
             case RE_GENERATE_ANNOTATION_FOR_FILE -> new ReGenerateGenerateForFileAction(titleText);
+            case POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT -> new PopulateElementNameToJavaDocForElementAction(titleText);
+            case POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE -> new PopulateElementNameToJavaDocForFileAction(titleText);
+            case RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT -> new ReGenerateElementNameToJavaDocForElementAction(titleText);
+            case RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE -> new ReGenerateElementNameToJavaDocForFileAction(titleText);
         };
     }
 

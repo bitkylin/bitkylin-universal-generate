@@ -8,18 +8,16 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.deleteTagAnnotation;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.populateWriteJavaDocFromProjectElementName;
 
 /**
- * 删除Tag注解
- *
  * @author bitkylin
  */
-public class CommandTypeDeleteTagProcessor extends AbstractCommandTypeProcessor implements ICommandTypeProcessor {
+public class CommandTypePopulateElementNameToJavaDocProcessor extends AbstractCommandTypeProcessor implements ICommandTypeProcessor {
 
     private final WriteContext writeContext;
 
-    public CommandTypeDeleteTagProcessor(WriteContext writeContext) {
+    public CommandTypePopulateElementNameToJavaDocProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
     }
 
@@ -27,7 +25,10 @@ public class CommandTypeDeleteTagProcessor extends AbstractCommandTypeProcessor 
     public void doWriteFile() {
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                deleteTagAnnotation(psiFieldWrapper.getPsiField());
+                populateWriteJavaDocFromProjectElementName(
+                        writeContext.getPsiFileContext(),
+                        psiFieldWrapper.getPsiField()
+                );
             }
         }
     }
@@ -39,7 +40,10 @@ public class CommandTypeDeleteTagProcessor extends AbstractCommandTypeProcessor 
             throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.ELEMENT_NOT_SELECT);
         }
         if (selectWrapper.getField() != null) {
-            deleteTagAnnotation(selectWrapper.getField().getPsiField());
+            populateWriteJavaDocFromProjectElementName(
+                    writeContext.getPsiFileContext(),
+                    selectWrapper.getField().getPsiField()
+            );
         }
     }
 

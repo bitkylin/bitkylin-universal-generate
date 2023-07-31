@@ -6,7 +6,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.service.tag.AnnotationTagUtils.calcCurrentGroupBeginNum;
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcCurrentGroupBeginNum;
 
 /**
  * @author bitkylin

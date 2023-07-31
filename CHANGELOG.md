@@ -4,8 +4,10 @@
 
 ## [Unreleased]
 
+- Add support for IDEA 2020.3
 - Add support for Kotlin language.
 - Add automatic generation of JavaDoc
+- 支持 IDEA 2020.3
 - 支持Kotlin语言
 - 添加自动生成JavaDoc
 

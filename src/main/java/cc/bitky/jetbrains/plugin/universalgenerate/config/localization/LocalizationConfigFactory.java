@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.config.localization;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
 
 /**

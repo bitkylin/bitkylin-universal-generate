@@ -15,8 +15,8 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.constants.Localization
  */
 public class ActionConfig {
 
-    public static final Map<ActionEnum, LocalizationEnum> ACTION_MAP = Maps.newHashMap();
-    public static final Map<ActionGroupEnum, LocalizationEnum> ACTION_GROUP_MAP = Maps.newHashMap();
+    protected static final Map<ActionEnum, LocalizationEnum> ACTION_MAP = Maps.newHashMap();
+    protected static final Map<ActionGroupEnum, LocalizationEnum> ACTION_GROUP_MAP = Maps.newHashMap();
 
     static {
         ACTION_MAP.put(ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT, RE_GENERATE_TO_JAVA_DOC);
@@ -27,7 +27,12 @@ public class ActionConfig {
         ACTION_MAP.put(ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE, POPULATE_MISSING_JAVA_DOC);
         ACTION_MAP.put(ActionEnum.RE_GENERATE_ANNOTATION_FOR_ELEMENT, RE_GENERATE_ANNOTATION);
         ACTION_MAP.put(ActionEnum.RE_GENERATE_ANNOTATION_FOR_FILE, RE_GENERATE_ANNOTATION);
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT, RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE, RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT, POPULATE_ELEMENT_NAME_TO_JAVA_DOC);
+        ACTION_MAP.put(ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_FILE, POPULATE_ELEMENT_NAME_TO_JAVA_DOC);
 
+        ACTION_GROUP_MAP.put(ActionGroupEnum.ELEMENT_TO_JAVA_DOC, ELEMENT_NAME_TO_JAVA_DOC);
         ACTION_GROUP_MAP.put(ActionGroupEnum.SWAGGER_TO_JAVA_DOC, ANNOTATION_TO_JAVA_DOC);
         ACTION_GROUP_MAP.put(ActionGroupEnum.GENERATE_ANNOTATION, GENERATE_ENTRY_ANNOTATION);
     }

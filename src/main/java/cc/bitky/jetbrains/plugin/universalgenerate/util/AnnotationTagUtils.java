@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.service.tag;
+package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;

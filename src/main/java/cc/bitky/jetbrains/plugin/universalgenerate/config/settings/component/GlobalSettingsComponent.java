@@ -1,6 +1,6 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.component;
+package cc.bitky.jetbrains.plugin.universalgenerate.config.settings.component;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 

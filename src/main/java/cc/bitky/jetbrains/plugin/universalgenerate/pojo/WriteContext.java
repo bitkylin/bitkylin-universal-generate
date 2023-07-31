@@ -1,5 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.pojo;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import com.google.common.collect.Lists;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
@@ -72,8 +73,15 @@ public class WriteContext {
 
         private PsiElementFactory elementFactory;
 
+        private GlobalSettingsState.LanguageEnum language;
+
         public boolean valid() {
-            return project != null && psiFile != null && psiClass != null && elementFactory != null;
+            return project != null
+                    && psiFile != null
+                    && psiClass != null
+                    && elementFactory != null
+                    && language != null
+                    ;
         }
 
     }

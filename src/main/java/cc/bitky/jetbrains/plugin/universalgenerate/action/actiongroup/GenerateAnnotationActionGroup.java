@@ -2,7 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base.AbstractBitkylinUniversalGenerateActionGroup;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.ActionFactory;

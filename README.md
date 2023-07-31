@@ -1,4 +1,4 @@
-# bitkylin-universal-generate
+# Bitkylin Universal Generate
 
 ![Build](https://github.com/bitkylin/bitkylin-universal-generate/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
@@ -108,13 +108,21 @@ public class TestController {
 }
 ```
 
+### 感谢
+
+感谢以下项目提供的灵感与实现方式：
+
+- https://github.com/starcwang/easy_javadoc
+- https://github.com/EverSpring/swagger-tool
+- https://github.com/huangbaihua001/RestfulToolkitX
+
 <!-- Plugin description end -->
 
 ## Installation
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "bitkylin-universal-generate"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Bitkylin Universal Generate"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:

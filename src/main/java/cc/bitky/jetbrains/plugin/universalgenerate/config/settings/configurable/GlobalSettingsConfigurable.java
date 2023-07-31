@@ -1,4 +1,4 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable;
+package cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable;
 
 /**
  * @author bitkylin
@@ -6,8 +6,8 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.setting.configurable;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.GlobalSettingLocalizationConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.component.GlobalSettingsComponent;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.component.GlobalSettingsComponent;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.options.Configurable;
 import org.apache.commons.collections4.CollectionUtils;

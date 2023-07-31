@@ -1,16 +1,18 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.service.tag;
+package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.CommentParseUtils;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
 import com.intellij.psi.PsiDocCommentOwner;
+import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiModifierListOwner;
 import com.intellij.psi.javadoc.PsiDocComment;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.compress.utils.Lists;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.CommentParseUtils.parseCommentFromElementName;
 
 /**
  * @author bitkylin
@@ -24,7 +26,38 @@ public final class JavaDocGenerateUtils {
         GenerateUtils.deleteTagAnnotation(psiOwner);
     }
 
-    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void reGenerateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
+    public static void reGenerateWriteJavaDocFromProjectElementName(WriteContext.PsiFileContext psiFileContext, PsiField psiField) {
+        GenerateUtils.deleteJavaDoc(psiField.getDocComment());
+        List<String> commentList = parseCommentFromElementName(psiFileContext, psiField);
+
+        PsiDocComment psiDocCommentNew = psiFileContext.getElementFactory()
+                .createDocCommentFromText(beautifyJavaDocFromComment(
+                        Lists.newArrayList(),
+                        commentList,
+                        Lists.newArrayList())
+                );
+        psiField.addBefore(psiDocCommentNew, psiField.getFirstChild());
+    }
+
+    public static void populateWriteJavaDocFromProjectElementName(WriteContext.PsiFileContext psiFileContext, PsiField psiField) {
+        List<String> rawCommentList = CommentParseUtils.parseCommentListFromWholeJavaDoc(psiField.getDocComment());
+        GenerateUtils.deleteJavaDoc(psiField.getDocComment());
+        List<String> newCommentList = parseCommentFromElementName(psiFileContext, psiField);
+
+        List<String> commentList = Lists.newArrayList();
+        commentList.addAll(newCommentList);
+        commentList.addAll(rawCommentList);
+
+        PsiDocComment psiDocCommentNew = psiFileContext.getElementFactory()
+                .createDocCommentFromText(beautifyJavaDocFromComment(
+                        Lists.newArrayList(),
+                        commentList,
+                        Lists.newArrayList())
+                );
+        psiField.addBefore(psiDocCommentNew, psiField.getFirstChild());
+    }
+
+    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void reGenerateWriteJavaDocFromAnnotation(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
         GenerateUtils.deleteSwaggerAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {
@@ -41,7 +74,7 @@ public final class JavaDocGenerateUtils {
         psiOwner.addBefore(psiDocCommentNew, psiOwner.getFirstChild());
     }
 
-    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void populateWriteJavaDoc(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
+    public static <T extends PsiModifierListOwner & PsiDocCommentOwner> void populateWriteJavaDocFromAnnotation(WriteContext.PsiFileContext psiFileContext, T psiOwner) {
         List<String> annotationList = CommentParseUtils.parseAnnotationText(psiOwner);
         GenerateUtils.deleteSwaggerAnnotation(psiOwner);
         if (CollectionUtils.isEmpty(annotationList)) {

@@ -1,8 +1,8 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsState;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.setting.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteCommand;
@@ -40,6 +40,8 @@ public final class CommandCommandTypeProcessorFactory {
                 case POPULATE_SWAGGER_TO_JAVA_DOC -> {
                     return new CommandTypePopulateSwaggerToJavaDocProcessor(writeContext);
                 }
+                default -> {
+                }
             }
         }
 
@@ -54,7 +56,19 @@ public final class CommandCommandTypeProcessorFactory {
                 case DELETE_TAG -> {
                     return new CommandTypeDeleteTagProcessor(writeContext);
                 }
+                default -> {
+                }
+            }
+        }
 
+        switch (command) {
+            case RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC -> {
+                return new CommandTypeReGenerateElementNameToJavaDocProcessor(writeContext);
+            }
+            case POPULATE_ELEMENT_NAME_TO_JAVA_DOC -> {
+                return new CommandTypePopulateElementNameToJavaDocProcessor(writeContext);
+            }
+            default -> {
             }
         }
 
