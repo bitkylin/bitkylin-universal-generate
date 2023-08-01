@@ -5,6 +5,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -21,6 +22,10 @@ public class AbstractBitkylinUniversalGenerateActionGroup extends DefaultActionG
                                    ActionConfig actionConfig,
                                    ActionGroupEnum actionGroupEnum,
                                    String scope) {
+        if (StringUtils.isBlank(scope)) {
+            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum));
+            return;
+        }
         anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + scope);
     }
 }
