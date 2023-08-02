@@ -40,6 +40,9 @@ public final class CommandCommandTypeProcessorFactory {
                 case POPULATE_SWAGGER_TO_JAVA_DOC -> {
                     return new CommandTypePopulateSwaggerToJavaDocProcessor(writeContext);
                 }
+                case DELETE_ANNOTATION_SWAGGER -> {
+                    return new CommandTypeDeleteAnnotationSwaggerProcessor(writeContext);
+                }
                 default -> {
                 }
             }
@@ -53,8 +56,8 @@ public final class CommandCommandTypeProcessorFactory {
                 case POPULATE_WRITE_TAG -> {
                     return new CommandTypePopulateWriteTagProcessor(writeContext, new AnnotationTagConfig());
                 }
-                case DELETE_TAG -> {
-                    return new CommandTypeDeleteTagProcessor(writeContext);
+                case DELETE_ANNOTATION_TAG -> {
+                    return new CommandTypeDeleteAnnotationTagProcessor(writeContext);
                 }
                 default -> {
                 }
@@ -67,6 +70,9 @@ public final class CommandCommandTypeProcessorFactory {
             }
             case POPULATE_ELEMENT_NAME_TO_JAVA_DOC -> {
                 return new CommandTypePopulateElementNameToJavaDocProcessor(writeContext);
+            }
+            case DELETE_JAVA_DOC -> {
+                return new CommandTypeDeleteJavaDocProcessor(writeContext);
             }
             default -> {
             }

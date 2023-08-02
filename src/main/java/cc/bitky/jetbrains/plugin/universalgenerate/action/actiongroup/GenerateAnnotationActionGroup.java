@@ -12,6 +12,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,11 +24,12 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
+        if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
+            anActionEvent.getPresentation().setVisible(false);
+            return new AnAction[0];
+        }
         ActionConfig actionConfig = new ActionConfig();
         if (DumbService.isDumb(anActionEvent.getProject())) {
-            if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
-                anActionEvent.getPresentation().setVisible(false);
-            }
             anActionEvent.getPresentation().setEnabled(false);
             updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForDumbMode());
             return new AnAction[0];
@@ -49,6 +51,12 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
-//        log.error("update - GenerateAnnotationActionGroup");
+        if (CollectionUtils.isNotEmpty(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList())) {
+            anActionEvent.getPresentation().setEnabled(true);
+            anActionEvent.getPresentation().setVisible(true);
+            return;
+        }
+        anActionEvent.getPresentation().setEnabled(false);
+        anActionEvent.getPresentation().setVisible(false);
     }
 }

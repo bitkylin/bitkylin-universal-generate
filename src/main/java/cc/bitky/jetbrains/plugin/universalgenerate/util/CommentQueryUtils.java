@@ -3,6 +3,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.ElementNameSuffixConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.ElementNameSuffixInfo;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.google.common.collect.Lists;
@@ -17,6 +18,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static cc.bitky.jetbrains.plugin.universalgenerate.util.CommentParseUtils.parseAnnotationText;
+
 /**
  * @author bitkylin
  */
@@ -30,20 +33,33 @@ public final class CommentQueryUtils {
         if (StringUtils.isBlank(elementName)) {
             return Lists.newArrayList();
         }
-        Collection<PsiField> psiFields = JavaFieldNameIndex.getInstance().get(
+        Collection<PsiField> psiFieldList = JavaFieldNameIndex.getInstance().get(
                 elementName,
                 psiFileContext.getProject(),
                 GlobalSearchScope.projectScope(psiFileContext.getProject())
         );
-        if (CollectionUtils.isEmpty(psiFields)) {
+        if (CollectionUtils.isEmpty(psiFieldList)) {
             return Lists.newArrayList();
         }
 
-        return psiFields.stream()
+        List<String> commentList = psiFieldList.stream()
                 .map(PsiJavaDocumentedElement::getDocComment)
                 .map(CommentParseUtils::parseCommentListFromWholeJavaDoc)
                 .flatMap(Collection::stream)
+                .map(StringUtils::trimToEmpty)
+                .filter(StringUtils::isNotBlank)
+                .distinct()
                 .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(commentList)) {
+            commentList = psiFieldList.stream()
+                    .map(psiField -> parseAnnotationText(ModifierAnnotationEnum.API_MODEL_PROPERTY, psiField))
+                    .flatMap(Collection::stream)
+                    .map(StringUtils::trimToEmpty)
+                    .filter(StringUtils::isNotBlank)
+                    .distinct()
+                    .collect(Collectors.toList());
+        }
+        return commentList;
     }
 
     public static String removeElementCommentSuffix(String elementName) {
@@ -52,7 +68,10 @@ public final class CommentQueryUtils {
         }
         for (String suffixComment : ElementNameSuffixConfig.fuzzySuffixNameSet()) {
             if (StringUtils.endsWithIgnoreCase(elementName, suffixComment)) {
-                return StringUtils.trimToEmpty(elementName.substring(0, elementName.length() - suffixComment.length()));
+                elementName = StringUtils.trimToEmpty(elementName.substring(0, elementName.length() - suffixComment.length()));
+                if (StringUtils.endsWith(elementName, "-")) {
+                    return StringUtils.trimToEmpty(elementName.substring(0, elementName.length() - 1));
+                }
             }
         }
         return elementName;

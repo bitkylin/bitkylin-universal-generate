@@ -1,6 +1,8 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.action;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.action.base.AbstractBitkylinUniversalGenerateAction;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandCommandTypeProcessorFactory;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteCommand;
@@ -9,18 +11,19 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.builder.WriteContextBuil
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author bitkylin
  */
 @Slf4j
-public class PopulateSwaggerToJavaDocForElementAction extends AbstractBitkylinUniversalGenerateAction {
+public class DeleteElementAnnotationTagForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public PopulateSwaggerToJavaDocForElementAction(String text) {
+    public DeleteElementAnnotationTagForElementAction(String text) {
         super(text);
     }
 
-    public PopulateSwaggerToJavaDocForElementAction() {
+    public DeleteElementAnnotationTagForElementAction() {
         super();
     }
 
@@ -29,13 +32,23 @@ public class PopulateSwaggerToJavaDocForElementAction extends AbstractBitkylinUn
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeElement();
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeElement();
         });
     }
 
     @Override
+    public void update(@NotNull AnActionEvent anActionEvent) {
+        if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.PROTOSTUFF)) {
+            anActionEvent.getPresentation().setEnabled(true);
+            anActionEvent.getPresentation().setVisible(true);
+            return;
+        }
+        anActionEvent.getPresentation().setEnabled(false);
+        anActionEvent.getPresentation().setVisible(false);
+    }
+
+    @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT;
+        return ActionEnum.DELETE_ANNOTATION_TAG_FOR_ELEMENT;
     }
 }

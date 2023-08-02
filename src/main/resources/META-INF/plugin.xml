@@ -30,29 +30,36 @@
     </applicationListeners>
 
     <actions>
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation"
-               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.GenerateAnnotationActionGroup"
-               text="Generate Entry Annotation" popup="true">
+        <group id="cc-bitky-jetbrains-plugin-universalgenerate-action-actiongroup-global-universal-generate-action-group"
+               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.GlobalUniversalGenerateActionGroup"
+               text="Universal Generate" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </group>
 
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc"
-               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.SwaggerToJavaDocActionGroup"
-               text="Annotation to JavaDoc - Init" popup="true">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </group>
+            <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-annotation"
+                   class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.GenerateAnnotationActionGroup"
+                   text="Generate Entry Annotation" popup="true">
+            </group>
 
-        <group id="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.element-name-to-java-doc-action-group"
-               class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.ElementNameToJavaDocActionGroup"
-               text="Search JavaDoc - Init" popup="true">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </group>
+            <separator/>
 
-        <!--        <action id="cc.bitky.jetbrains.plugin.universalgenerate.action.DemoAnAction"-->
-        <!--               class="cc.bitky.jetbrains.plugin.universalgenerate.action.DemoAnAction"-->
-        <!--               text="DEMO" popup="true">-->
-        <!--            <add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
-        <!--        </action>-->
+            <group id="cc.bitky.jetbrains.plugin.universalgenerate.group.generate-java-doc"
+                   class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.SwaggerToJavaDocActionGroup"
+                   text="Annotation to JavaDoc - Init" popup="true">
+            </group>
+
+            <group id="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.element-name-to-java-doc-action-group"
+                   class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.ElementNameToJavaDocActionGroup"
+                   text="Search JavaDoc - Init" popup="true">
+            </group>
+
+            <separator/>
+
+            <group id="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.delete-element-action-group"
+                   class="cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.DeleteElementActionGroup"
+                   text="Delete Element - Init" popup="true">
+            </group>
+
+        </group>
 
     </actions>
 

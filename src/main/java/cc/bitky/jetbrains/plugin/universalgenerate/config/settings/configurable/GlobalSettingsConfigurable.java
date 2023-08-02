@@ -10,7 +10,6 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.component.Glo
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.options.Configurable;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.SetUtils;
 
 import javax.swing.*;
@@ -58,12 +57,7 @@ public class GlobalSettingsConfigurable implements Configurable {
         GlobalSettingsStateHelper settings = GlobalSettingsStateHelper.getInstance();
         settings.setLanguage(globalSettingsComponent.getLanguage());
         settings.setAnnotationAffectedList(globalSettingsComponent.getAnnotationAffectedList());
-        if (CollectionUtils.isEmpty(globalSettingsComponent.getAnnotationAffectedList())) {
-            settings.setContextMenuShowed(false);
-            globalSettingsComponent.setContextMenuShowed(false);
-        } else {
-            settings.setContextMenuShowed(globalSettingsComponent.contextMenuShowed());
-        }
+        settings.setContextMenuShowed(globalSettingsComponent.contextMenuShowed());
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ReGenerateSwaggerToJavaDocForElementAction extends AbstractBitkylin
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_SWAGGER_TO_JAVA_DOC).writeElement();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_TAG).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeElement();
         });
     }
 

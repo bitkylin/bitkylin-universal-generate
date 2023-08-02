@@ -11,15 +11,19 @@
 - 支持Kotlin语言
 - 添加自动生成JavaDoc
 
-## [0.9.3-SNAPSHOT] - 2023-07-31
+## [0.9.4] - 2023-08-03
 
 ### Added
 
-- 根据项目中的同名字段，精确或模糊匹配注释，生成指定字段的JavaDoc
+- According to the same name field in the project, exact or fuzzy matching annotations and Swagger annotations to generate JavaDoc for the specified field.
+- Add the deletion function of JavaDoc, Swagger annotations and Protostuff annotations.
+- Optimize the display of the right-click menu
 
 ### 添加
 
-- 根据项目中的同名字段，精确或模糊匹配注释，生成指定字段的JavaDoc
+- 根据项目中的同名字段，精确或模糊匹配注释及Swagger注解，生成指定字段的JavaDoc
+- 增加JavaDoc、Swagger注解、Protostuff注解的删除功能
+- 优化右键菜单的展示形式
 
 ## [0.9.2] - 2023-07-29
 

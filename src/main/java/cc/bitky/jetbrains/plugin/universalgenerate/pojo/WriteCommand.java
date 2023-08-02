@@ -26,7 +26,9 @@ public class WriteCommand {
         POPULATE_SWAGGER_TO_JAVA_DOC,
         RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC,
         POPULATE_ELEMENT_NAME_TO_JAVA_DOC,
-        DELETE_TAG,
+        DELETE_ANNOTATION_TAG,
+        DELETE_ANNOTATION_SWAGGER,
+        DELETE_JAVA_DOC,
         ;
 
     }

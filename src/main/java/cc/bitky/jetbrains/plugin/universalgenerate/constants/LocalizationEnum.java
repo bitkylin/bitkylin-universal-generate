@@ -53,9 +53,11 @@ public enum LocalizationEnum {
     // region --------- Action Group -----------
 
     EMPTY("empty space", "空白的"),
-    ELEMENT_NAME_TO_JAVA_DOC("Search JavaDoc", "查询JavaDoc"),
+    GLOBAL_UNIVERSAL_GENERATE("Universal Generate", "通用生成"),
+    ELEMENT_NAME_TO_JAVA_DOC("Search JavaDoc", "查找JavaDoc"),
     ANNOTATION_TO_JAVA_DOC("Annotation to JavaDoc", "注解转JavaDoc"),
     GENERATE_ENTRY_ANNOTATION("Generate Entry Annotation", "生成入口注解"),
+    DELETE_ELEMENT("Delete Element", "删除元素"),
     FULL_DOCUMENT("Full Document", "整个文档"),
     CURRENT_ELEMENT("Current Element", "当前元素"),
     DUMB_MODE("Dumb Mode", "哑模式"),
@@ -71,6 +73,11 @@ public enum LocalizationEnum {
     POPULATE_ELEMENT_NAME_TO_JAVA_DOC("Populate Missing JavaDoc", "填充缺失的JavaDoc"),
     RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC("Re-Generate JavaDoc", "重新生成JavaDoc"),
 
+
+    DELETE_JAVA_DOC("Delete JavaDoc", "删除JavaDoc"),
+    DELETE_ANNOTATION_SWAGGER("Delete Swagger Annotation", "删除Swagger注解"),
+    DELETE_ANNOTATION_TAG("Delete Tag Annotation", "删除Tag注解"),
+    DELETE_ELEMENT_ALL("Delete All", "删除全部元素"),
     // endregion
 
     // region --------- Action -----------
@@ -79,7 +86,7 @@ public enum LocalizationEnum {
     ELEMENT_NAME_SUFFIX_MAP("map", "Map"),
     ELEMENT_NAME_SUFFIX_SET("set", "set"),
     ELEMENT_NAME_SUFFIX_ARRAY("array", "数组"),
-    ELEMENT_NAME_SUFFIX_S("array", "集合"),
+    ELEMENT_NAME_SUFFIX_S("", ""),
 
     // endregion
 

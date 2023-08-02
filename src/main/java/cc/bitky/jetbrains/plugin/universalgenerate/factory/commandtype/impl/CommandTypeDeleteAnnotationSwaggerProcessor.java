@@ -5,29 +5,32 @@ import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandT
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.AbstractCommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
-
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.deleteTagAnnotation;
 
 /**
  * 删除Tag注解
  *
  * @author bitkylin
  */
-public class CommandTypeDeleteTagProcessor extends AbstractCommandTypeProcessor implements ICommandTypeProcessor {
+public class CommandTypeDeleteAnnotationSwaggerProcessor extends AbstractCommandTypeProcessor implements ICommandTypeProcessor {
 
     private final WriteContext writeContext;
 
-    public CommandTypeDeleteTagProcessor(WriteContext writeContext) {
+    public CommandTypeDeleteAnnotationSwaggerProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
     }
 
-    @Override
     public void doWriteFile() {
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
+            GenerateUtils.deleteSwaggerAnnotation(psiClassWrapper.getPsiClass());
+            for (PsiMethodWrapper psiMethodWrapper : psiClassWrapper.getMethodList()) {
+                GenerateUtils.deleteSwaggerAnnotation(psiMethodWrapper.getPsiMethod());
+            }
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                deleteTagAnnotation(psiFieldWrapper.getPsiField());
+                GenerateUtils.deleteSwaggerAnnotation(psiFieldWrapper.getPsiField());
             }
         }
     }
@@ -38,9 +41,22 @@ public class CommandTypeDeleteTagProcessor extends AbstractCommandTypeProcessor 
         if (!selectWrapper.isSelected()) {
             throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.ELEMENT_NOT_SELECT);
         }
+
+        if (selectWrapper.getClz() != null) {
+            GenerateUtils.deleteSwaggerAnnotation(selectWrapper.getClz());
+
+            return;
+        }
+
+        if (selectWrapper.getMethod() != null) {
+            GenerateUtils.deleteSwaggerAnnotation(selectWrapper.getMethod().getPsiMethod());
+            return;
+        }
+
         if (selectWrapper.getField() != null) {
-            deleteTagAnnotation(selectWrapper.getField().getPsiField());
+            GenerateUtils.deleteSwaggerAnnotation(selectWrapper.getField().getPsiField());
         }
     }
+
 
 }

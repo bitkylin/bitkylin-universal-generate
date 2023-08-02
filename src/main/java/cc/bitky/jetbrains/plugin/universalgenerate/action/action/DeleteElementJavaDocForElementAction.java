@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
  * @author bitkylin
  */
 @Slf4j
-public class PopulateSwaggerToJavaDocForFileAction extends AbstractBitkylinUniversalGenerateAction {
+public class DeleteElementJavaDocForElementAction extends AbstractBitkylinUniversalGenerateAction {
 
-    public PopulateSwaggerToJavaDocForFileAction(String text) {
+    public DeleteElementJavaDocForElementAction(String text) {
         super(text);
     }
 
-    public PopulateSwaggerToJavaDocForFileAction() {
+    public DeleteElementJavaDocForElementAction() {
         super();
     }
 
@@ -29,13 +29,12 @@ public class PopulateSwaggerToJavaDocForFileAction extends AbstractBitkylinUnive
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
 
         WriteCommandAction.runWriteCommandAction(writeContext.fetchProject(), () -> {
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeFile();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_JAVA_DOC).writeElement();
         });
     }
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE;
+        return ActionEnum.DELETE_JAVA_DOC_FOR_ELEMENT;
     }
 }

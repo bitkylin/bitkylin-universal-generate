@@ -11,7 +11,9 @@ import com.intellij.psi.javadoc.PsiDocTag;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * @author bitkylin
@@ -26,10 +28,11 @@ public final class CommentParseUtils {
         ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(pureFieldName);
 
         if (elementNameSuffixInfoAdded != null) {
-            pureFieldName = elementNameSuffixInfoAdded.getElementName();
+            pureFieldName = elementNameSuffixInfoAdded.getResolvedElementName();
         }
 
         List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, pureFieldName);
+        commentList = ListUtils.distinctMap(commentList, CommentQueryUtils::removeElementCommentSuffix);
 
         if (CollectionUtils.isNotEmpty(commentList)) {
             return createElementName(commentList, elementNameSuffixInfoAdded);
@@ -41,18 +44,18 @@ public final class CommentParseUtils {
             return createElementName(commentList, elementNameSuffixInfoAdded);
         }
 
-        return org.apache.commons.compress.utils.Lists.newArrayList();
+        return Lists.newArrayList();
     }
 
-    private static List<String> createElementName(List<String> list, ElementNameSuffixInfo elementNameSuffixInfoAdded) {
-        Set<String> set = new LinkedHashSet<>();
-        for (String elementName : list) {
-            if (elementNameSuffixInfoAdded != null) {
+    private static List<String> createElementName(List<String> rawCommentNameList, ElementNameSuffixInfo elementNameSuffixInfoAdded) {
+        List<String> list = Lists.newArrayList();
+        for (String elementName : rawCommentNameList) {
+            if (elementNameSuffixInfoAdded != null && StringUtils.isNotBlank(elementNameSuffixInfoAdded.getSuffixName())) {
                 elementName = elementName + " - " + elementNameSuffixInfoAdded.getSuffixName();
             }
-            set.add(elementName);
+            list.add(elementName);
         }
-        return new ArrayList<>(set);
+        return list;
     }
 
     /**
@@ -135,7 +138,7 @@ public final class CommentParseUtils {
             if (StringUtils.isBlank(text)) {
                 continue;
             }
-            returnList.add(StringUtils.trim(text));
+            returnList.add(StringUtils.trimToEmpty(text));
         }
         return returnList;
     }
