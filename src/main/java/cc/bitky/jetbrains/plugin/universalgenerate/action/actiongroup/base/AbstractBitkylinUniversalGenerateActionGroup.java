@@ -2,6 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
@@ -16,6 +17,23 @@ public class AbstractBitkylinUniversalGenerateActionGroup extends DefaultActionG
     @Override
     public @NotNull ActionUpdateThread getActionUpdateThread() {
         return ActionUpdateThread.BGT;
+    }
+
+    protected void updateGroupTextForSelected(AnActionEvent anActionEvent,
+                                              ActionConfig actionConfig,
+                                              ActionGroupEnum actionGroupEnum,
+                                              WriteContext.SelectWrapper selectWrapper) {
+        if (selectWrapper.getField() != null) {
+            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentField());
+            return;
+        }
+        if (selectWrapper.getMethod() != null) {
+            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentMethod());
+            return;
+        }
+        if (selectWrapper.getClz() != null) {
+            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentClassName());
+        }
     }
 
     protected void updateGroupText(AnActionEvent anActionEvent,

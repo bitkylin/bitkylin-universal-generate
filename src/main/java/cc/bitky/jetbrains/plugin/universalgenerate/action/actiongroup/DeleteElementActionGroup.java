@@ -13,8 +13,11 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Separator;
 import com.intellij.openapi.project.DumbService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * @author bitkylin
@@ -36,14 +39,7 @@ public class DeleteElementActionGroup extends AbstractBitkylinUniversalGenerateA
         }
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.DELETE_ELEMENT, actionConfig.fetchTextForElement());
-            return new AnAction[]{
-                    ActionFactory.create(actionConfig, ActionEnum.DELETE_ELEMENT_ALL_FOR_ELEMENT),
-                    Separator.create(),
-                    ActionFactory.create(actionConfig, ActionEnum.DELETE_JAVA_DOC_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.DELETE_ANNOTATION_SWAGGER_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.DELETE_ANNOTATION_TAG_FOR_ELEMENT)
-            };
+            return anActionListForSelected(anActionEvent, writeContext.getSelectWrapper(), actionConfig);
         }
         updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.DELETE_ELEMENT, actionConfig.fetchTextForFile());
         return new AnAction[]{
@@ -55,8 +51,21 @@ public class DeleteElementActionGroup extends AbstractBitkylinUniversalGenerateA
         };
     }
 
+    private AnAction[] anActionListForSelected(AnActionEvent anActionEvent, WriteContext.SelectWrapper selectWrapper, ActionConfig actionConfig) {
+        updateGroupTextForSelected(anActionEvent, actionConfig, ActionGroupEnum.DELETE_ELEMENT, selectWrapper);
+        List<AnAction> list = Lists.newArrayList();
+        list.add(ActionFactory.create(actionConfig, ActionEnum.DELETE_ELEMENT_ALL_FOR_ELEMENT));
+        list.add(Separator.create());
+        list.add(ActionFactory.create(actionConfig, ActionEnum.DELETE_JAVA_DOC_FOR_ELEMENT));
+        list.add(ActionFactory.create(actionConfig, ActionEnum.DELETE_ANNOTATION_SWAGGER_FOR_ELEMENT));
+        if (selectWrapper.getField() != null) {
+            list.add(ActionFactory.create(actionConfig, ActionEnum.DELETE_ANNOTATION_TAG_FOR_ELEMENT));
+        }
+        return list.toArray(new AnAction[0]);
+    }
+
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
-//        log.error("update - SwaggerToJavaDocActionGroup");
+        super.update(anActionEvent);
     }
 }

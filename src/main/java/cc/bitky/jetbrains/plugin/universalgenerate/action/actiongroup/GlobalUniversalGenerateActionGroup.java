@@ -17,6 +17,8 @@ public class GlobalUniversalGenerateActionGroup extends AbstractBitkylinUniversa
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
+
         ActionConfig actionConfig = new ActionConfig();
         if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
             anActionEvent.getPresentation().setVisible(false);

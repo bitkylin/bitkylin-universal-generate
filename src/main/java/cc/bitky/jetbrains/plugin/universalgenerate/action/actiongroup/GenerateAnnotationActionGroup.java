@@ -36,7 +36,7 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
         }
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, actionConfig.fetchTextForElement());
+            updateGroupTextForSelected(anActionEvent, actionConfig, ActionGroupEnum.GENERATE_ANNOTATION, writeContext.getSelectWrapper());
             return new AnAction[]{
                     ActionFactory.create(actionConfig, ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_ELEMENT),
                     ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ANNOTATION_FOR_ELEMENT)
@@ -51,6 +51,8 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
+
         if (CollectionUtils.isNotEmpty(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList())) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);

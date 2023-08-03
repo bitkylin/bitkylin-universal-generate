@@ -60,6 +60,10 @@ public enum LocalizationEnum {
     DELETE_ELEMENT("Delete Element", "删除元素"),
     FULL_DOCUMENT("Full Document", "整个文档"),
     CURRENT_ELEMENT("Current Element", "当前元素"),
+    CURRENT_CLASS_NAME("Current ClassName", "当前类名"),
+    CURRENT_FIELD("Current Field", "当前字段"),
+    CURRENT_METHOD("Current Method", "当前方法"),
+    NOT_SUPPORT("Not Support", "不支持"),
     DUMB_MODE("Dumb Mode", "哑模式"),
 
     // endregion

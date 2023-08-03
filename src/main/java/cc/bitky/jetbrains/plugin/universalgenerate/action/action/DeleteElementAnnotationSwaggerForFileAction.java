@@ -38,6 +38,8 @@ public class DeleteElementAnnotationSwaggerForFileAction extends AbstractBitkyli
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
+
         if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER)) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);

@@ -2,7 +2,6 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base.AbstractBitkylinUniversalGenerateActionGroup;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
@@ -36,11 +35,7 @@ public class ElementNameToJavaDocActionGroup extends AbstractBitkylinUniversalGe
         }
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForElement());
-            return new AnAction[]{
-                    ActionFactory.create(actionConfig, ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT),
-                    ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT)
-            };
+            return anActionListForSelected(anActionEvent, writeContext.getSelectWrapper(), actionConfig);
         }
         updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForFile());
         return new AnAction[]{
@@ -49,7 +44,21 @@ public class ElementNameToJavaDocActionGroup extends AbstractBitkylinUniversalGe
         };
     }
 
+    private AnAction[] anActionListForSelected(AnActionEvent anActionEvent, WriteContext.SelectWrapper selectWrapper, ActionConfig actionConfig) {
+        if (selectWrapper.getField() == null) {
+            anActionEvent.getPresentation().setVisible(false);
+            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForNotSupport());
+            return new AnAction[0];
+        }
+        updateGroupTextForSelected(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, selectWrapper);
+        return new AnAction[]{
+                ActionFactory.create(actionConfig, ActionEnum.POPULATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT),
+                ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC_FOR_ELEMENT)
+        };
+    }
+
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
     }
 }

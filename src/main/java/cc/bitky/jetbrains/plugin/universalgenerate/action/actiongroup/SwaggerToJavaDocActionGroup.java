@@ -36,7 +36,7 @@ public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenera
         }
         WriteContext writeContext = WriteContextBuilder.create(anActionEvent);
         if (writeContext.fetchSelected()) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, actionConfig.fetchTextForElement());
+            updateGroupTextForSelected(anActionEvent, actionConfig, ActionGroupEnum.SWAGGER_TO_JAVA_DOC, writeContext.getSelectWrapper());
             return new AnAction[]{
                     ActionFactory.create(actionConfig, ActionEnum.POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT),
                     ActionFactory.create(actionConfig, ActionEnum.RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT)
@@ -51,6 +51,8 @@ public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenera
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
+
         if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER)) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);

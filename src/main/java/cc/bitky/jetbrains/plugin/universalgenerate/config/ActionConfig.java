@@ -69,7 +69,23 @@ public class ActionConfig {
     }
 
     public String fetchTextForElement() {
-        return localizedText(LocalizationEnum.CURRENT_ELEMENT);
+        return localizedText(CURRENT_ELEMENT);
+    }
+
+    public String fetchTextForCurrentClassName() {
+        return localizedText(CURRENT_CLASS_NAME);
+    }
+
+    public String fetchTextForCurrentField() {
+        return localizedText(CURRENT_FIELD);
+    }
+
+    public String fetchTextForCurrentMethod() {
+        return localizedText(CURRENT_METHOD);
+    }
+
+    public String fetchTextForNotSupport() {
+        return localizedText(LocalizationEnum.NOT_SUPPORT);
     }
 
     public String fetchTextForDumbMode() {

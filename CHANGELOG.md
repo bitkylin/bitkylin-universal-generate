@@ -4,14 +4,17 @@
 
 ## [Unreleased]
 
+### Added
+
 - Add support for IDEA 2020.3
 - Add support for Kotlin language.
-- Add automatic generation of JavaDoc
+
+### 添加
+
 - 支持 IDEA 2020.3
 - 支持Kotlin语言
-- 添加自动生成JavaDoc
 
-## [0.9.4] - 2023-08-03
+## [0.9.6] - 2023-08-04
 
 ### Added
 
@@ -25,36 +28,18 @@
 - 增加JavaDoc、Swagger注解、Protostuff注解的删除功能
 - 优化右键菜单的展示形式
 
-## [0.9.2] - 2023-07-29
+## [0.9.2] - 2023-07-31
 
 ### Added
 
 - If you only need to manipulate Swagger annotations and not Protostuff annotations , and vice versa, don't worry, you can switch via the "settings -> tools -> Bitkylin Universal Generate" page.
-- Some problem fixes.
-
-### 添加
-
-- 如果你只需要操作Swagger注解而不需要操作Protostuff注解，反之亦然，不用担心，你可以通过 "settings -> tools -> Bitkylin Universal Generate" 页面进行切换。
-- 一些问题修复。
-
-## [0.8.6] - 2023-07-27
-
-### Added
-
 - Add multi-language support, now support English and Chinese, you can configure the language by "settings".
-
-### 添加
-
-- 添加多语言支持，现在支持英文和中文，可以通过「settings」配置语言。
-
-## [0.8.5] - 2023-07-25
-
-### Added
-
 - Right-click in a different location (class, field, method, or elsewhere) to generate a specific personalized context menu.
 
 ### 添加
 
+- 如果你只需要操作Swagger注解而不需要操作Protostuff注解，反之亦然，不用担心，你可以通过 "settings -> tools -> Bitkylin Universal Generate" 页面进行切换。
+- 添加多语言支持，现在支持英文和中文，可以通过「settings」配置语言。
 - 在不同的位置（类、字段、方法或其他地方）点击右键，生成特定的个性化右键菜单。
 
 ## [0.8.0] - 2023-07-24

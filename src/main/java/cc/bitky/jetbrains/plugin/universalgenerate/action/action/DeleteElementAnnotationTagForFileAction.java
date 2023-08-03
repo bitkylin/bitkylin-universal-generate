@@ -38,6 +38,8 @@ public class DeleteElementAnnotationTagForFileAction extends AbstractBitkylinUni
 
     @Override
     public void update(@NotNull AnActionEvent anActionEvent) {
+        super.update(anActionEvent);
+
         if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.PROTOSTUFF)) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);
