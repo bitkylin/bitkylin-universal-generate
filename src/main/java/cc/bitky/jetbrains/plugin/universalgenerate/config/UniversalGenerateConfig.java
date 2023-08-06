@@ -14,7 +14,9 @@ public class UniversalGenerateConfig {
     public static final List<String> ENTRANCE_CLASS_NAME_SUFFIX_LIST = List.of(
             "Controller",
             "Request",
-            "Response"
+            "Req",
+            "Response",
+            "Resp"
     );
 
     public static List<String> entranceClassNameSuffixList() {

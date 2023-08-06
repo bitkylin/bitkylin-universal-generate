@@ -103,19 +103,6 @@ public final class CommentQueryUtils {
         return elementNameSuffixInfo;
     }
 
-    private static ElementNameSuffixInfo createSuffixAdded(String elementName, String suffix) {
-        String addedElementName = elementName + suffix;
-
-        LocalizationEnum localizationEnum = ElementNameSuffixConfig.fuzzySuffixNameLocalization(suffix);
-
-        ElementNameSuffixInfo elementNameSuffixInfo = new ElementNameSuffixInfo();
-        elementNameSuffixInfo.setElementName(elementName);
-        elementNameSuffixInfo.setResolvedElementName(addedElementName);
-        elementNameSuffixInfo.setSuffix(suffix);
-        elementNameSuffixInfo.setSuffixName(LocalizationConfigFactory.name(localizationEnum));
-        return elementNameSuffixInfo;
-    }
-
     public static ElementNameSuffixInfo removeFuzzySuffix(String elementName) {
         if (StringUtils.isBlank(elementName)) {
             return null;

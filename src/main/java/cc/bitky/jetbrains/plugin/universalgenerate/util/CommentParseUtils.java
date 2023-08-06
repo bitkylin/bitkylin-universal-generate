@@ -2,13 +2,16 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.ElementNameSuffixInfo;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiDocTagWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.intellij.psi.*;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.javadoc.PsiDocTag;
+import com.intellij.psi.javadoc.PsiDocTagValue;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -23,22 +26,21 @@ public final class CommentParseUtils {
     private CommentParseUtils() {
     }
 
-    public static List<String> parseCommentFromElementName(WriteContext.PsiFileContext psiFileContext, PsiField psiField) {
-        String pureFieldName = psiField.getName();
-        ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(pureFieldName);
+    public static List<String> parseCommentFromElementName(WriteContext.PsiFileContext psiFileContext, String pureElementName) {
+        ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(pureElementName);
 
         if (elementNameSuffixInfoAdded != null) {
-            pureFieldName = elementNameSuffixInfoAdded.getResolvedElementName();
+            pureElementName = elementNameSuffixInfoAdded.getResolvedElementName();
         }
 
-        List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, pureFieldName);
+        List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, pureElementName);
         commentList = ListUtils.distinctMap(commentList, CommentQueryUtils::removeElementCommentSuffix);
 
         if (CollectionUtils.isNotEmpty(commentList)) {
             return createElementName(commentList, elementNameSuffixInfoAdded);
         }
 
-        commentList = CommentQueryUtils.queryFieldJavaDocByNameFuzzy(psiFileContext, pureFieldName);
+        commentList = CommentQueryUtils.queryFieldJavaDocByNameFuzzy(psiFileContext, pureElementName);
 
         if (CollectionUtils.isNotEmpty(commentList)) {
             return createElementName(commentList, elementNameSuffixInfoAdded);
@@ -146,18 +148,18 @@ public final class CommentParseUtils {
     /**
      * 获取注解说明-从完整的JavaDoc
      */
-    public static List<String> parseTagListFromWholeJavaDoc(PsiDocComment psiDocComment) {
+    public static List<PsiDocTagWrapper> parseTagListFromWholeJavaDoc(PsiDocComment psiDocComment) {
+        List<PsiDocTagWrapper> returnList = Lists.newArrayList();
         if (psiDocComment == null) {
-            return Lists.newArrayList();
+            return returnList;
         }
-        List<String> returnList = Lists.newArrayList();
         PsiDocTag[] psiDocTags = psiDocComment.getTags();
         for (PsiDocTag psiDocTag : psiDocTags) {
-            String text = classifyTextFromJavaDocTag(psiDocTag.getText());
-            if (StringUtils.isBlank(text)) {
+            PsiDocTagWrapper psiDocTagWrapper = classifyTextFromJavaDocTag(psiDocTag);
+            if (psiDocTagWrapper == null) {
                 continue;
             }
-            returnList.add(StringUtils.trim(text));
+            returnList.add(psiDocTagWrapper);
         }
         return returnList;
     }
@@ -186,15 +188,48 @@ public final class CommentParseUtils {
                 .toList();
     }
 
-    public static String classifyTextFromJavaDocTag(String javaDocTag) {
-        if (StringUtils.isBlank(javaDocTag)) {
-            return StringUtils.EMPTY;
+    public static PsiDocTagWrapper classifyTextFromJavaDocTag(PsiDocTag psiDocTag) {
+        String javaDocTagText = psiDocTag.getText();
+        if (StringUtils.isBlank(javaDocTagText)) {
+            return null;
         }
-        return Arrays.stream(StringUtils.split(javaDocTag, '\n'))
+        String fullComment = Arrays.stream(StringUtils.split(javaDocTagText, '\n'))
                 .map(StringUtils::trim)
                 .filter(CommentParseUtils::removeSpecialJavaDocTagItem)
                 .findFirst()
                 .orElse(StringUtils.EMPTY);
+        if (StringUtils.isBlank(fullComment)) {
+            return null;
+        }
+        PsiDocTagWrapper psiDocTagWrapper = new PsiDocTagWrapper();
+        psiDocTagWrapper.setElementName(parseJavaDocTagElementName(psiDocTag));
+        psiDocTagWrapper.setElementDesc(parseJavaDocTagElementDesc(psiDocTag, psiDocTagWrapper.getElementName()));
+        psiDocTagWrapper.setFullComment(fullComment);
+        return psiDocTagWrapper;
+    }
+
+    private static String parseJavaDocTagElementName(PsiDocTag psiDocTag) {
+        PsiDocTagValue psiDocTagValue = psiDocTag.getValueElement();
+        if (psiDocTagValue == null) {
+            return StringUtils.EMPTY;
+        }
+        return psiDocTagValue.getText();
+    }
+
+    private static String parseJavaDocTagElementDesc(PsiDocTag psiDocTag, String elementName) {
+        PsiElement[] psiElements = psiDocTag.getDataElements();
+        if (ArrayUtils.isEmpty(psiElements)) {
+            return StringUtils.EMPTY;
+        }
+        if (psiElements.length < 2) {
+            return StringUtils.EMPTY;
+        }
+
+        String elementDesc = psiElements[1].getText();
+        if (StringUtils.equals(elementDesc, elementName)) {
+            return StringUtils.EMPTY;
+        }
+        return elementDesc;
     }
 
     private static boolean removeSpecialAnnotationTextItem(String annotationTextItem) {
@@ -215,6 +250,12 @@ public final class CommentParseUtils {
             return false;
         }
         if (StringUtils.equals("*", javaDocTagItem)) {
+            return false;
+        }
+        if (StringUtils.equals("@param", javaDocTagItem)) {
+            return false;
+        }
+        if (StringUtils.equals("@return", javaDocTagItem)) {
             return false;
         }
         return true;

@@ -78,7 +78,12 @@ public final class DecisionUtils {
      * 当前仅通过Lombok注解判断是否为POJO
      */
     private static boolean isPojo(PsiClass psiClass) {
-        return matchAnnotation(psiClass, List.of(DecisionAnnotationEnum.DATA, DecisionAnnotationEnum.GETTER, DecisionAnnotationEnum.SETTER, DecisionAnnotationEnum.VALUE));
+        return matchAnnotation(psiClass, List.of(
+                DecisionAnnotationEnum.DATA,
+                DecisionAnnotationEnum.GETTER,
+                DecisionAnnotationEnum.SETTER,
+                DecisionAnnotationEnum.VALUE)
+        );
     }
 
     private static boolean matchAnnotation(PsiModifierListOwner psiModifierListOwner, List<DecisionAnnotationEnum> decisionAnnotationEnum) {

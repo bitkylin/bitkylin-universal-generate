@@ -5,10 +5,10 @@ import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandT
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.AbstractCommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
-
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.populateWriteJavaDocFromProjectElementName;
 
 /**
  * @author bitkylin
@@ -25,9 +25,15 @@ public class CommandTypePopulateElementNameToJavaDocProcessor extends AbstractCo
     public void doWriteFile() {
         for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
             for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                populateWriteJavaDocFromProjectElementName(
+                JavaDocGenerateUtils.populateWriteFieldJavaDocFromProjectElementName(
                         writeContext.getPsiFileContext(),
                         psiFieldWrapper.getPsiField()
+                );
+            }
+            for (PsiMethodWrapper psiMethodWrapper : psiClassWrapper.getMethodList()) {
+                JavaDocGenerateUtils.populateWriteMethodJavaDocFromProjectElementName(
+                        writeContext.getPsiFileContext(),
+                        psiMethodWrapper.getPsiMethod()
                 );
             }
         }
@@ -40,9 +46,16 @@ public class CommandTypePopulateElementNameToJavaDocProcessor extends AbstractCo
             throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.ELEMENT_NOT_SELECT);
         }
         if (selectWrapper.getField() != null) {
-            populateWriteJavaDocFromProjectElementName(
+            JavaDocGenerateUtils.populateWriteFieldJavaDocFromProjectElementName(
                     writeContext.getPsiFileContext(),
                     selectWrapper.getField().getPsiField()
+            );
+            return;
+        }
+        if (selectWrapper.getMethod() != null) {
+            JavaDocGenerateUtils.populateWriteMethodJavaDocFromProjectElementName(
+                    writeContext.getPsiFileContext(),
+                    selectWrapper.getMethod().getPsiMethod()
             );
         }
     }

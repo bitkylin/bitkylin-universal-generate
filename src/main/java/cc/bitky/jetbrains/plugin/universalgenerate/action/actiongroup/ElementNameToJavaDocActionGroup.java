@@ -45,7 +45,7 @@ public class ElementNameToJavaDocActionGroup extends AbstractBitkylinUniversalGe
     }
 
     private AnAction[] anActionListForSelected(AnActionEvent anActionEvent, WriteContext.SelectWrapper selectWrapper, ActionConfig actionConfig) {
-        if (selectWrapper.getField() == null) {
+        if (selectWrapper.getField() == null && selectWrapper.getMethod() == null) {
             anActionEvent.getPresentation().setVisible(false);
             updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.ELEMENT_TO_JAVA_DOC, actionConfig.fetchTextForNotSupport());
             return new AnAction[0];
