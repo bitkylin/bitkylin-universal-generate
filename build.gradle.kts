@@ -1,5 +1,4 @@
 import org.jetbrains.changelog.Changelog
-import org.jetbrains.changelog.ChangelogPluginConstants
 import org.jetbrains.changelog.markdownToHTML
 
 fun properties(key: String) = providers.gradleProperty(key)
@@ -60,7 +59,7 @@ intellij {
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
-    groups =  listOf(
+    groups = listOf(
         "Added",
         "Fixed",
         "Changed",
