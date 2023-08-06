@@ -37,7 +37,7 @@
 3. With the cursor pointing to the name of a class, field or method, right-clicking Execute allows you to process only that element. When the cursor is pointing elsewhere, right-click to perform unified processing for all elements in the current file.
 4. You can remove the JavaDoc, annotations, etc. of a class, field, or method with a single click via the right-click menu.
 5. If you only need to work with the Swagger annotation and not the Protostuff annotation and vice versa, don't worry, you can switch between them via the 'settings - tools - Bitkylin Universal Generate' page. Of course, you can also disable the operation of both annotations and only operate JavaDoc.
-6. You declared the fields of the class, but you don't want to manually write the field's JavaDoc, you can use the 'Search JavaDoc' function via the right-click menu, which can generate the JavaDoc for the specified field based on the same field in the project, matching its comments and Swagger annotations exactly or fuzzy.
+6. You declared the class fields, or declared the method parameter fields, but you do not want to manually write JavaDoc, you can right-click the menu, use the 'Find JavaDoc' feature, the feature can be based on the same name field in the project, exact or fuzzy match its comments and Swagger annotations, to generate the specified fields of the JavaDoc.
 7. The plugin supports two languages, English and Chinese, which can be switched via the 'settings - tools - Bitkylin Universal Generate' page.
 
 ### 特性
@@ -47,7 +47,7 @@
 3. 光标指向类、字段或者方法的名字，点击右键执行，可以仅针对该元素进行处理。当光标指向其他地方，点击右键，可以对当前文件中的所有元素进行统一处理。
 4. 你可以通过右键菜单，一键删除类、字段或者方法的 JavaDoc、注解等。
 5. 如果你只需要操作 Swagger 注解而不需要操作 Protostuff 注解，反之亦然，不用担心，你可以通过 'settings - tools - Bitkylin Universal Generate' 页面进行切换。当然了，你也可以关闭两个注解的操作功能，仅操作JavaDoc。
-6. 你声明了类的字段，但是你不想手动编写JavaDoc，你可以通过右键菜单，使用'查找JavaDoc'功能，该功能可以根据项目中的同名字段，精确或模糊匹配其注释及Swagger注解，生成指定字段的JavaDoc。
+6. 你声明了类的字段，或者声明了方法的入参字段，但是你不想手动编写JavaDoc，你可以通过右键菜单，使用'查找JavaDoc'功能，该功能可以根据项目中的同名字段，精确或模糊匹配其注释及Swagger注解，生成指定字段的JavaDoc。
 7. 插件支持两种语言，英文和中文，可以通过 'settings - tools - Bitkylin Universal Generate' 页面进行切换。
 
 ### Tip.

@@ -13,19 +13,18 @@
 
 - 支持 IDEA 2020.3
 - 支持Kotlin语言
-- 方法入参，支持「查找JavaDoc」
 
-## [0.9.6] - 2023-08-04
+## [0.9.8] - 2023-08-07
 
 ### Added
 
-- According to the same name field in the project, exact or fuzzy matching annotations and Swagger annotations to generate JavaDoc for the specified field.
+- Populate the JavaDoc with class field descriptions or method parameter field descriptions based on the same name field in the project, exact or fuzzy matching annotations and Swagger annotations.
 - Add the deletion function of JavaDoc, Swagger annotations and Protostuff annotations.
 - Optimize the display of the right-click menu
 
 ### 添加
 
-- 根据项目中的同名字段，精确或模糊匹配注释及Swagger注解，生成指定字段的JavaDoc
+- 根据项目中的同名字段，精确或模糊匹配注释及Swagger注解，将类字段的描述或方法入参字段的描述填充到JavaDoc中
 - 增加JavaDoc、Swagger注解、Protostuff注解的删除功能
 - 优化右键菜单的展示形式
 
