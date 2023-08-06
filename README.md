@@ -6,6 +6,8 @@
 
 <!-- Plugin description -->
 
+Easily generate Swagger and Protostuff annotations with one click, generate JavaDoc with various data sources. deleting various elements can also be done with one click.
+
 ### What's this?
 
 - Jetbrains IntelliJ IDEA / Android studio Plugin.
