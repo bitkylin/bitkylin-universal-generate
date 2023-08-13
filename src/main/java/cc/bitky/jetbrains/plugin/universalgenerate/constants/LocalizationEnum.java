@@ -31,7 +31,7 @@ public enum LocalizationEnum {
 
     CHECK_BOX_PROTOSTUFF_EFFECTED("Protostuff", "Protostuff"),
 
-    LABEL_CONTEXT_MENU("Context Menu", "右键菜单"),
+    LABEL_CONTEXT_MENU("Right-Click Menu", "右键菜单"),
 
     CHECK_BOX_SHOWED("Showed", "显示"),
 

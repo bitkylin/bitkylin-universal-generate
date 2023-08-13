@@ -34,7 +34,7 @@
 
 - If you only need to manipulate Swagger annotations and not Protostuff annotations , and vice versa, don't worry, you can switch via the "settings -> tools -> Bitkylin Universal Generate" page.
 - Add multi-language support, now support English and Chinese, you can configure the language by "settings".
-- Right-click in a different location (class, field, method, or elsewhere) to generate a specific personalized context menu.
+- Right-click in a different location (class, field, method, or elsewhere) to generate a specific personalized right-click menu.
 
 ### 添加
 
