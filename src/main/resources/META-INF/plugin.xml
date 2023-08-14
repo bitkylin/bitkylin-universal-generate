@@ -10,8 +10,7 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!--        <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory"-->
-        <!--                    id="MyToolWindow"/>-->
+        <!--        <toolWindow factoryClass="cc.bitky.jetbrains.plugin.universalgenerate.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>-->
         <notificationGroup id="bitkylinErrorNotification"
                            displayType="BALLOON"
                            key="bitkylinErrorNotification"/>
@@ -22,11 +21,11 @@
                 instance="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
                 id="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
                 displayName="Bitkylin Universal Generate"/>
+
     </extensions>
 
     <applicationListeners>
-        <!--        <listener class="cc.bitky.jetbrains.plugin.universalgenerate.listeners.MyApplicationActivationListener"-->
-        <!--                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>-->
+        <!--        <listener class="cc.bitky.jetbrains.plugin.universalgenerate.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>-->
     </applicationListeners>
 
     <actions>

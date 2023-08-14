@@ -1,7 +1,5 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.toolWindow
 
-import cc.bitky.jetbrains.plugin.universalgenerate.MyBundle
-import cc.bitky.jetbrains.plugin.universalgenerate.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
@@ -10,6 +8,8 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
+import cc.bitky.jetbrains.plugin.universalgenerate.MyBundle
+import cc.bitky.jetbrains.plugin.universalgenerate.services.MyProjectService
 import javax.swing.JButton
 
 
