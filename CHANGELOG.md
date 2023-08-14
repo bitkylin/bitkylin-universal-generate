@@ -2,19 +2,9 @@
 
 # Changelog
 
-<!-- ## [Unreleased]
+## [Unreleased]
 
-### Added
-
-- Add support for IDEA 2020.3
-- Add support for Kotlin language.
-
-### 添加
-
-- 支持 IDEA 2020.3
-- 支持Kotlin语言 -->
-
-## [0.9.11] - 2023-08-15
+## [0.9.12] - 2023-08-15
 
 ### Added
 
