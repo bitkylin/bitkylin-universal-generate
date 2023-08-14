@@ -2,7 +2,7 @@
 
 # Changelog
 
-## [Unreleased]
+<!-- ## [Unreleased]
 
 ### Added
 
@@ -12,9 +12,9 @@
 ### 添加
 
 - 支持 IDEA 2020.3
-- 支持Kotlin语言
+- 支持Kotlin语言 -->
 
-## [0.9.10] - 2023-08-14
+## [0.9.11] - 2023-08-15
 
 ### Added
 
