@@ -11,7 +11,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 在当前文件中填充所有注解
+ * 在当前文件中填充所有注解：Swagger注解、Protostuff注解
  *
  * @author bitkylin
  */

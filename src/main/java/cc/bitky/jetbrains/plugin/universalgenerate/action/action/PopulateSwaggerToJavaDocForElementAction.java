@@ -11,6 +11,8 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 将当前元素中的Swagger注解转换为JavaDoc注释，并删除Protostuff注解
+ *
  * @author bitkylin
  */
 @Slf4j

@@ -11,6 +11,8 @@ import com.intellij.openapi.command.WriteCommandAction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 通过当前元素名，在项目中匹配注释，并填充到JavaDoc中
+ *
  * @author bitkylin
  */
 @Slf4j
