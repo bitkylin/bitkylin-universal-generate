@@ -14,7 +14,7 @@ public abstract class AbstractCommandTypeProcessor implements ICommandTypeProces
         try {
             doWriteFile();
         } catch (Exception e) {
-            log.error("写操作失败-writeFile : {}", getClass().getName());
+            log.error("写操作失败-writeFile : {}", getClass().getName(), e);
         }
     }
 
@@ -23,7 +23,7 @@ public abstract class AbstractCommandTypeProcessor implements ICommandTypeProces
         try {
             doWriteElement();
         } catch (Exception e) {
-            log.error("写操作失败-writeElement : {}", getClass().getName());
+            log.error("写操作失败-writeElement : {}", getClass().getName(), e);
         }
     }
 

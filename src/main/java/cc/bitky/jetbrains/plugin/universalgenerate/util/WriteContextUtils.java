@@ -1,20 +1,15 @@
-package cc.bitky.jetbrains.plugin.universalgenerate.util.builder;
+package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.BitkylinPsiParseUtils;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
 import com.google.common.base.Preconditions;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.PsiUtilBase;
+import com.intellij.codeInsight.intention.preview.IntentionPreviewUtils;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiMethod;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -23,65 +18,15 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * @author bitkylin
+ * @author limingliang
  */
-public final class WriteContextBuilder {
+public class WriteContextUtils {
 
-    private final AnActionEvent anActionEvent;
-
-    private WriteContextBuilder(AnActionEvent anActionEvent) {
-        this.anActionEvent = anActionEvent;
+    private WriteContextUtils() {
     }
 
-    public static WriteContext create(AnActionEvent anActionEvent) {
-        return new WriteContextBuilder(anActionEvent).innerCreate();
-    }
 
-    public WriteContext innerCreate() {
-
-        WriteContext writeContext = new WriteContext();
-        WriteContext.PsiFileContext psiFileContext = new WriteContext.PsiFileContext();
-        writeContext.setPsiFileContext(psiFileContext);
-
-        psiFileContext.setLanguage(GlobalSettingsStateHelper.getInstance().getLanguage());
-
-        Project project = anActionEvent.getProject();
-        if (project == null) {
-            return writeContext;
-        }
-        psiFileContext.setProject(project);
-        psiFileContext.setElementFactory(JavaPsiFacade.getElementFactory(project));
-
-        Editor editor = anActionEvent.getData(CommonDataKeys.EDITOR);
-        if (editor == null) {
-            return writeContext;
-        }
-
-        PsiFile psiFile = PsiUtilBase.getPsiFileInEditor(editor, project);
-        if (psiFile == null) {
-            return writeContext;
-        }
-        psiFileContext.setPsiFile(psiFile);
-
-        PsiClass psiClass = PsiTreeUtil.findChildOfAnyType(psiFile, PsiClass.class);
-        if (psiClass == null) {
-            return writeContext;
-        }
-        psiFileContext.setPsiClass(psiClass);
-
-        // 通过光标偏移量获取当前psi元素
-        PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
-
-        WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
-        selectWrapper.setCurrentElement(currentElement);
-        writeContext.setSelectWrapper(selectWrapper);
-
-        assembleUniversalClassInfo(0, psiClass, writeContext);
-
-        return writeContext;
-    }
-
-    private void assembleUniversalClassInfo(int depth, PsiClass psiClass, WriteContext writeContext) {
+    public static void assembleUniversalClassInfo(int depth, PsiClass psiClass, WriteContext writeContext) {
 
         WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiElement currentElement = selectWrapper.getCurrentElement();
@@ -144,35 +89,41 @@ public final class WriteContextBuilder {
     }
 
     @NotNull
-    private PsiClassWrapper createPsiClassWrapper(PsiClass psiClass, WriteContext.PsiFileContext psiFileContext) {
+    private static PsiClassWrapper createPsiClassWrapper(PsiClass psiClass, WriteContext.PsiFileContext psiFileContext) {
         PsiClassWrapper psiClassWrapper = new PsiClassWrapper();
         psiClassWrapper.setPsiClass(psiClass);
         psiClassWrapper.setFieldList(Stream.of(psiClass.getFields())
                 .map(BitkylinPsiParseUtils::parsePsiField)
-                .filter(this::filterSpecialPsiField)
+                .filter(WriteContextUtils::filterSpecialPsiField)
                 .toList());
         psiClassWrapper.setMethodList(Stream.of(psiClass.getMethods())
                 .map(BitkylinPsiParseUtils::parsePsiMethod)
-                .filter(this::filterSpecialPsiMethod)
+                .filter(WriteContextUtils::filterSpecialPsiMethod)
                 .toList());
         DecisionUtils.assembleRoleAndLocation(psiClassWrapper, psiFileContext);
         return psiClassWrapper;
     }
 
-    private boolean filterSpecialPsiField(PsiFieldWrapper psiFieldWrapper) {
+    private static boolean filterSpecialPsiField(PsiFieldWrapper psiFieldWrapper) {
         PsiField psiField = psiFieldWrapper.getPsiField();
-        if (!psiField.isPhysical()) {
+        if (StringUtils.equals("serialVersionUID", psiField.getName())) {
             return false;
         }
-        if (StringUtils.equals("serialVersionUID", psiField.getName())) {
+        if (!psiField.isPhysical()) {
+            if (IntentionPreviewUtils.isPreviewElement(psiField)) {
+                return true;
+            }
             return false;
         }
         return true;
     }
 
-    private boolean filterSpecialPsiMethod(PsiMethodWrapper psiMethodWrapper) {
+    private static boolean filterSpecialPsiMethod(PsiMethodWrapper psiMethodWrapper) {
         PsiMethod psiMethod = psiMethodWrapper.getPsiMethod();
         if (!psiMethod.isPhysical()) {
+            if (IntentionPreviewUtils.isPreviewElement(psiMethod)) {
+                return true;
+            }
             return false;
         }
         return true;

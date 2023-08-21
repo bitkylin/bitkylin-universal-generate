@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
@@ -20,30 +20,30 @@ public class AbstractBitkylinUniversalGenerateActionGroup extends DefaultActionG
     }
 
     protected void updateGroupTextForSelected(AnActionEvent anActionEvent,
-                                              ActionConfig actionConfig,
+                                              ActionLocalizationConfig actionLocalizationConfig,
                                               ActionGroupEnum actionGroupEnum,
                                               WriteContext.SelectWrapper selectWrapper) {
         if (selectWrapper.getField() != null) {
-            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentField());
+            anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionLocalizationConfig.fetchTextForCurrentField());
             return;
         }
         if (selectWrapper.getMethod() != null) {
-            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentMethod());
+            anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionLocalizationConfig.fetchTextForCurrentMethod());
             return;
         }
         if (selectWrapper.getClz() != null) {
-            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionConfig.fetchTextForCurrentClassName());
+            anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionLocalizationConfig.fetchTextForCurrentClassName());
         }
     }
 
     protected void updateGroupText(AnActionEvent anActionEvent,
-                                   ActionConfig actionConfig,
+                                   ActionLocalizationConfig actionLocalizationConfig,
                                    ActionGroupEnum actionGroupEnum,
                                    String scope) {
         if (StringUtils.isBlank(scope)) {
-            anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum));
+            anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum));
             return;
         }
-        anActionEvent.getPresentation().setText(actionConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + scope);
+        anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + scope);
     }
 }

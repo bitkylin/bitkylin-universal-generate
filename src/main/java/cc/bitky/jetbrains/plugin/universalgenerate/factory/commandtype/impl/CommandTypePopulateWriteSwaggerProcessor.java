@@ -8,8 +8,8 @@ import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.CommentParseUtils;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.ExceptionUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
@@ -55,7 +55,7 @@ public class CommandTypePopulateWriteSwaggerProcessor extends AbstractCommandTyp
         WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiClassWrapper psiClassWrapper = selectWrapper.getSelectedPsiClassWrapper();
         if (!selectWrapper.isSelected()) {
-            throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.ELEMENT_NOT_SELECT);
+            throw ExceptionUtils.newException(ExceptionMsgEnum.ELEMENT_NOT_SELECT);
         }
 
         if (selectWrapper.getClz() != null) {

@@ -21,7 +21,90 @@
                 instance="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
                 id="cc.bitky.jetbrains.plugin.universalgenerate.config.settings.configurable.GlobalSettingsConfigurable"
                 displayName="Bitkylin Universal Generate"/>
-
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateElementNameToJavaDocForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateElementNameToJavaDocForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateMissingAnnotationForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateMissingAnnotationForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateSwaggerToJavaDocForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateSwaggerToJavaDocForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateAnnotationForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateAnnotationForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateElementNameToJavaDocForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateElementNameToJavaDocForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateSwaggerToJavaDocForElementIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
+        <intentionAction>
+            <language>JAVA</language>
+            <className>
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.ReGenerateSwaggerToJavaDocForFileIntentionAction
+            </className>
+            <category>Bitkylin universal generate</category>
+        </intentionAction>
     </extensions>
 
     <applicationListeners>
