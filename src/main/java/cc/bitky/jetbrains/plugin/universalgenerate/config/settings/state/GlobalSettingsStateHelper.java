@@ -47,4 +47,8 @@ public class GlobalSettingsStateHelper {
         return this.state.getContextMenuShowed();
     }
 
+    public boolean isIntentionReGenerateShowed() {
+        return false;
+    }
+
 }

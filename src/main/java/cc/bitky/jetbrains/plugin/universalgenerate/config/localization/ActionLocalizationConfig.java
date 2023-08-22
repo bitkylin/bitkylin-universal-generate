@@ -82,7 +82,7 @@ public class ActionLocalizationConfig {
         if (localizationPair == null) {
             return localizedText(LocalizationEnum.EMPTY);
         }
-        return localizedText(localizationPair.getKey()) + " - " + localizedText(localizationPair.getKey());
+        return localizedText(localizationPair.getKey()) + " - " + localizedText(localizationPair.getValue());
     }
 
     public String fetchActionGroupTitle(ActionGroupEnum actionGroupEnum) {

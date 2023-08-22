@@ -1,6 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.intention.base;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
 import com.intellij.codeInsight.intention.BaseElementAtCaretIntentionAction;

@@ -1,6 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.intention;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.intention.base.AbstractUniversalGenerateIntentionAction;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandCommandTypeProcessorFactory;
@@ -21,6 +22,9 @@ public class ReGenerateElementNameToJavaDocForElementIntentionAction extends Abs
 
     @Override
     protected boolean calcIsAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+        if (!GlobalSettingsStateHelper.getInstance().isIntentionReGenerateShowed()) {
+            return false;
+        }
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
         if (!writeContext.fetchSelected()) {
             return false;

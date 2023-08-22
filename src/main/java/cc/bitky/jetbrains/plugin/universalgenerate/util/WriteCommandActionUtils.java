@@ -15,7 +15,7 @@ public class WriteCommandActionUtils {
     }
 
     public static void runWriteCommandAction(Project project, Runnable runnable) {
-        WriteCommandActionUtils.runWriteCommandAction(project, () -> {
+        WriteCommandAction.runWriteCommandAction(project, () -> {
             try {
                 runnable.run();
             } catch (BitkylinException e) {
