@@ -2,6 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -22,7 +23,7 @@ public class AbstractBitkylinUniversalGenerateActionGroup extends DefaultActionG
     protected void updateGroupTextForSelected(AnActionEvent anActionEvent,
                                               ActionLocalizationConfig actionLocalizationConfig,
                                               ActionGroupEnum actionGroupEnum,
-                                              WriteContext.SelectWrapper selectWrapper) {
+                                              SelectWrapper selectWrapper) {
         if (selectWrapper.getField() != null) {
             anActionEvent.getPresentation().setText(actionLocalizationConfig.fetchActionGroupTitle(actionGroupEnum) + " - " + actionLocalizationConfig.fetchTextForCurrentField());
             return;

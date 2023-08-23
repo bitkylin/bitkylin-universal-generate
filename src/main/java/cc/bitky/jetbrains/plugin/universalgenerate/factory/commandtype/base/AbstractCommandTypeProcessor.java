@@ -11,20 +11,12 @@ public abstract class AbstractCommandTypeProcessor implements ICommandTypeProces
 
     @Override
     public void writeFile() {
-        try {
-            doWriteFile();
-        } catch (Exception e) {
-            log.error("写操作失败-writeFile : {}", getClass().getName(), e);
-        }
+        doWriteFile();
     }
 
     @Override
     public void writeElement() {
-        try {
-            doWriteElement();
-        } catch (Exception e) {
-            log.error("写操作失败-writeElement : {}", getClass().getName(), e);
-        }
+        doWriteElement();
     }
 
     public abstract void doWriteFile();

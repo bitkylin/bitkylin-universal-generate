@@ -1,15 +1,14 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import com.google.common.base.Preconditions;
 import com.intellij.codeInsight.intention.preview.IntentionPreviewUtils;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.impl.source.PsiFieldImpl;
+import com.intellij.psi.impl.source.PsiMethodImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +27,7 @@ public class WriteContextUtils {
 
     public static void assembleUniversalClassInfo(int depth, PsiClass psiClass, WriteContext writeContext) {
 
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
+        SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiElement currentElement = selectWrapper.getCurrentElement();
 
         Preconditions.checkArgument(depth < 5);
@@ -109,7 +108,12 @@ public class WriteContextUtils {
         if (StringUtils.equals("serialVersionUID", psiField.getName())) {
             return false;
         }
+        // Intention Preview场景下，所有字段都不是物理的
         if (!psiField.isPhysical()) {
+            // lombok 生成的字段，不是该实例
+            if (!(psiField instanceof PsiFieldImpl)) {
+                return false;
+            }
             if (IntentionPreviewUtils.isPreviewElement(psiField)) {
                 return true;
             }
@@ -120,7 +124,12 @@ public class WriteContextUtils {
 
     private static boolean filterSpecialPsiMethod(PsiMethodWrapper psiMethodWrapper) {
         PsiMethod psiMethod = psiMethodWrapper.getPsiMethod();
+        // Intention Preview场景下，所有字段都不是物理的
         if (!psiMethod.isPhysical()) {
+            // lombok 生成的字段，不是该实例
+            if (!(psiMethod instanceof PsiMethodImpl)) {
+                return false;
+            }
             if (IntentionPreviewUtils.isPreviewElement(psiMethod)) {
                 return true;
             }

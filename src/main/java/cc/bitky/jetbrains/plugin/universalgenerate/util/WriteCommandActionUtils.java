@@ -22,8 +22,9 @@ public class WriteCommandActionUtils {
                 log.warn("WriteCommandActionUtils.runWriteCommandAction BitkylinException", e);
                 NotificationUtils.notifyError(project, e.getMessage());
             } catch (Exception e) {
-                log.warn("WriteCommandActionUtils.runWriteCommandAction Exception", e);
+                log.error("WriteCommandActionUtils.runWriteCommandAction Exception", e);
                 NotificationUtils.notifyError(project, "Exception: " + e.getMessage());
+                throw e;
             }
         });
     }

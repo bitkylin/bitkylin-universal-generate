@@ -1,6 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util.builder;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -42,7 +43,7 @@ public final class WriteContextIntentionBuilder {
         }
         psiFileContext.setPsiClass(psiClass);
 
-        WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
+        SelectWrapper selectWrapper = new SelectWrapper();
         selectWrapper.setCurrentElement(element);
         writeContext.setSelectWrapper(selectWrapper);
 

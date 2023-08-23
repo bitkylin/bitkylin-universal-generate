@@ -3,10 +3,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.AbstractCommandTypeProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.ExceptionUtils;
 
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils.reGenerateWriteJavaDocFromAnnotation;
@@ -40,7 +37,7 @@ public class CommandTypeReGenerateSwaggerToJavaDocProcessor extends AbstractComm
 
     @Override
     public void doWriteElement() {
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
+        SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiClassWrapper psiClassWrapper = selectWrapper.getSelectedPsiClassWrapper();
         if (!selectWrapper.isSelected()) {
             throw ExceptionUtils.newException(ExceptionMsgEnum.ELEMENT_NOT_SELECT);

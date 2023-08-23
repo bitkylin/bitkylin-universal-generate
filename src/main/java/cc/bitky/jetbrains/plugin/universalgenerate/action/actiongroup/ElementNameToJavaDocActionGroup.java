@@ -6,6 +6,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalS
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.ActionFactory;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.builder.WriteContextActionBuilder;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -44,7 +45,7 @@ public class ElementNameToJavaDocActionGroup extends AbstractBitkylinUniversalGe
         };
     }
 
-    private AnAction[] anActionListForSelected(AnActionEvent anActionEvent, WriteContext.SelectWrapper selectWrapper, ActionLocalizationConfig actionLocalizationConfig) {
+    private AnAction[] anActionListForSelected(AnActionEvent anActionEvent, SelectWrapper selectWrapper, ActionLocalizationConfig actionLocalizationConfig) {
         if (selectWrapper.getField() == null && selectWrapper.getMethod() == null) {
             anActionEvent.getPresentation().setVisible(false);
             updateGroupText(anActionEvent, actionLocalizationConfig, ActionGroupEnum.SEARCH_ELEMENT_NAME_TO_JAVA_DOC, actionLocalizationConfig.fetchTextForNotSupport());

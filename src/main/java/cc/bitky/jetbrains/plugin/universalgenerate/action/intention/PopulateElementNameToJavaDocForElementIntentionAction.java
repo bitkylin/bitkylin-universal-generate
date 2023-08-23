@@ -4,8 +4,10 @@ import cc.bitky.jetbrains.plugin.universalgenerate.action.intention.base.Abstrac
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandCommandTypeProcessorFactory;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteCommand;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.builder.WriteContextIntentionBuilder;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -23,11 +25,10 @@ public class PopulateElementNameToJavaDocForElementIntentionAction extends Abstr
 
     @Override
     protected boolean calcIsAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
-        if (!writeContext.fetchSelected()) {
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        if (!selectWrapper.isSelected()) {
             return false;
         }
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         return selectWrapper.getField() != null || selectWrapper.getMethod() != null;
     }
 

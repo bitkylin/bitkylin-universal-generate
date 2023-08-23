@@ -1,6 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.util.builder;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -65,7 +66,7 @@ public final class WriteContextActionBuilder {
         // 通过光标偏移量获取当前psi元素
         PsiElement currentElement = psiFile.findElementAt(editor.getCaretModel().getOffset());
 
-        WriteContext.SelectWrapper selectWrapper = new WriteContext.SelectWrapper();
+        SelectWrapper selectWrapper = new SelectWrapper();
         selectWrapper.setCurrentElement(currentElement);
         writeContext.setSelectWrapper(selectWrapper);
 

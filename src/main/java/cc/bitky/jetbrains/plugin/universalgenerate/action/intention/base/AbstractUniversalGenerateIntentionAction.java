@@ -1,14 +1,16 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.intention.base;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.BitkylinException;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 import com.intellij.codeInsight.intention.BaseElementAtCaretIntentionAction;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInspection.util.IntentionFamilyName;
 import com.intellij.codeInspection.util.IntentionName;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
@@ -25,9 +27,17 @@ public abstract class AbstractUniversalGenerateIntentionAction extends BaseEleme
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         try {
             return calcIsAvailable(project, editor, element);
+        } catch (ProcessCanceledException e) {
+            log.info("IntentionAction isAvailable ProcessCanceledException", e);
+            throw e;
+        } catch (BitkylinException e) {
+            log.error("IntentionAction isAvailable BitkylinException", e);
+            NotificationUtils.notifyError(project, e.getMessage());
+            throw e;
         } catch (Exception e) {
             log.error("IntentionAction isAvailable error", e);
-            return false;
+            NotificationUtils.notifyError(project, "IntentionAction isAvailable error: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -35,8 +45,17 @@ public abstract class AbstractUniversalGenerateIntentionAction extends BaseEleme
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
         try {
             doInvoke(project, editor, element);
+        } catch (ProcessCanceledException e) {
+            log.info("IntentionAction invoke ProcessCanceledException", e);
+            throw e;
+        } catch (BitkylinException e) {
+            log.error("IntentionAction invoke BitkylinException", e);
+            NotificationUtils.notifyError(project, e.getMessage());
+            throw e;
         } catch (Exception e) {
             log.error("IntentionAction invoke error", e);
+            NotificationUtils.notifyError(project, "IntentionAction invoke BitkylinException: " + e.getMessage());
+            throw e;
         }
     }
 

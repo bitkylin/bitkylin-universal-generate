@@ -5,8 +5,10 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalS
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandCommandTypeProcessorFactory;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteCommand;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.DecisionUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.builder.WriteContextIntentionBuilder;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -28,8 +30,8 @@ public class ReGenerateAnnotationForFileIntentionAction extends AbstractUniversa
         if (!GlobalSettingsStateHelper.getInstance().isIntentionReGenerateShowed()) {
             return false;
         }
-        WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
-        return !writeContext.fetchSelected();
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        return !selectWrapper.isSelected();
     }
 
     @Override
