@@ -1,7 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.action;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.action.base.AbstractUniversalGenerateAction;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.CommandCommandTypeProcessorFactory;
@@ -40,7 +39,7 @@ public class DeleteElementAnnotationSwaggerForElementAction extends AbstractUniv
     public void update(@NotNull AnActionEvent anActionEvent) {
         super.update(anActionEvent);
 
-        if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER)) {
+        if (GlobalSettingsStateHelper.getInstance().annotationSwaggerEnabledShowed(anActionEvent.getProject())) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);
             return;

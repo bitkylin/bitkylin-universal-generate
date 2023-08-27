@@ -53,7 +53,7 @@ public class GenerateAnnotationActionGroup extends AbstractBitkylinUniversalGene
     public void update(@NotNull AnActionEvent anActionEvent) {
         super.update(anActionEvent);
 
-        if (CollectionUtils.isNotEmpty(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList())) {
+        if (CollectionUtils.isNotEmpty(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedListShowed(anActionEvent.getProject()))) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);
             return;

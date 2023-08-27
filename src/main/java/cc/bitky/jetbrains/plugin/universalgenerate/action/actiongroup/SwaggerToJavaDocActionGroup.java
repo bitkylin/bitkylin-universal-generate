@@ -2,7 +2,6 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base.AbstractBitkylinUniversalGenerateActionGroup;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
@@ -53,7 +52,7 @@ public class SwaggerToJavaDocActionGroup extends AbstractBitkylinUniversalGenera
     public void update(@NotNull AnActionEvent anActionEvent) {
         super.update(anActionEvent);
 
-        if (GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER)) {
+        if (GlobalSettingsStateHelper.getInstance().annotationSwaggerEnabledShowed(anActionEvent.getProject())) {
             anActionEvent.getPresentation().setEnabled(true);
             anActionEvent.getPresentation().setVisible(true);
             return;
