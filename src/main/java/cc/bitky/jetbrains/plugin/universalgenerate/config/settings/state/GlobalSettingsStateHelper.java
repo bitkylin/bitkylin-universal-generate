@@ -63,10 +63,10 @@ public class GlobalSettingsStateHelper {
 
     public List<GlobalSettingsState.AnnotationAffectedEnum> getAnnotationAffectedListShowed(Project project) {
         List<GlobalSettingsState.AnnotationAffectedEnum> list = Lists.newArrayList();
-        if (calcSwaggerDependencyExisted(project)) {
+        if (annotationSwaggerEnabledShowed(project)) {
             list.add(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER);
         }
-        if (calcProtostuffDependencyExisted(project)) {
+        if (annotationProtostuffEnabledShowed(project)) {
             list.add(GlobalSettingsState.AnnotationAffectedEnum.PROTOSTUFF);
         }
         return list;

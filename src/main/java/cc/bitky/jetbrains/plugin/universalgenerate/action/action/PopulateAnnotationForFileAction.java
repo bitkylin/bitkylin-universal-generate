@@ -16,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
  * @author bitkylin
  */
 @Slf4j
-public class PopulateMissingAnnotationForFileAction extends AbstractUniversalGenerateAction {
+public class PopulateAnnotationForFileAction extends AbstractUniversalGenerateAction {
 
-    public PopulateMissingAnnotationForFileAction(String text) {
+    public PopulateAnnotationForFileAction(String text) {
         super(text);
     }
 
-    public PopulateMissingAnnotationForFileAction() {
+    public PopulateAnnotationForFileAction() {
         super();
     }
 

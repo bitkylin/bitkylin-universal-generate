@@ -16,24 +16,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 在当前文件中填充所有注解：Swagger注解、Protostuff注解
+ * 在当前元素中填充所有注解
  *
  * @author bitkylin
  */
 @Slf4j
-public class PopulateMissingAnnotationForFileIntentionAction extends AbstractUniversalGenerateIntentionAction {
+public class PopulateAnnotationForElementIntentionAction extends AbstractUniversalGenerateIntentionAction {
 
     @Override
     protected boolean calcIsAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
-        return !selectWrapper.isSelected();
+        return selectWrapper.isSelected();
     }
 
     @Override
     protected void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
-        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_SWAGGER).writeFile();
-        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_TAG).writeFile();
+        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_SWAGGER).writeElement();
+        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_TAG).writeElement();
     }
 
     @Override
@@ -43,6 +43,6 @@ public class PopulateMissingAnnotationForFileIntentionAction extends AbstractUni
 
     @Override
     protected ActionEnum fetchActionEnum() {
-        return ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_FILE;
+        return ActionEnum.POPULATE_MISSING_ANNOTATION_FOR_ELEMENT;
     }
 }

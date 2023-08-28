@@ -1,0 +1,50 @@
+
+<spot>/**
+ * TestRequest desc
+ */</spot>
+@Data
+@Slf4j
+public class TestRequest {
+    <spot>/**
+     * my name
+     */</spot>
+    private String name;
+    <spot>/**
+     * test age
+     */</spot>
+    private Integer age;
+
+    <spot>/**
+     * address desc
+     */</spot>
+    @Setter
+    @Getter
+    public static class Address {
+        <spot>/**
+         * china
+         */</spot>
+        private String country;
+        <spot>/**
+         * Shanghai province
+         */</spot>
+        private String province;
+    }
+}
+
+
+
+<spot>/**
+ * TestController desc
+ */</spot>
+@RestController
+@RequestMapping("/test")
+public class TestController {
+
+    <spot>/**
+     * apiOne desc
+     */</spot>
+    @PostMapping("/api-one")
+    public String apiOne(@RequestBody TestRequest request) {
+        return "success";
+    }
+}

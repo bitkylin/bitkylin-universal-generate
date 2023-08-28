@@ -15,8 +15,8 @@ public class ActionFactory {
         return switch (actionEnum) {
             case RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT -> new ReGenerateSwaggerToJavaDocForElementAction(titleText);
             case RE_GENERATE_SWAGGER_TO_JAVA_DOC_FOR_FILE -> new ReGenerateSwaggerToJavaDocForFileAction(titleText);
-            case POPULATE_MISSING_ANNOTATION_FOR_ELEMENT -> new PopulateMissingAnnotationForElementAction(titleText);
-            case POPULATE_MISSING_ANNOTATION_FOR_FILE -> new PopulateMissingAnnotationForFileAction(titleText);
+            case POPULATE_MISSING_ANNOTATION_FOR_ELEMENT -> new PopulateAnnotationForElementAction(titleText);
+            case POPULATE_MISSING_ANNOTATION_FOR_FILE -> new PopulateAnnotationForFileAction(titleText);
             case POPULATE_SWAGGER_TO_JAVA_DOC_FOR_ELEMENT -> new PopulateSwaggerToJavaDocForElementAction(titleText);
             case POPULATE_SWAGGER_TO_JAVA_DOC_FOR_FILE -> new PopulateSwaggerToJavaDocForFileAction(titleText);
             case RE_GENERATE_ANNOTATION_FOR_ELEMENT -> new ReGenerateAnnotationForElementAction(titleText);

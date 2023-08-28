@@ -86,6 +86,14 @@ public enum LocalizationEnum {
 
     // region --------- Action -----------
 
+    SEARCH_ELEMENT_NAME_TO_JAVA_DOC_INTENTION_FAMILY("Search JavaDoc"),
+    ANNOTATION_TO_JAVA_DOC_INTENTION_FAMILY("Annotation to JavaDoc"),
+    GENERATE_ENTRY_ANNOTATION_INTENTION_FAMILY("Generate Annotation"),
+
+    // endregion
+
+    // region --------- Action -----------
+
     ELEMENT_NAME_SUFFIX_LIST("list", "列表"),
     ELEMENT_NAME_SUFFIX_MAP("map", "Map"),
     ELEMENT_NAME_SUFFIX_SET("set", "set"),
@@ -107,5 +115,10 @@ public enum LocalizationEnum {
     LocalizationEnum(String english, String chinese) {
         this.english = english;
         this.chinese = chinese;
+    }
+
+    LocalizationEnum(String english) {
+        this.english = english;
+        this.chinese = english;
     }
 }

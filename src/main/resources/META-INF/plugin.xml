@@ -38,14 +38,14 @@
         <intentionAction>
             <language>JAVA</language>
             <className>
-                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateMissingAnnotationForElementIntentionAction
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateAnnotationForElementIntentionAction
             </className>
             <category>Bitkylin universal generate</category>
         </intentionAction>
         <intentionAction>
             <language>JAVA</language>
             <className>
-                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateMissingAnnotationForFileIntentionAction
+                cc.bitky.jetbrains.plugin.universalgenerate.action.intention.PopulateAnnotationForFileIntentionAction
             </className>
             <category>Bitkylin universal generate</category>
         </intentionAction>

@@ -1,0 +1,24 @@
+@Data
+@Slf4j
+public class TestDto {
+
+    <spot>/**
+     * bitkylin demo desc
+     */</spot>
+    private String bitkylin;
+
+    private Integer age;
+
+    <spot>/**
+     * @param bitkylin bitkylin demo desc
+     */</spot>
+    private void test(String bitkylin) {
+    }
+
+    @Data
+    public static class SourceClass {
+        /**
+         * bitkylin demo desc
+         */
+        private String bitkylin;
+    }
