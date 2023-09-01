@@ -6,7 +6,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.constants;
 public enum ActionGroupEnum {
 
     GLOBAL_UNIVERSAL_GENERATE,
-    ELEMENT_TO_JAVA_DOC,
+    SEARCH_ELEMENT_NAME_TO_JAVA_DOC,
     SWAGGER_TO_JAVA_DOC,
     GENERATE_ANNOTATION,
     DELETE_ELEMENT,

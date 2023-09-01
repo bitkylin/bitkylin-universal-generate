@@ -6,6 +6,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandT
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
 import com.google.common.collect.Sets;
@@ -49,7 +50,7 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
     @Override
     public void doWriteElement() {
         WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
+        SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         PsiFieldWrapper fieldWrapper = selectWrapper.getField();
         PsiClassWrapper selectedPsiClassWrapper = selectWrapper.getSelectedPsiClassWrapper();
         if (!canWriteAnnotationTag(selectedPsiClassWrapper)) {

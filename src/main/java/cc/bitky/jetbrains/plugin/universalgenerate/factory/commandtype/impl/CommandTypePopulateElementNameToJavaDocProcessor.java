@@ -3,12 +3,9 @@ package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.AbstractCommandTypeProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiMethodWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.ExceptionUtils;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.JavaDocGenerateUtils;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
 
 /**
  * @author bitkylin
@@ -41,9 +38,9 @@ public class CommandTypePopulateElementNameToJavaDocProcessor extends AbstractCo
 
     @Override
     public void doWriteElement() {
-        WriteContext.SelectWrapper selectWrapper = writeContext.getSelectWrapper();
+        SelectWrapper selectWrapper = writeContext.getSelectWrapper();
         if (!selectWrapper.isSelected()) {
-            throw NotificationUtils.notifyAndNewException(writeContext.fetchProject(), ExceptionMsgEnum.ELEMENT_NOT_SELECT);
+            throw ExceptionUtils.newException(ExceptionMsgEnum.ELEMENT_NOT_SELECT);
         }
         if (selectWrapper.getField() != null) {
             JavaDocGenerateUtils.populateWriteFieldJavaDocFromProjectElementName(

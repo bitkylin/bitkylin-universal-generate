@@ -1,7 +1,7 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.action.actiongroup.base.AbstractBitkylinUniversalGenerateActionGroup;
-import cc.bitky.jetbrains.plugin.universalgenerate.config.ActionConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionGroupEnum;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -19,16 +19,16 @@ public class GlobalUniversalGenerateActionGroup extends AbstractBitkylinUniversa
     public void update(@NotNull AnActionEvent anActionEvent) {
         super.update(anActionEvent);
 
-        ActionConfig actionConfig = new ActionConfig();
+        ActionLocalizationConfig actionLocalizationConfig = new ActionLocalizationConfig();
         if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
             anActionEvent.getPresentation().setVisible(false);
             return;
         }
         if (DumbService.isDumb(anActionEvent.getProject())) {
-            updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GLOBAL_UNIVERSAL_GENERATE, null);
+            updateGroupText(anActionEvent, actionLocalizationConfig, ActionGroupEnum.GLOBAL_UNIVERSAL_GENERATE, null);
             return;
         }
-        updateGroupText(anActionEvent, actionConfig, ActionGroupEnum.GLOBAL_UNIVERSAL_GENERATE, null);
+        updateGroupText(anActionEvent, actionLocalizationConfig, ActionGroupEnum.GLOBAL_UNIVERSAL_GENERATE, null);
 
     }
 }

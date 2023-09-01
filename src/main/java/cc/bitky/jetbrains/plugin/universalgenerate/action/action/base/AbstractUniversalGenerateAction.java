@@ -8,13 +8,13 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author bitkylin
  */
-public abstract class AbstractBitkylinUniversalGenerateAction extends AnAction {
+public abstract class AbstractUniversalGenerateAction extends AnAction {
 
-    protected AbstractBitkylinUniversalGenerateAction(String text) {
+    protected AbstractUniversalGenerateAction(String text) {
         super(text);
     }
 
-    protected AbstractBitkylinUniversalGenerateAction() {
+    protected AbstractUniversalGenerateAction() {
         super();
     }
 

@@ -4,12 +4,10 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalS
 import com.google.common.collect.Lists;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiFile;
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -83,28 +81,6 @@ public class WriteContext {
                     && language != null
                     ;
         }
-
-    }
-
-    @Getter
-    @Setter
-    public static class SelectWrapper {
-
-        private boolean selected;
-
-        @Nullable
-        private PsiElement currentElement;
-
-        private PsiClass clz;
-
-        private PsiFieldWrapper field;
-
-        private PsiMethodWrapper method;
-
-        /**
-         * 被手动选中的类
-         */
-        private PsiClassWrapper selectedPsiClassWrapper;
 
     }
 
