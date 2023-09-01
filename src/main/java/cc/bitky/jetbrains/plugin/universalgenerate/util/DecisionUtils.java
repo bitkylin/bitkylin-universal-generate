@@ -29,12 +29,20 @@ public final class DecisionUtils {
         PsiElement parent = psiIdentifier.getParent();
 
         if (parent instanceof PsiClass psiClass) {
+            // 不支持枚举类和接口
+            if (((PsiClass) parent).isEnum() || ((PsiClass) parent).isInterface()) {
+                return selectWrapper;
+            }
             selectWrapper.setSelected(true);
             selectWrapper.setClz(psiClass);
             return selectWrapper;
         }
 
         if (parent instanceof PsiField psiField) {
+            // 不支持枚举值
+            if (parent instanceof PsiEnumConstant) {
+                return selectWrapper;
+            }
             selectWrapper.setSelected(true);
             PsiFieldWrapper psiFieldWrapper = new PsiFieldWrapper();
             psiFieldWrapper.setPsiField(psiField);

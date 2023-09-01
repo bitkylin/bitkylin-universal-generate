@@ -32,13 +32,16 @@ public class WriteContextUtils {
 
         Preconditions.checkArgument(depth < 5);
 
+        // 不支持枚举类和接口
+        if (psiClass.isEnum()) {
+            return;
+        }
+        if (psiClass.isInterface()) {
+            return;
+        }
 
         PsiClassWrapper psiClassWrapper = createPsiClassWrapper(psiClass, writeContext.getPsiFileContext());
         writeContext.addClassWrapper(psiClassWrapper);
-
-        if (depth == 0) {
-            writeContext.setFilePsiClassWrapper(psiClassWrapper);
-        }
 
         if (currentElement != null && currentElement.getTextOffset() == psiClass.getTextOffset()) {
             selectWrapper.setClz(psiClass);

@@ -36,6 +36,9 @@ public class ReGenerateAnnotationForElementIntentionAction extends AbstractUnive
 
     @Override
     public void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
+        if (!calcIsAvailable(project, editor, element)) {
+            return;
+        }
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeElement();
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeElement();

@@ -31,6 +31,9 @@ public class PopulateSwaggerToJavaDocForElementIntentionAction extends AbstractU
 
     @Override
     protected void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+        if (!calcIsAvailable(project, editor, element)) {
+            return;
+        }
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_SWAGGER_TO_JAVA_DOC).writeElement();
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeElement();
