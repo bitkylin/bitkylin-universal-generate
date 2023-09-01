@@ -32,11 +32,7 @@ public class WriteContextUtils {
 
         Preconditions.checkArgument(depth < 5);
 
-        // 不支持枚举类和接口
-        if (psiClass.isEnum()) {
-            return;
-        }
-        if (psiClass.isInterface()) {
+        if (DecisionUtils.psiClassDisabled(psiClass)) {
             return;
         }
 
@@ -68,11 +64,8 @@ public class WriteContextUtils {
             }
         }
 
-        if (psiClass.isEnum()) {
-            return;
-        }
-
-        if (depth >= 1) {
+        // 类最多两层嵌套，更多的嵌套不再识别
+        if (depth >= 2) {
             return;
         }
 

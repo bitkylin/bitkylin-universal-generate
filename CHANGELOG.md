@@ -4,15 +4,17 @@
 
 ## [Unreleased]
 
-## [1.0.4] - 2023-08-28
+## [1.0.5] - 2023-09-02
 
 ### Added
 
 - add "Intention Action"、"Intention Action Preview"
+- Optimize various error reporting, currently disable handling of interface classes and enum classes
 
 ### 添加
 
 - 新增 "意图"、"意图预览"
+- 优化各种报错，目前禁用对枚举类的处理
 
 ## [0.9.12] - 2023-08-15
 
