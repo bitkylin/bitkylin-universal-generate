@@ -1,9 +1,9 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.config;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.LocalizationEnum;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import org.apache.commons.compress.utils.Lists;
 
 import java.util.List;
 import java.util.Map;

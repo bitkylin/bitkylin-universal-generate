@@ -2,10 +2,10 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiDocTagWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import com.google.common.collect.Lists;
 import com.intellij.psi.*;
 import com.intellij.psi.javadoc.PsiDocComment;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
