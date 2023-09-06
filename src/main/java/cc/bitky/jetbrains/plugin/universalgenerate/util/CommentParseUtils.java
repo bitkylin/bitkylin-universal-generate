@@ -26,22 +26,29 @@ public final class CommentParseUtils {
     private CommentParseUtils() {
     }
 
-    public static List<String> parseCommentFromElementName(WriteContext.PsiFileContext psiFileContext, String pureElementName) {
-        ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(pureElementName);
+    public static List<String> parseCommentFromElementName(WriteContext.PsiFileContext psiFileContext, String elementName) {
 
-        if (elementNameSuffixInfoAdded != null) {
-            pureElementName = elementNameSuffixInfoAdded.getResolvedElementName();
+        // 对原始元素名查询注释
+        List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, elementName);
+        if (CollectionUtils.isNotEmpty(commentList)) {
+            return createElementName(commentList, null);
         }
 
-        List<String> commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, pureElementName);
-        commentList = ListUtils.distinctMap(commentList, CommentQueryUtils::removeElementCommentSuffix);
+        // 移除元素名通用后缀
+        ElementNameSuffixInfo elementNameSuffixInfoAdded = CommentQueryUtils.removeFuzzySuffix(elementName);
+        if (elementNameSuffixInfoAdded != null) {
+            elementName = elementNameSuffixInfoAdded.getResolvedElementName();
+        }
 
+        // 对纯净元素名查询注释
+        commentList = CommentQueryUtils.queryFieldJavaDocByNameDirectly(psiFileContext, elementName);
+        commentList = ListUtils.distinctMap(commentList, CommentQueryUtils::removeElementCommentSuffix);
         if (CollectionUtils.isNotEmpty(commentList)) {
             return createElementName(commentList, elementNameSuffixInfoAdded);
         }
 
-        commentList = CommentQueryUtils.queryFieldJavaDocByNameFuzzy(psiFileContext, pureElementName);
-
+        // 对纯净元素名模糊匹配注释
+        commentList = CommentQueryUtils.queryFieldJavaDocByNameFuzzy(psiFileContext, elementName);
         if (CollectionUtils.isNotEmpty(commentList)) {
             return createElementName(commentList, elementNameSuffixInfoAdded);
         }
