@@ -21,6 +21,16 @@ public final class DecisionUtils {
     private DecisionUtils() {
     }
 
+    /**
+     * 不支持枚举类
+     */
+    public static boolean psiClassDisabled(PsiClass psiClass) {
+        if (psiClass.isEnum()) {
+            return true;
+        }
+        return false;
+    }
+
     public static SelectWrapper parseSelectWrapper(Project project, PsiElement psiElement) {
         SelectWrapper selectWrapper = new SelectWrapper();
         if (!(psiElement instanceof PsiIdentifier psiIdentifier)) {
@@ -29,26 +39,36 @@ public final class DecisionUtils {
         PsiElement parent = psiIdentifier.getParent();
 
         if (parent instanceof PsiClass psiClass) {
+            if (DecisionUtils.psiClassDisabled(psiClass)) {
+                return selectWrapper;
+            }
             selectWrapper.setSelected(true);
             selectWrapper.setClz(psiClass);
             return selectWrapper;
         }
 
-        if (parent instanceof PsiField psiField) {
-            selectWrapper.setSelected(true);
-            PsiFieldWrapper psiFieldWrapper = new PsiFieldWrapper();
-            psiFieldWrapper.setPsiField(psiField);
-            selectWrapper.setField(psiFieldWrapper);
-            return selectWrapper;
+        if (parent.getParent() instanceof PsiClass psiClass) {
+            if (DecisionUtils.psiClassDisabled(psiClass)) {
+                return selectWrapper;
+            }
+
+            if (parent instanceof PsiField psiField) {
+                selectWrapper.setSelected(true);
+                PsiFieldWrapper psiFieldWrapper = new PsiFieldWrapper();
+                psiFieldWrapper.setPsiField(psiField);
+                selectWrapper.setField(psiFieldWrapper);
+                return selectWrapper;
+            }
+
+            if (parent instanceof PsiMethod psiMethod) {
+                selectWrapper.setSelected(true);
+                PsiMethodWrapper psiMethodWrapper = new PsiMethodWrapper();
+                psiMethodWrapper.setPsiMethod(psiMethod);
+                selectWrapper.setMethod(psiMethodWrapper);
+                return selectWrapper;
+            }
         }
 
-        if (parent instanceof PsiMethod psiMethod) {
-            selectWrapper.setSelected(true);
-            PsiMethodWrapper psiMethodWrapper = new PsiMethodWrapper();
-            psiMethodWrapper.setPsiMethod(psiMethod);
-            selectWrapper.setMethod(psiMethodWrapper);
-            return selectWrapper;
-        }
         return selectWrapper;
     }
 

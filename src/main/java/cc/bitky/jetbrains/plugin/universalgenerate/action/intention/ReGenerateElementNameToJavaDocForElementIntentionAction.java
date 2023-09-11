@@ -37,6 +37,10 @@ public class ReGenerateElementNameToJavaDocForElementIntentionAction extends Abs
     @Override
     protected void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
+        if (!writeContext.fetchSelected()) {
+            log.warn("未选择任何元素 : {}", getClass().getName());
+            return;
+        }
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_ELEMENT_NAME_TO_JAVA_DOC).writeElement();
     }
 

@@ -34,6 +34,10 @@ public class ReGenerateSwaggerToJavaDocForElementIntentionAction extends Abstrac
     @Override
     protected void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
+        if (!writeContext.fetchSelected()) {
+            log.warn("未选择任何元素 : {}", getClass().getName());
+            return;
+        }
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_SWAGGER_TO_JAVA_DOC).writeElement();
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeElement();
     }

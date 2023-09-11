@@ -32,6 +32,10 @@ public class PopulateAnnotationForElementIntentionAction extends AbstractUnivers
     @Override
     protected void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
+        if (!writeContext.fetchSelected()) {
+            log.warn("未选择任何元素 : {}", getClass().getName());
+            return;
+        }
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_SWAGGER).writeElement();
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.POPULATE_WRITE_TAG).writeElement();
     }

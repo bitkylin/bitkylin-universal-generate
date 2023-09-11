@@ -3,11 +3,11 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.ListUtils;
 import com.google.common.base.Enums;
+import com.google.common.collect.Lists;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.search.GlobalSearchScope;
-import org.apache.commons.compress.utils.Lists;
 
 import java.util.List;
 

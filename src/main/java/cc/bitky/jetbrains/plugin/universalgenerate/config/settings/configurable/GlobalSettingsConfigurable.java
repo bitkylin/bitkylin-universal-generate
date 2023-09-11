@@ -10,7 +10,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.component.Glo
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.options.Configurable;
-import org.apache.commons.collections4.SetUtils;
+import org.apache.commons.collections.SetUtils;
 
 import javax.swing.*;
 

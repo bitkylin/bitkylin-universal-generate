@@ -11,7 +11,7 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.intellij.psi.PsiClass;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections.MapUtils;
 
 import java.util.Map;
 import java.util.Optional;

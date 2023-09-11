@@ -18,8 +18,6 @@ import java.util.List;
 @Setter
 public class WriteContext {
 
-    private PsiClassWrapper filePsiClassWrapper;
-
     private WriteCommand writeCommand;
 
     private PsiFileContext psiFileContext;
@@ -32,23 +30,11 @@ public class WriteContext {
         return psiFileContext.getProject();
     }
 
-    public PsiClass fetchFilePsiClass() {
-        return psiFileContext.getPsiClass();
-    }
-
-    public PsiFile fetchPsiFile() {
-        return psiFileContext.getPsiFile();
-    }
-
     public boolean fetchSelected() {
         if (selectWrapper == null) {
             return false;
         }
         return selectWrapper.isSelected();
-    }
-
-    public PsiClassWrapper.ClassRoleEnum fetchFilePsiClassRole() {
-        return filePsiClassWrapper.getClassRole();
     }
 
     public void addClassWrapper(PsiClassWrapper psiClassWrapper) {

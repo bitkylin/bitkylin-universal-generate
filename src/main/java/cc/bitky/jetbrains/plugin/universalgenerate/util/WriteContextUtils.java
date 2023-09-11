@@ -9,7 +9,7 @@ import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.impl.source.PsiFieldImpl;
 import com.intellij.psi.impl.source.PsiMethodImpl;
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,13 +32,12 @@ public class WriteContextUtils {
 
         Preconditions.checkArgument(depth < 5);
 
+        if (DecisionUtils.psiClassDisabled(psiClass)) {
+            return;
+        }
 
         PsiClassWrapper psiClassWrapper = createPsiClassWrapper(psiClass, writeContext.getPsiFileContext());
         writeContext.addClassWrapper(psiClassWrapper);
-
-        if (depth == 0) {
-            writeContext.setFilePsiClassWrapper(psiClassWrapper);
-        }
 
         if (currentElement != null && currentElement.getTextOffset() == psiClass.getTextOffset()) {
             selectWrapper.setClz(psiClass);
@@ -65,11 +64,8 @@ public class WriteContextUtils {
             }
         }
 
-        if (psiClass.isEnum()) {
-            return;
-        }
-
-        if (depth >= 1) {
+        // 类最多两层嵌套，更多的嵌套不再识别
+        if (depth >= 2) {
             return;
         }
 

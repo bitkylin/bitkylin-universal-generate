@@ -4,15 +4,19 @@
 
 ## [Unreleased]
 
-## [1.0.3] - 2023-08-27
+## [1.0.7] - 2023-09-11
 
 ### Added
 
 - add "Intention Action"、"Intention Action Preview"
+- Optimize various error reporting, currently disable handling of interface classes and enum classes
+- Remove redundant tri-party dependencies and dramatically reduce plugin size
 
 ### 添加
 
 - 新增 "意图"、"意图预览"
+- 优化各种报错，目前禁用对枚举类的处理
+- 去除冗余的三方依赖，大幅缩减插件体积
 
 ## [0.9.12] - 2023-08-15
 

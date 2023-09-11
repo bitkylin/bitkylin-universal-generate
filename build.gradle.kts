@@ -30,15 +30,6 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.28")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.28")
 
-    // https://mvnrepository.com/artifact/com.google.guava/guava
-    implementation("com.google.guava:guava:32.1.2-jre")
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation("org.apache.commons:commons-lang3:3.13.0")
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
-    implementation("org.apache.commons:commons-collections4:4.4")
-    // https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
-    implementation("com.alibaba.fastjson2:fastjson2:2.0.36")
-
 //    implementation(libs.annotations)
 }
 
