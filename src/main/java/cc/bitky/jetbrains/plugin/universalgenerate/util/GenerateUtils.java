@@ -9,7 +9,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.search.GlobalSearchScope;
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public final class GenerateUtils {
         // 待导入类没有时 让用户自行处理
         PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
         if (waiteImportClass == null) {
-            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
+            throw ExceptionUtils.newException(ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
         }
 
         // 原注解存在时不更新
@@ -76,7 +76,7 @@ public final class GenerateUtils {
         // 待导入类没有时 让用户自行处理
         PsiClass waiteImportClass = JavaPsiFacade.getInstance(psiFileContext.getProject()).findClass(qualifiedName, GlobalSearchScope.allScope(psiFileContext.getProject()));
         if (waiteImportClass == null) {
-            throw NotificationUtils.notifyAndNewException(psiFileContext.getProject(), ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
+            throw ExceptionUtils.newException(ExceptionMsgEnum.CLASS_NOT_FOUND, qualifiedName);
         }
 
         // 原注解删除

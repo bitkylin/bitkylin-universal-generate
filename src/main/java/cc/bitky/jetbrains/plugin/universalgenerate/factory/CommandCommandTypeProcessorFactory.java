@@ -20,7 +20,7 @@ public final class CommandCommandTypeProcessorFactory {
     }
 
     public static ICommandTypeProcessor decide(WriteContext writeContext, WriteCommand.Command command) {
-        Set<GlobalSettingsState.AnnotationAffectedEnum> annotationAffectedSet = Sets.newHashSet(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedList());
+        Set<GlobalSettingsState.AnnotationAffectedEnum> annotationAffectedSet = Sets.newHashSet(GlobalSettingsStateHelper.getInstance().getAnnotationAffectedListShowed(writeContext.getPsiFileContext().getProject()));
 
         if (!writeContext.getPsiFileContext().valid()) {
             return new CommandTypeEmptyProcessor(writeContext);

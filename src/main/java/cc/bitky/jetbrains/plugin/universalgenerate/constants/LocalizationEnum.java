@@ -54,9 +54,9 @@ public enum LocalizationEnum {
 
     EMPTY("empty space", "空白的"),
     GLOBAL_UNIVERSAL_GENERATE("Universal Generate", "通用生成"),
-    ELEMENT_NAME_TO_JAVA_DOC("Search JavaDoc", "查找JavaDoc"),
+    SEARCH_ELEMENT_NAME_TO_JAVA_DOC("Search JavaDoc", "查找JavaDoc"),
     ANNOTATION_TO_JAVA_DOC("Annotation to JavaDoc", "注解转JavaDoc"),
-    GENERATE_ENTRY_ANNOTATION("Generate Entry Annotation", "生成入口注解"),
+    GENERATE_ENTRY_ANNOTATION("Generate Annotation", "生成注解"),
     DELETE_ELEMENT("Delete Element", "删除元素"),
     FULL_DOCUMENT("Full Document", "整个文档"),
     CURRENT_ELEMENT("Current Element", "当前元素"),
@@ -86,6 +86,14 @@ public enum LocalizationEnum {
 
     // region --------- Action -----------
 
+    SEARCH_ELEMENT_NAME_TO_JAVA_DOC_INTENTION_FAMILY("Search JavaDoc"),
+    ANNOTATION_TO_JAVA_DOC_INTENTION_FAMILY("Annotation to JavaDoc"),
+    GENERATE_ENTRY_ANNOTATION_INTENTION_FAMILY("Generate Annotation"),
+
+    // endregion
+
+    // region --------- Action -----------
+
     ELEMENT_NAME_SUFFIX_LIST("list", "列表"),
     ELEMENT_NAME_SUFFIX_MAP("map", "Map"),
     ELEMENT_NAME_SUFFIX_SET("set", "set"),
@@ -107,5 +115,10 @@ public enum LocalizationEnum {
     LocalizationEnum(String english, String chinese) {
         this.english = english;
         this.chinese = chinese;
+    }
+
+    LocalizationEnum(String english) {
+        this.english = english;
+        this.chinese = english;
     }
 }

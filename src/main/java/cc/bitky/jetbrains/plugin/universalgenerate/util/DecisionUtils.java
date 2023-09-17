@@ -2,13 +2,11 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.UniversalGenerateConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.DecisionAnnotationEnum;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
+import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper.ClassRoleEnum;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
 import com.intellij.codeInsight.AnnotationUtil;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiModifierListOwner;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -21,6 +19,57 @@ import java.util.stream.Collectors;
 public final class DecisionUtils {
 
     private DecisionUtils() {
+    }
+
+    /**
+     * 不支持枚举类
+     */
+    public static boolean psiClassDisabled(PsiClass psiClass) {
+        if (psiClass.isEnum()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static SelectWrapper parseSelectWrapper(Project project, PsiElement psiElement) {
+        SelectWrapper selectWrapper = new SelectWrapper();
+        if (!(psiElement instanceof PsiIdentifier psiIdentifier)) {
+            return selectWrapper;
+        }
+        PsiElement parent = psiIdentifier.getParent();
+
+        if (parent instanceof PsiClass psiClass) {
+            if (DecisionUtils.psiClassDisabled(psiClass)) {
+                return selectWrapper;
+            }
+            selectWrapper.setSelected(true);
+            selectWrapper.setClz(psiClass);
+            return selectWrapper;
+        }
+
+        if (parent.getParent() instanceof PsiClass psiClass) {
+            if (DecisionUtils.psiClassDisabled(psiClass)) {
+                return selectWrapper;
+            }
+
+            if (parent instanceof PsiField psiField) {
+                selectWrapper.setSelected(true);
+                PsiFieldWrapper psiFieldWrapper = new PsiFieldWrapper();
+                psiFieldWrapper.setPsiField(psiField);
+                selectWrapper.setField(psiFieldWrapper);
+                return selectWrapper;
+            }
+
+            if (parent instanceof PsiMethod psiMethod) {
+                selectWrapper.setSelected(true);
+                PsiMethodWrapper psiMethodWrapper = new PsiMethodWrapper();
+                psiMethodWrapper.setPsiMethod(psiMethod);
+                selectWrapper.setMethod(psiMethodWrapper);
+                return selectWrapper;
+            }
+        }
+
+        return selectWrapper;
     }
 
     public static void assembleRoleAndLocation(PsiClassWrapper psiClassWrapper, WriteContext.PsiFileContext psiFileContext) {

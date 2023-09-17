@@ -42,7 +42,7 @@ public final class BitkylinPsiParseUtils {
             return annotationTag;
         }
         PsiAnnotationMemberValue annotationMemberValue = existAnnotation.findAttributeValue("value");
-        NotificationUtils.checks(psiField.getProject(), ExceptionMsgEnum.ANNOTATION_TAG_ERROR, Objects.nonNull(annotationMemberValue));
+        ExceptionUtils.checks(ExceptionMsgEnum.ANNOTATION_TAG_ERROR, Objects.nonNull(annotationMemberValue));
         assert Objects.nonNull(annotationMemberValue);
 
         annotationTag.setExist(true);

@@ -1,0 +1,61 @@
+
+/**
+ * TestRequest desc
+ */
+<spot>@ApiModel(description = "TestRequest desc")</spot>
+@Data
+@Slf4j
+public class TestRequest {
+    /**
+     * my name
+     */
+    <spot>@Tag(101)
+    @ApiModelProperty("my name")</spot>
+    private String name;
+    /**
+     * test age
+     */
+    <spot>@Tag(102)
+    @ApiModelProperty("test age")</spot>
+    private Integer age;
+
+    /**
+     * address desc
+     */
+    <spot>@ApiModel(description = "address desc")</spot>
+    @Setter
+    @Getter
+    public static class Address {
+        /**
+         * china
+         */
+        <spot>@Tag(201)
+        @ApiModelProperty("china")</spot>
+        private String country;
+        /**
+         * Shanghai province
+         */
+        <spot>@Tag(202)
+        @ApiModelProperty("Shanghai province")</spot>
+        private String province;
+    }
+}
+
+
+/**
+ * TestController desc
+ */
+<spot>@Api(tags = {"TestController desc"})</spot>
+@RestController
+@RequestMapping("/test")
+public class TestController {
+
+    /**
+     * apiOne desc
+     */
+    <spot>@ApiOperation("apiOne desc")</spot>
+    @PostMapping("/api-one")
+    public String apiOne(@RequestBody TestRequest request) {
+        return "success";
+    }
+}
