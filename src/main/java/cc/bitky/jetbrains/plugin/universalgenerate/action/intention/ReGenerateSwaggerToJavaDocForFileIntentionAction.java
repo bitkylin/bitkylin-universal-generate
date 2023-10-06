@@ -27,7 +27,7 @@ public class ReGenerateSwaggerToJavaDocForFileIntentionAction extends AbstractUn
         if (!GlobalSettingsStateHelper.getInstance().isIntentionReGenerateShowed()) {
             return false;
         }
-        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, editor, element);
         return !selectWrapper.isSelected();
     }
 

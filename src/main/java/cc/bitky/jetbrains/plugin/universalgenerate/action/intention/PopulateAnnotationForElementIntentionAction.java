@@ -25,7 +25,7 @@ public class PopulateAnnotationForElementIntentionAction extends AbstractUnivers
 
     @Override
     protected boolean calcIsAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, editor, element);
         return selectWrapper.isSelected();
     }
 

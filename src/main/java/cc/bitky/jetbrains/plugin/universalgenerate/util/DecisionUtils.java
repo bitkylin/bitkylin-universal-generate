@@ -5,8 +5,10 @@ import cc.bitky.jetbrains.plugin.universalgenerate.constants.DecisionAnnotationE
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.*;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper.ClassRoleEnum;
 import com.intellij.codeInsight.AnnotationUtil;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 /**
  * @author bitkylin
  */
+@Slf4j
 public final class DecisionUtils {
 
     private DecisionUtils() {
@@ -31,12 +34,20 @@ public final class DecisionUtils {
         return false;
     }
 
-    public static SelectWrapper parseSelectWrapper(Project project, PsiElement psiElement) {
+    public static SelectWrapper parseSelectWrapper(Project project, Editor editor, PsiElement psiElement) {
         SelectWrapper selectWrapper = new SelectWrapper();
         if (!(psiElement instanceof PsiIdentifier psiIdentifier)) {
             return selectWrapper;
         }
         PsiElement parent = psiIdentifier.getParent();
+        int caretOffset = editor.getCaretModel().getOffset();
+        int currentOffset = psiElement.getTextOffset();
+        int nextOffset = psiElement.getNextSibling().getTextOffset();
+
+        // 如果光标指向元素边缘，则判定为未选中元素
+        if (caretOffset == currentOffset || caretOffset == nextOffset) {
+            return selectWrapper;
+        }
 
         if (parent instanceof PsiClass psiClass) {
             if (DecisionUtils.psiClassDisabled(psiClass)) {

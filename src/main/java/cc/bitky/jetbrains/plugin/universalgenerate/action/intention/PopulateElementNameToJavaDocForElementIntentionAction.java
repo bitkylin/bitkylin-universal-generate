@@ -25,7 +25,7 @@ public class PopulateElementNameToJavaDocForElementIntentionAction extends Abstr
 
     @Override
     protected boolean calcIsAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, editor, element);
         if (!selectWrapper.isSelected()) {
             return false;
         }

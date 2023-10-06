@@ -27,7 +27,7 @@ public class ReGenerateElementNameToJavaDocForElementIntentionAction extends Abs
         if (!GlobalSettingsStateHelper.getInstance().isIntentionReGenerateShowed()) {
             return false;
         }
-        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, editor, element);
         if (!selectWrapper.isSelected()) {
             return false;
         }

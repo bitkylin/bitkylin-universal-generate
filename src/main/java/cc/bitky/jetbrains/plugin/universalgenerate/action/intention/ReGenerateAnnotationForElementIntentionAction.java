@@ -30,7 +30,7 @@ public class ReGenerateAnnotationForElementIntentionAction extends AbstractUnive
         if (!GlobalSettingsStateHelper.getInstance().isIntentionReGenerateShowed()) {
             return false;
         }
-        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, element);
+        SelectWrapper selectWrapper = DecisionUtils.parseSelectWrapper(project, editor, element);
         return selectWrapper.isSelected();
     }
 
