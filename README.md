@@ -16,6 +16,8 @@ Easily generate Swagger and Protostuff annotations with one click, generate Java
 
 ### 做什么呢？
 
+- [B站有精心制作的视频可以看](https://www.bilibili.com/video/BV1y8411r7t5)，[视频在YouTube也放了一份](https://youtu.be/U-Q_8e5cdWA)
+- [B站还有专栏文章写的更详细一些](https://www.bilibili.com/read/cv26912030)，[文章在简书里也放了一份](https://www.jianshu.com/p/151679589c4b)
 - Jetbrains IntelliJ IDEA / Android studio 插件.
 - 作用于 Controller 类或 POJO 类，你可以很方便的一键生成 Protostuff 注解 ' @Tag ' ，并且可以一键直接将 JavaDoc 转换为 Swagger 注解 ' @Api, @ApiOperation, @ApiModel, @ApiModelProperty '。反过来，你也可以一键将 Swagger 注解转换为 JavaDoc。
 - 可以生成指定字段的JavaDoc，请注意这并不是通过'翻译'生成的，而是模糊匹配项目中的同名字段，匹配其注释及Swagger注解，提取并填充为指定字段的JavaDoc。
