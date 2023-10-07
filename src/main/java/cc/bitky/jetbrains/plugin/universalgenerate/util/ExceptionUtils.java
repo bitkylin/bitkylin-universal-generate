@@ -3,8 +3,8 @@ package cc.bitky.jetbrains.plugin.universalgenerate.util;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.BitkylinException;
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.ExceptionMsgEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.LocalizationConfigFactory;
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.Arrays;
 
