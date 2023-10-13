@@ -42,7 +42,12 @@ public final class DecisionUtils {
         PsiElement parent = psiIdentifier.getParent();
         int caretOffset = editor.getCaretModel().getOffset();
         int currentOffset = psiElement.getTextOffset();
-        int nextOffset = psiElement.getNextSibling().getTextOffset();
+        int nextOffset;
+        if (psiElement.getNextSibling() == null) {
+            nextOffset = -1;
+        } else {
+            nextOffset = psiElement.getNextSibling().getTextOffset();
+        }
 
         // 如果光标指向元素边缘，则判定为未选中元素
         if (caretOffset == currentOffset || caretOffset == nextOffset) {
