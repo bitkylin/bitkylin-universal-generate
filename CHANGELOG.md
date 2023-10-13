@@ -10,11 +10,15 @@
 
 - When the cursor is pointing to the edge of an element, it will be judged as an unselected element, which is used in Intention Actions Fix the bug of displaying "Full Document" and "Current Element" at the same time.
 - Change since/until build to 223-233.* (2022.3-2023.3.*)
+- Update to IntelliJ.Platform.Plugin.Template 1.11.2
+- Remove outdated dependencies
 
 ### 修复
 
 - 光标指向元素边缘时，判定为未选定元素，用于 Intention Actions 修复同时展示「整个文档」、「当前元素」的bug
 - 支持的IDEA版本改为了 223-233.* (2022.3-2023.3.*)
+- 升级到 IntelliJ.Platform.Plugin.Template 1.11.2
+- 移除过期的依赖
 
 ## [1.0.7] - 2023-09-11
 
