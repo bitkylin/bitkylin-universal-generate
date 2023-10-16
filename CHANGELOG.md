@@ -9,6 +9,9 @@
 ### Fixed
 
 - When the cursor is pointing to the edge of an element, it will be judged as an unselected element, which is used in Intention Actions Fix the bug of displaying "Full Document" and "Current Element" at the same time.
+
+### Changed
+
 - Change since/until build to 223-233.* (2022.3-2023.3.*)
 - Update to IntelliJ.Platform.Plugin.Template 1.11.2
 - Remove outdated dependencies
@@ -16,6 +19,9 @@
 ### 修复
 
 - 光标指向元素边缘时，判定为未选定元素，用于 Intention Actions 修复同时展示「整个文档」、「当前元素」的bug
+
+### 变更
+
 - 支持的IDEA版本改为了 223-233.* (2022.3-2023.3.*)
 - 升级到 IntelliJ.Platform.Plugin.Template 1.11.2
 - 移除过期的依赖
@@ -79,3 +85,10 @@
 
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
 - 后续会添加更多方便的功能，敬请期待吧！
+
+[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.0.7...v1.1.3
+[1.0.7]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v0.9.12...v1.0.7
+[0.9.12]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v0.9.2...v0.9.12
+[0.9.2]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v0.8.0...v0.9.2
+[0.8.0]: https://github.com/bitkylin/bitkylin-universal-generate/commits/v0.8.0
