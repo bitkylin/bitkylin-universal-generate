@@ -46,7 +46,10 @@ public class GlobalSettingsConfigurable implements Configurable {
         if (!SetUtils.isEqualSet(Sets.newHashSet(globalSettingsComponent.getAnnotationAffectedList()), Sets.newHashSet(settings.getAnnotationAffectedList()))) {
             return true;
         }
-        if (globalSettingsComponent.contextMenuShowed() != settings.isContextMenuShowed()) {
+        if (globalSettingsComponent.rightClickMenuEnabled() != settings.isRightClickMenuEnabled()) {
+            return true;
+        }
+        if (globalSettingsComponent.intentionActionEnabled() != settings.isIntentionActionEnabled()) {
             return true;
         }
         return false;
@@ -57,7 +60,8 @@ public class GlobalSettingsConfigurable implements Configurable {
         GlobalSettingsStateHelper settings = GlobalSettingsStateHelper.getInstance();
         settings.setLanguage(globalSettingsComponent.getLanguage());
         settings.setAnnotationAffectedList(globalSettingsComponent.getAnnotationAffectedList());
-        settings.setContextMenuShowed(globalSettingsComponent.contextMenuShowed());
+        settings.setRightClickMenuEnabled(globalSettingsComponent.rightClickMenuEnabled());
+        settings.setIntentionActionEnabled(globalSettingsComponent.intentionActionEnabled());
     }
 
     @Override
@@ -75,15 +79,21 @@ public class GlobalSettingsConfigurable implements Configurable {
                 localizationConfig.checkBoxProtostuffEffected()
         );
 
-        globalSettingsComponent.setTextBlockEnabled(
-                localizationConfig.labelContextMenu(),
-                localizationConfig.checkBoxShowed()
+        globalSettingsComponent.setTextBlockRightClickEnabled(
+                localizationConfig.labelRightClickMenu(),
+                localizationConfig.checkBoxRightClickEnabled()
+        );
+
+        globalSettingsComponent.setTextBlockIntentionActionEnabled(
+                localizationConfig.labelIntentionAction(),
+                localizationConfig.checkBoxIntentionActionEnabled()
         );
 
         GlobalSettingsStateHelper settingsState = GlobalSettingsStateHelper.getInstance();
         globalSettingsComponent.setLanguage(settingsState.getLanguage());
         globalSettingsComponent.setAnnotationAffectedList(settingsState.getAnnotationAffectedList());
-        globalSettingsComponent.setContextMenuShowed(settingsState.isContextMenuShowed());
+        globalSettingsComponent.setRightClickMenuEnabled(settingsState.isRightClickMenuEnabled());
+        globalSettingsComponent.setIntentionActionEnabled(settingsState.isIntentionActionEnabled());
     }
 
     @Override

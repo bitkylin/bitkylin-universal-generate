@@ -28,7 +28,7 @@ public class DeleteElementActionGroup extends AbstractBitkylinUniversalGenerateA
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent anActionEvent) {
-        if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
+        if (!GlobalSettingsStateHelper.getInstance().isRightClickMenuEnabled()) {
             anActionEvent.getPresentation().setVisible(false);
             return new AnAction[0];
         }

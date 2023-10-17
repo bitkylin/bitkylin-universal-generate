@@ -31,6 +31,8 @@ public class GlobalSettingsState implements PersistentStateComponent<GlobalSetti
 
     private Boolean contextMenuShowed = true;
 
+    private Boolean intentionActionEnabled = true;
+
     @Override
     public GlobalSettingsState getState() {
         return this;

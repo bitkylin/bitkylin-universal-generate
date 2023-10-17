@@ -97,14 +97,25 @@ public class GlobalSettingsStateHelper {
         this.state.setAnnotationAffectedList(ListUtils.distinctMap(annotationAffectedList, Enum::name));
     }
 
-    public void setContextMenuShowed(boolean contextMenuShowed) {
+    public void setRightClickMenuEnabled(boolean contextMenuShowed) {
         this.state.setContextMenuShowed(contextMenuShowed);
     }
 
-    public boolean isContextMenuShowed() {
+    public boolean isRightClickMenuEnabled() {
         return this.state.getContextMenuShowed();
     }
 
+    public void setIntentionActionEnabled(boolean enabled) {
+        this.state.setIntentionActionEnabled(enabled);
+    }
+
+    public boolean isIntentionActionEnabled() {
+        return this.state.getIntentionActionEnabled();
+    }
+
+    /**
+     * 为降低使用成本，Intention Action 目前仅「填充」生效，「重新生成」无效
+     */
     public boolean isIntentionReGenerateShowed() {
         return false;
     }

@@ -38,12 +38,20 @@ public class GlobalSettingLocalizationConfig {
         return localizedText(LocalizationEnum.CHECK_BOX_PROTOSTUFF_EFFECTED);
     }
 
-    public String labelContextMenu() {
-        return localizedText(LocalizationEnum.LABEL_CONTEXT_MENU);
+    public String labelRightClickMenu() {
+        return localizedText(LocalizationEnum.LABEL_RIGHT_CLICK_MENU);
     }
 
-    public String checkBoxShowed() {
-        return localizedText(LocalizationEnum.CHECK_BOX_SHOWED);
+    public String checkBoxRightClickEnabled() {
+        return localizedText(LocalizationEnum.RIGHT_CLICK_ENABLED);
+    }
+
+    public String labelIntentionAction() {
+        return localizedText(LocalizationEnum.LABEL_INTENTION_ACTION);
+    }
+
+    public String checkBoxIntentionActionEnabled() {
+        return localizedText(LocalizationEnum.INTENTION_ACTION_ENABLED);
     }
 
 

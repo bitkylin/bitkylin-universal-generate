@@ -2,6 +2,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.action.intention.base;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.common.exception.BitkylinException;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.localization.ActionLocalizationConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ActionEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.IntentionFamilyEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.util.NotificationUtils;
@@ -26,6 +27,9 @@ public abstract class AbstractUniversalGenerateIntentionAction extends BaseEleme
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         try {
+            if (!GlobalSettingsStateHelper.getInstance().isIntentionActionEnabled()) {
+                return false;
+            }
             return calcIsAvailable(project, editor, element);
         } catch (ProcessCanceledException e) {
             log.info("IntentionAction isAvailable ProcessCanceledException", e);

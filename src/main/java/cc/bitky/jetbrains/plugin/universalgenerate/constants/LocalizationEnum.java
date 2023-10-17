@@ -31,9 +31,13 @@ public enum LocalizationEnum {
 
     CHECK_BOX_PROTOSTUFF_EFFECTED("Protostuff", "Protostuff"),
 
-    LABEL_CONTEXT_MENU("Right-Click Menu", "右键菜单"),
+    LABEL_RIGHT_CLICK_MENU("Right-Click Menu", "右键菜单"),
 
-    CHECK_BOX_SHOWED("Showed", "显示"),
+    RIGHT_CLICK_ENABLED("Enabled", "启用"),
+
+    LABEL_INTENTION_ACTION("Intention Action", "Intention Action"),
+
+    INTENTION_ACTION_ENABLED("Enabled", "启用"),
 
 
     // endregion

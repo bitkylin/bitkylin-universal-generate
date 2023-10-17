@@ -10,25 +10,28 @@ import java.util.List;
 /**
  * @author bitkylin
  */
-@Getter
+
 public class GlobalSettingsComponent {
 
+    @Getter
     private JPanel mainPanel;
 
     private JLabel labelLanguage;
+
+    @Getter
     private JRadioButton radioButtonLanguageEnglish;
+
+    @Getter
     private JRadioButton radioButtonLanguageChinese;
 
     private JLabel labelScopeOfEffect;
     private JCheckBox checkBoxSwaggerAffected;
     private JCheckBox checkBoxProtostuffAffected;
 
-    private JLabel labelContextMenu;
-    private JCheckBox checkBoxShowed;
-
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
+    private JLabel labelRightClickMenu;
+    private JCheckBox checkBoxRightClickMenuEnabled;
+    private JLabel labelIntentionAction;
+    private JCheckBox checkBoxIntentionActionEnabled;
 
     public GlobalSettingsState.LanguageEnum getLanguage() {
         if (radioButtonLanguageEnglish.isSelected()) {
@@ -75,16 +78,26 @@ public class GlobalSettingsComponent {
             switch (annotationAffectedEnum) {
                 case SWAGGER -> checkBoxSwaggerAffected.setSelected(true);
                 case PROTOSTUFF -> checkBoxProtostuffAffected.setSelected(true);
+                default -> {
+                }
             }
         }
     }
 
-    public void setContextMenuShowed(boolean contextMenuShowed) {
-        checkBoxShowed.setSelected(contextMenuShowed);
+    public void setRightClickMenuEnabled(boolean contextMenuShowed) {
+        checkBoxRightClickMenuEnabled.setSelected(contextMenuShowed);
     }
 
-    public boolean contextMenuShowed() {
-        return checkBoxShowed.isSelected();
+    public boolean rightClickMenuEnabled() {
+        return checkBoxRightClickMenuEnabled.isSelected();
+    }
+
+    public void setIntentionActionEnabled(boolean contextMenuShowed) {
+        checkBoxIntentionActionEnabled.setSelected(contextMenuShowed);
+    }
+
+    public boolean intentionActionEnabled() {
+        return checkBoxIntentionActionEnabled.isSelected();
     }
 
     public void setTextBlockLanguage(String labelLanguage,
@@ -103,10 +116,16 @@ public class GlobalSettingsComponent {
         this.checkBoxProtostuffAffected.setText(checkBoxProtostuffEffected);
     }
 
-    public void setTextBlockEnabled(String labelContextMenu,
-                                    String checkBoxShowed) {
-        this.labelContextMenu.setText(labelContextMenu);
-        this.checkBoxShowed.setText(checkBoxShowed);
+    public void setTextBlockRightClickEnabled(String label,
+                                              String enabled) {
+        this.labelRightClickMenu.setText(label);
+        this.checkBoxRightClickMenuEnabled.setText(enabled);
+    }
+
+    public void setTextBlockIntentionActionEnabled(String label,
+                                                   String enabled) {
+        this.labelIntentionAction.setText(label);
+        this.checkBoxIntentionActionEnabled.setText(enabled);
     }
 
 }

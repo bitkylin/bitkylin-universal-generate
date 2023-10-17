@@ -20,7 +20,7 @@ public class GlobalUniversalGenerateActionGroup extends AbstractBitkylinUniversa
         super.update(anActionEvent);
 
         ActionLocalizationConfig actionLocalizationConfig = new ActionLocalizationConfig();
-        if (!GlobalSettingsStateHelper.getInstance().isContextMenuShowed()) {
+        if (!GlobalSettingsStateHelper.getInstance().isRightClickMenuEnabled()) {
             anActionEvent.getPresentation().setVisible(false);
             return;
         }

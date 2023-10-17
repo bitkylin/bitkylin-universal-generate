@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [1.1.4] - 2023-10-18
+
+### Added
+
+- add "Intention Action" Configuration options
+
+### 添加
+
+- 新增 "Intention Action" 配置选项
+
 ## [1.1.3] - 2023-10-08
 
 ### Fixed
