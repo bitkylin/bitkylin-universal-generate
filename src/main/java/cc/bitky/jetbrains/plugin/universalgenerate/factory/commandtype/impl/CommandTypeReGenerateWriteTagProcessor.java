@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
@@ -26,10 +26,10 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.wri
  */
 public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractWriteTagProcessor implements ICommandTypeProcessor {
 
-    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext, AnnotationTagConfig annotationTagConfig) {
+    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
-        beginNumValue = annotationTagConfig.getBeginNumValue();
-        stepNumValue = annotationTagConfig.getStepNumValue();
+        beginNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagStartValue();
+        stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
         tagExistedSet = Sets.newHashSet();
     }
 

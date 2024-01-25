@@ -54,6 +54,49 @@ public class GlobalSettingLocalizationConfig {
         return localizedText(LocalizationEnum.INTENTION_ACTION_ENABLED);
     }
 
+    public String labelProtostuffTagAssign() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_ASSIGN);
+    }
+
+    public String labelProtostuffTagAssignToolTip() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_ASSIGN_TOOL_TIP);
+    }
+
+    public String radioButtonProtostuffTagAssignNonRepeatable() {
+        return localizedText(LocalizationEnum.RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_NON_REPEATABLE);
+    }
+
+    public String radioButtonProtostuffTagAssignNonRepeatableToolTip() {
+        return localizedText(LocalizationEnum.RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_NON_REPEATABLE_TOOL_TIP);
+    }
+
+    public String radioButtonProtostuffTagAssignFromStartValue() {
+        return localizedText(LocalizationEnum.RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_FROM_START_VALUE);
+    }
+
+    public String radioButtonProtostuffTagAssignFromStartValueToolTip() {
+        return localizedText(LocalizationEnum.RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_FROM_START_VALUE_TOOL_TIP);
+    }
+
+    public String labelProtostuffTagStartValue() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_START_VALUE);
+    }
+
+    public String labelProtostuffTagStartValueToolTip() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_START_VALUE_TOOL_TIP);
+    }
+
+    public String labelProtostuffTagScopeInterval() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL);
+    }
+
+    public String labelProtostuffTagScopeIntervalToolTip() {
+        return localizedText(LocalizationEnum.LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL_TOOL_TIP);
+    }
+
+    public String labelSwaggerTagStayTuned() {
+        return localizedText(LocalizationEnum.LABEL_SWAGGER_TAG_STAY_TUNED);
+    }
 
     private String localizedText(LocalizationEnum localizationEnum) {
         return LocalizationConfigFactory.name(localizationEnum);

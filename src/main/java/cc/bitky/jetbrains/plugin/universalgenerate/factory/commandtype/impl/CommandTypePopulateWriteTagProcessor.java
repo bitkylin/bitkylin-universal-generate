@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
@@ -28,13 +28,16 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.wri
  */
 public class CommandTypePopulateWriteTagProcessor extends CommandTypeAbstractWriteTagProcessor implements ICommandTypeProcessor {
 
-    public CommandTypePopulateWriteTagProcessor(WriteContext writeContext, AnnotationTagConfig annotationTagConfig) {
+    public CommandTypePopulateWriteTagProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
-        beginNumValue = annotationTagConfig.getBeginNumValue();
-        stepNumValue = annotationTagConfig.getStepNumValue();
+        beginNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagStartValue();
+        stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
         tagExistedSet = Sets.newHashSet();
     }
 
+    /**
+     * todo-lml 这块逻辑有点复杂，建议重写
+     */
     @Override
     public void doWriteFile() {
         Map<String, Integer> map = Maps.newHashMap();

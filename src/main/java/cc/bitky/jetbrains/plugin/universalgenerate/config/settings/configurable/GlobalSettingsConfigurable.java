@@ -55,6 +55,16 @@ public class GlobalSettingsConfigurable implements Configurable {
         if (globalSettingsComponent.getProtostuffTagAssign() != settings.getProtostuffTagAssign()) {
             return true;
         }
+        if (globalSettingsComponent.getProtostuffTagStartValue() != settings.getProtostuffTagStartValue()) {
+            return true;
+        }
+        if (globalSettingsComponent.getProtostuffTagScopeInterval() != settings.getProtostuffTagScopeInterval()) {
+            return true;
+        }
+        if (globalSettingsComponent.protostuffTagModified(settings.getProtostuffTagStartValue(), settings.getProtostuffTagScopeInterval())) {
+            return true;
+        }
+
         return false;
     }
 
@@ -66,11 +76,31 @@ public class GlobalSettingsConfigurable implements Configurable {
         settings.setRightClickMenuEnabled(globalSettingsComponent.rightClickMenuEnabled());
         settings.setIntentionActionEnabled(globalSettingsComponent.intentionActionEnabled());
         settings.setProtostuffTagAssign(globalSettingsComponent.getProtostuffTagAssign());
+
+        settings.setProtostuffTagStartValue(globalSettingsComponent.getProtostuffTagStartValue());
+        settings.setProtostuffTagScopeInterval(globalSettingsComponent.getProtostuffTagScopeInterval());
     }
 
     @Override
     public void reset() {
         GlobalSettingLocalizationConfig localizationConfig = LocalizationConfigFactory.config();
+        refreshUiLocalizationConfig(localizationConfig);
+
+        GlobalSettingsStateHelper settingsState = GlobalSettingsStateHelper.getInstance();
+        refreshUiSettingsState(settingsState);
+    }
+
+    private void refreshUiLocalizationConfig(GlobalSettingLocalizationConfig localizationConfig) {
+
+        refreshUiLocalizationConfigGlobal(localizationConfig);
+
+        refreshUiLocalizationConfigProtostuffTag(localizationConfig);
+
+        refreshUiLocalizationConfigSwaggerTag(localizationConfig);
+
+    }
+
+    private void refreshUiLocalizationConfigGlobal(GlobalSettingLocalizationConfig localizationConfig) {
         globalSettingsComponent.setTextBlockLanguage(
                 localizationConfig.labelLanguage(),
                 localizationConfig.radioButtonLanguageEnglish(),
@@ -92,13 +122,44 @@ public class GlobalSettingsConfigurable implements Configurable {
                 localizationConfig.labelIntentionAction(),
                 localizationConfig.checkBoxIntentionActionEnabled()
         );
+    }
 
-        GlobalSettingsStateHelper settingsState = GlobalSettingsStateHelper.getInstance();
+    private void refreshUiLocalizationConfigProtostuffTag(GlobalSettingLocalizationConfig localizationConfig) {
+        globalSettingsComponent.setTextBlockProtostuffTagAssign(
+                localizationConfig.labelProtostuffTagAssign(),
+                localizationConfig.labelProtostuffTagAssignToolTip(),
+                localizationConfig.radioButtonProtostuffTagAssignNonRepeatable(),
+                localizationConfig.radioButtonProtostuffTagAssignNonRepeatableToolTip(),
+                localizationConfig.radioButtonProtostuffTagAssignFromStartValue(),
+                localizationConfig.radioButtonProtostuffTagAssignFromStartValueToolTip()
+        );
+
+        globalSettingsComponent.setTextBlockProtostuffTagStartValue(
+                localizationConfig.labelProtostuffTagStartValue(),
+                localizationConfig.labelProtostuffTagStartValueToolTip(),
+                localizationConfig.labelProtostuffTagStartValueToolTip()
+        );
+
+        globalSettingsComponent.setTextBlockProtostuffTagScopeInterval(
+                localizationConfig.labelProtostuffTagScopeInterval(),
+                localizationConfig.labelProtostuffTagScopeIntervalToolTip(),
+                localizationConfig.labelProtostuffTagScopeIntervalToolTip());
+
+    }
+
+    private void refreshUiLocalizationConfigSwaggerTag(GlobalSettingLocalizationConfig localizationConfig) {
+        globalSettingsComponent.setTextBlockSwaggerTagStayTuned(localizationConfig.labelSwaggerTagStayTuned());
+    }
+
+    private void refreshUiSettingsState(GlobalSettingsStateHelper settingsState) {
         globalSettingsComponent.setLanguage(settingsState.getLanguage());
         globalSettingsComponent.setAnnotationAffectedList(settingsState.getAnnotationAffectedList());
         globalSettingsComponent.setRightClickMenuEnabled(settingsState.isRightClickMenuEnabled());
         globalSettingsComponent.setIntentionActionEnabled(settingsState.isIntentionActionEnabled());
+
         globalSettingsComponent.setProtostuffTagAssign(settingsState.getProtostuffTagAssign());
+        globalSettingsComponent.setProtostuffTagStartValue(settingsState.getProtostuffTagStartValue());
+        globalSettingsComponent.setProtostuffTagScopeInterval(settingsState.getProtostuffTagScopeInterval());
     }
 
     @Override

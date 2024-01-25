@@ -16,9 +16,9 @@ public class GlobalSettingsComponent {
     @Getter
     private JPanel mainPanel;
 
-    // region --------- global -----------
+    // region --------- field -> global -----------
 
-    // region --------- Language -----------
+    // region --------- field -> Language -----------
 
     private JLabel labelLanguage;
     private JRadioButton radioButtonLanguageEnglish;
@@ -26,7 +26,7 @@ public class GlobalSettingsComponent {
 
     // endregion
 
-    // region --------- scope of effect -----------
+    // region --------- field -> scope of effect -----------
 
     private JLabel labelScopeOfEffect;
     private JCheckBox checkBoxSwaggerAffected;
@@ -34,14 +34,14 @@ public class GlobalSettingsComponent {
 
     // endregion
 
-    // region --------- right click menu -----------
+    // region --------- field -> right click menu -----------
 
     private JLabel labelRightClickMenu;
     private JCheckBox checkBoxRightClickMenuEnabled;
 
     // endregion
 
-    // region --------- intention action -----------
+    // region --------- field -> intention action -----------
 
     private JLabel labelIntentionAction;
     private JCheckBox checkBoxIntentionActionEnabled;
@@ -50,9 +50,9 @@ public class GlobalSettingsComponent {
 
     // endregion
 
-    // region --------- Protostuff tab -----------
+    // region --------- field -> Protostuff tab -----------
 
-    // region --------- tag assign -----------
+    // region --------- field -> tag assign -----------
 
     private JLabel labelProtostuffTagAssign;
     private JRadioButton radioButtonProtostuffTagAssignNonRepeatable;
@@ -60,21 +60,57 @@ public class GlobalSettingsComponent {
 
     // endregion
 
-    // region --------- start value -----------
+    // region --------- field -> start value -----------
 
     private JLabel labelProtostuffStartValue;
     private JSpinner spinnerProtostuffStartValue;
 
     // endregion
 
+    // region --------- field -> scope interval -----------
+
+    private JLabel labelProtostuffScopeInterval;
+    private JSpinner spinnerProtostuffScopeInterval;
+
     // endregion
 
-    // region --------- Swagger tab -----------
+    // endregion
 
-    private JLabel labelSwaggerUnfinished;
+    // region --------- field -> Swagger tab -----------
+
+    private JLabel labelSwaggerStayTuned;
 
     // endregion
 
+    // region --------- method -> settings state -----------
+
+    public GlobalSettingsComponent() {
+        updateUiForScopeIntervalVisible();
+        radioButtonProtostuffTagAssignNonRepeatable.addChangeListener(e -> {
+            updateUiForScopeIntervalVisible();
+        });
+
+        spinnerProtostuffStartValue.addChangeListener(e -> {
+            if (outsideIntegerBound(spinnerProtostuffStartValue.getValue(), GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_START_VALUE)) {
+                spinnerProtostuffStartValue.setValue(GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_START_VALUE);
+            }
+        });
+        spinnerProtostuffScopeInterval.addChangeListener(e -> {
+            if (outsideIntegerBound(spinnerProtostuffScopeInterval.getValue(), GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL)) {
+                spinnerProtostuffScopeInterval.setValue(GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL);
+            }
+        });
+    }
+
+    private static boolean outsideIntegerBound(Object valueObj, int initValue) {
+        if (valueObj instanceof Number number) {
+            long value = number.longValue();
+            return value < initValue || value > Integer.MAX_VALUE;
+        }
+        return true;
+    }
+
+    // region --------- method -> settings state -> global -----------
 
     public GlobalSettingsState.LanguageEnum getLanguage() {
         if (radioButtonLanguageEnglish.isSelected()) {
@@ -99,33 +135,6 @@ public class GlobalSettingsComponent {
             default -> {
                 radioButtonLanguageEnglish.setSelected(true);
                 radioButtonLanguageChinese.setSelected(false);
-            }
-        }
-    }
-
-    public GlobalSettingsState.ProtostuffTagAssignEnum getProtostuffTagAssign() {
-        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
-            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
-        } else if (radioButtonProtostuffTagAssignFromStartValue.isSelected()) {
-            return GlobalSettingsState.ProtostuffTagAssignEnum.FROM_START_VALUE;
-        } else {
-            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
-        }
-    }
-
-    public void setProtostuffTagAssign(GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum) {
-        switch (tagAssignEnum) {
-            case NON_REPEATABLE -> {
-                radioButtonProtostuffTagAssignNonRepeatable.setSelected(true);
-                radioButtonProtostuffTagAssignFromStartValue.setSelected(false);
-            }
-            case FROM_START_VALUE -> {
-                radioButtonProtostuffTagAssignNonRepeatable.setSelected(false);
-                radioButtonProtostuffTagAssignFromStartValue.setSelected(true);
-            }
-            default -> {
-                radioButtonProtostuffTagAssignNonRepeatable.setSelected(true);
-                radioButtonProtostuffTagAssignFromStartValue.setSelected(false);
             }
         }
     }
@@ -170,20 +179,96 @@ public class GlobalSettingsComponent {
         return checkBoxIntentionActionEnabled.isSelected();
     }
 
+    // endregion
+
+    // region --------- method -> settings state -> protostuff tag -----------
+
+    public GlobalSettingsState.ProtostuffTagAssignEnum getProtostuffTagAssign() {
+        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
+        } else if (radioButtonProtostuffTagAssignFromStartValue.isSelected()) {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.FROM_START_VALUE;
+        } else {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
+        }
+    }
+
+    public void setProtostuffTagAssign(GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum) {
+        switch (tagAssignEnum) {
+            case NON_REPEATABLE -> updateUiForProtostuffTagAssignNonRepeatable();
+
+            case FROM_START_VALUE -> updateUiForProtostuffTagAssignFromStartValue();
+
+            default -> updateUiForProtostuffTagAssignNonRepeatable();
+
+        }
+    }
+
+    private void updateUiForProtostuffTagAssignNonRepeatable() {
+        radioButtonProtostuffTagAssignNonRepeatable.setSelected(true);
+        radioButtonProtostuffTagAssignFromStartValue.setSelected(false);
+    }
+
+    private void updateUiForProtostuffTagAssignFromStartValue() {
+        radioButtonProtostuffTagAssignNonRepeatable.setSelected(false);
+        radioButtonProtostuffTagAssignFromStartValue.setSelected(true);
+    }
+
+    private void updateUiForScopeIntervalVisible() {
+        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
+            labelProtostuffScopeInterval.setEnabled(true);
+            spinnerProtostuffScopeInterval.setEnabled(true);
+        } else {
+            labelProtostuffScopeInterval.setEnabled(false);
+            spinnerProtostuffScopeInterval.setEnabled(false);
+        }
+    }
+
+    public int getProtostuffTagStartValue() {
+        Object valueObj = spinnerProtostuffStartValue.getValue();
+        if (valueObj instanceof Integer number) {
+            return number;
+        }
+        return GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_START_VALUE;
+    }
+
+    public void setProtostuffTagStartValue(int startValue) {
+        spinnerProtostuffStartValue.setValue(startValue);
+    }
+
+    public int getProtostuffTagScopeInterval() {
+        Object valueObj = spinnerProtostuffScopeInterval.getValue();
+        if (valueObj instanceof Integer number) {
+            return number;
+        }
+        return GlobalSettingsState.DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL;
+    }
+
+    public void setProtostuffTagScopeInterval(int scopeInterval) {
+        spinnerProtostuffScopeInterval.setValue(scopeInterval);
+    }
+
+    public boolean protostuffTagModified(int startValue, int scopeInterval) {
+        Object uiStartValue = spinnerProtostuffStartValue.getValue();
+        Object uiScopeInterval = spinnerProtostuffScopeInterval.getValue();
+
+        return !uiStartValue.equals(startValue) || !uiScopeInterval.equals(scopeInterval);
+    }
+
+    // endregion
+
+    // endregion
+
+    // region --------- method -> ui text -----------
+
+    // region --------- method -> ui text -> global -----------
+
     public void setTextBlockLanguage(String labelLanguage,
                                      String radioButtonLanguageEnglish,
                                      String radioButtonLanguageChinese) {
         this.labelLanguage.setText(labelLanguage);
         this.radioButtonLanguageEnglish.setText(radioButtonLanguageEnglish);
         this.radioButtonLanguageChinese.setText(radioButtonLanguageChinese);
-    }
-
-    public void setTextBlockProtostuffTagAssign(String labelProtostuffTagAssign,
-                                                String radioButtonProtostuffTagSetNonRepeatable,
-                                                String radioButtonProtostuffTagSetFromStartValue) {
-        this.labelProtostuffTagAssign.setText(labelProtostuffTagAssign);
-        this.radioButtonProtostuffTagAssignNonRepeatable.setText(radioButtonProtostuffTagSetNonRepeatable);
-        this.radioButtonProtostuffTagAssignFromStartValue.setText(radioButtonProtostuffTagSetFromStartValue);
     }
 
     public void setTextBlockScopeOfEffect(String labelScopeOfEffect,
@@ -205,5 +290,49 @@ public class GlobalSettingsComponent {
         this.labelIntentionAction.setText(label);
         this.checkBoxIntentionActionEnabled.setText(enabled);
     }
+
+    // endregion
+
+    // region --------- method -> ui text -> protostuff tag -----------
+
+    public void setTextBlockProtostuffTagAssign(String labelProtostuffTagAssign,
+                                                String labelProtostuffTagAssignToolTip,
+                                                String radioButtonProtostuffTagSetNonRepeatable,
+                                                String radioButtonProtostuffTagSetNonRepeatableToolTip,
+                                                String radioButtonProtostuffTagSetFromStartValue,
+                                                String radioButtonProtostuffTagSetFromStartValueToolTip) {
+        this.labelProtostuffTagAssign.setText(labelProtostuffTagAssign);
+        this.labelProtostuffTagAssign.setToolTipText(labelProtostuffTagAssignToolTip);
+        this.radioButtonProtostuffTagAssignNonRepeatable.setText(radioButtonProtostuffTagSetNonRepeatable);
+        this.radioButtonProtostuffTagAssignNonRepeatable.setToolTipText(radioButtonProtostuffTagSetNonRepeatableToolTip);
+        this.radioButtonProtostuffTagAssignFromStartValue.setText(radioButtonProtostuffTagSetFromStartValue);
+        this.radioButtonProtostuffTagAssignFromStartValue.setToolTipText(radioButtonProtostuffTagSetFromStartValueToolTip);
+    }
+
+    public void setTextBlockProtostuffTagStartValue(String labelProtostuffStartValue,
+                                                    String labelProtostuffStartValueToolTip,
+                                                    String spinnerProtostuffStartValueToolTip) {
+        this.labelProtostuffStartValue.setText(labelProtostuffStartValue);
+        this.labelProtostuffStartValue.setToolTipText(labelProtostuffStartValueToolTip);
+        this.spinnerProtostuffStartValue.setToolTipText(spinnerProtostuffStartValueToolTip);
+    }
+
+    public void setTextBlockProtostuffTagScopeInterval(String labelProtostuffScopeInterval,
+                                                       String labelProtostuffScopeIntervalToolTip,
+                                                       String spinnerProtostuffScopeIntervalToolTip) {
+        this.labelProtostuffScopeInterval.setText(labelProtostuffScopeInterval);
+        this.labelProtostuffScopeInterval.setToolTipText(labelProtostuffScopeIntervalToolTip);
+        this.spinnerProtostuffScopeInterval.setToolTipText(spinnerProtostuffScopeIntervalToolTip);
+    }
+
+    // endregion
+
+    // region --------- method -> ui text -> Swagger tag -----------
+
+    public void setTextBlockSwaggerTagStayTuned(String labelSwaggerTagStayTuned) {
+        this.labelSwaggerStayTuned.setText(labelSwaggerTagStayTuned);
+    }
+
+    // endregion
 
 }
