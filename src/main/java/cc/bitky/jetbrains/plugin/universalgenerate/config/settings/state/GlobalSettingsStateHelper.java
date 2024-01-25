@@ -45,6 +45,15 @@ public class GlobalSettingsStateHelper {
                 .or(GlobalSettingsState.LanguageEnum.ENGLISH);
     }
 
+    public void setProtostuffTagAssign(GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum) {
+        this.state.setProtostuffTagAssign(tagAssignEnum.name());
+    }
+
+    public GlobalSettingsState.ProtostuffTagAssignEnum getProtostuffTagAssign() {
+        return Enums.getIfPresent(GlobalSettingsState.ProtostuffTagAssignEnum.class, this.state.getProtostuffTagAssign())
+                .or(GlobalSettingsState.ProtostuffTagAssignEnum.FROM_START_VALUE);
+    }
+
     public boolean annotationSwaggerEnabledShowed(Project project) {
         boolean showed = this.state.getAnnotationAffectedList().contains(GlobalSettingsState.AnnotationAffectedEnum.SWAGGER.name());
         if (!showed) {

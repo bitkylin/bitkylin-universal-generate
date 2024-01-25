@@ -52,6 +52,9 @@ public class GlobalSettingsConfigurable implements Configurable {
         if (globalSettingsComponent.intentionActionEnabled() != settings.isIntentionActionEnabled()) {
             return true;
         }
+        if (globalSettingsComponent.getProtostuffTagAssign() != settings.getProtostuffTagAssign()) {
+            return true;
+        }
         return false;
     }
 
@@ -62,6 +65,7 @@ public class GlobalSettingsConfigurable implements Configurable {
         settings.setAnnotationAffectedList(globalSettingsComponent.getAnnotationAffectedList());
         settings.setRightClickMenuEnabled(globalSettingsComponent.rightClickMenuEnabled());
         settings.setIntentionActionEnabled(globalSettingsComponent.intentionActionEnabled());
+        settings.setProtostuffTagAssign(globalSettingsComponent.getProtostuffTagAssign());
     }
 
     @Override
@@ -94,6 +98,7 @@ public class GlobalSettingsConfigurable implements Configurable {
         globalSettingsComponent.setAnnotationAffectedList(settingsState.getAnnotationAffectedList());
         globalSettingsComponent.setRightClickMenuEnabled(settingsState.isRightClickMenuEnabled());
         globalSettingsComponent.setIntentionActionEnabled(settingsState.isIntentionActionEnabled());
+        globalSettingsComponent.setProtostuffTagAssign(settingsState.getProtostuffTagAssign());
     }
 
     @Override

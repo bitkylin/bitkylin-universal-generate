@@ -23,6 +23,7 @@ import java.util.List;
 public class GlobalSettingsState implements PersistentStateComponent<GlobalSettingsState> {
 
     private String language = "ENGLISH";
+    private String protostuffTagAssign = "IN_TURN";
 
     private List<String> annotationAffectedList = Lists.newArrayList(
             AnnotationAffectedEnum.SWAGGER.name(),
@@ -53,6 +54,18 @@ public class GlobalSettingsState implements PersistentStateComponent<GlobalSetti
     public enum AnnotationAffectedEnum {
         SWAGGER,
         PROTOSTUFF,
+        ;
+    }
+
+    public enum ProtostuffTagAssignEnum {
+        /**
+         * 不重复的
+         */
+        NON_REPEATABLE,
+        /**
+         * 从初始值开始
+         */
+        FROM_START_VALUE,
         ;
     }
 

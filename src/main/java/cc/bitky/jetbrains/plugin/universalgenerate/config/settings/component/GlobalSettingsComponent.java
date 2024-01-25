@@ -16,22 +16,65 @@ public class GlobalSettingsComponent {
     @Getter
     private JPanel mainPanel;
 
+    // region --------- global -----------
+
+    // region --------- Language -----------
+
     private JLabel labelLanguage;
-
-    @Getter
     private JRadioButton radioButtonLanguageEnglish;
-
-    @Getter
     private JRadioButton radioButtonLanguageChinese;
+
+    // endregion
+
+    // region --------- scope of effect -----------
 
     private JLabel labelScopeOfEffect;
     private JCheckBox checkBoxSwaggerAffected;
     private JCheckBox checkBoxProtostuffAffected;
 
+    // endregion
+
+    // region --------- right click menu -----------
+
     private JLabel labelRightClickMenu;
     private JCheckBox checkBoxRightClickMenuEnabled;
+
+    // endregion
+
+    // region --------- intention action -----------
+
     private JLabel labelIntentionAction;
     private JCheckBox checkBoxIntentionActionEnabled;
+
+    // endregion
+
+    // endregion
+
+    // region --------- Protostuff tab -----------
+
+    // region --------- tag assign -----------
+
+    private JLabel labelProtostuffTagAssign;
+    private JRadioButton radioButtonProtostuffTagAssignNonRepeatable;
+    private JRadioButton radioButtonProtostuffTagAssignFromStartValue;
+
+    // endregion
+
+    // region --------- start value -----------
+
+    private JLabel labelProtostuffStartValue;
+    private JSpinner spinnerProtostuffStartValue;
+
+    // endregion
+
+    // endregion
+
+    // region --------- Swagger tab -----------
+
+    private JLabel labelSwaggerUnfinished;
+
+    // endregion
+
 
     public GlobalSettingsState.LanguageEnum getLanguage() {
         if (radioButtonLanguageEnglish.isSelected()) {
@@ -46,16 +89,43 @@ public class GlobalSettingsComponent {
     public void setLanguage(GlobalSettingsState.LanguageEnum language) {
         switch (language) {
             case ENGLISH -> {
-                getRadioButtonLanguageEnglish().setSelected(true);
-                getRadioButtonLanguageChinese().setSelected(false);
+                radioButtonLanguageEnglish.setSelected(true);
+                radioButtonLanguageChinese.setSelected(false);
             }
             case CHINESE -> {
-                getRadioButtonLanguageEnglish().setSelected(false);
-                getRadioButtonLanguageChinese().setSelected(true);
+                radioButtonLanguageEnglish.setSelected(false);
+                radioButtonLanguageChinese.setSelected(true);
             }
             default -> {
-                getRadioButtonLanguageEnglish().setSelected(true);
-                getRadioButtonLanguageChinese().setSelected(false);
+                radioButtonLanguageEnglish.setSelected(true);
+                radioButtonLanguageChinese.setSelected(false);
+            }
+        }
+    }
+
+    public GlobalSettingsState.ProtostuffTagAssignEnum getProtostuffTagAssign() {
+        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
+        } else if (radioButtonProtostuffTagAssignFromStartValue.isSelected()) {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.FROM_START_VALUE;
+        } else {
+            return GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE;
+        }
+    }
+
+    public void setProtostuffTagAssign(GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum) {
+        switch (tagAssignEnum) {
+            case NON_REPEATABLE -> {
+                radioButtonProtostuffTagAssignNonRepeatable.setSelected(true);
+                radioButtonProtostuffTagAssignFromStartValue.setSelected(false);
+            }
+            case FROM_START_VALUE -> {
+                radioButtonProtostuffTagAssignNonRepeatable.setSelected(false);
+                radioButtonProtostuffTagAssignFromStartValue.setSelected(true);
+            }
+            default -> {
+                radioButtonProtostuffTagAssignNonRepeatable.setSelected(true);
+                radioButtonProtostuffTagAssignFromStartValue.setSelected(false);
             }
         }
     }
@@ -106,6 +176,14 @@ public class GlobalSettingsComponent {
         this.labelLanguage.setText(labelLanguage);
         this.radioButtonLanguageEnglish.setText(radioButtonLanguageEnglish);
         this.radioButtonLanguageChinese.setText(radioButtonLanguageChinese);
+    }
+
+    public void setTextBlockProtostuffTagAssign(String labelProtostuffTagAssign,
+                                                String radioButtonProtostuffTagSetNonRepeatable,
+                                                String radioButtonProtostuffTagSetFromStartValue) {
+        this.labelProtostuffTagAssign.setText(labelProtostuffTagAssign);
+        this.radioButtonProtostuffTagAssignNonRepeatable.setText(radioButtonProtostuffTagSetNonRepeatable);
+        this.radioButtonProtostuffTagAssignFromStartValue.setText(radioButtonProtostuffTagSetFromStartValue);
     }
 
     public void setTextBlockScopeOfEffect(String labelScopeOfEffect,
