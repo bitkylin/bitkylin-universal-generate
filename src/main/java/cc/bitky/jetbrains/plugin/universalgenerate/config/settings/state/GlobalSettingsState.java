@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 public class GlobalSettingsState implements PersistentStateComponent<GlobalSettingsState> {
 
-    public static final int DEFAULT_PROTOSTUFF_TAG_START_VALUE = 101;
+    public static final int DEFAULT_PROTOSTUFF_TAG_START_VALUE = 100;
     public static final int DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL = 100;
 
     private String language = LanguageEnum.ENGLISH.name();
