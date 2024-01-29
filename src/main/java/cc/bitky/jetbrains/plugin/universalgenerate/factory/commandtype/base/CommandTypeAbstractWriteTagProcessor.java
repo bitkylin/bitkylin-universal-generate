@@ -1,7 +1,10 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base;
 
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
+import cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,10 +28,7 @@ public abstract class CommandTypeAbstractWriteTagProcessor extends AbstractComma
      */
     protected int stepNumValue;
 
-    protected Set<Integer> tagExistedSet;
-
-
-    protected AtomicInteger initAvailableBeginNum(int groupTagNum) {
+    protected AtomicInteger initAvailableBeginNum(int groupTagNum, Set<Integer> tagExistedSet) {
         int groupBeginNum = calcCurrentGroupBeginNum(beginNumValue, stepNumValue, groupTagNum);
 
         AtomicInteger currentNum = new AtomicInteger(groupBeginNum);
@@ -41,6 +41,14 @@ public abstract class CommandTypeAbstractWriteTagProcessor extends AbstractComma
         while (tagExistedSet.contains(currentNum.get())) {
             currentNum.incrementAndGet();
         }
+    }
+
+    protected int calcNextGroupBeginNum(int beginNum, int step, int currentNum) {
+        GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum = GlobalSettingsStateHelper.getInstance().getProtostuffTagAssign();
+        if (GlobalSettingsState.ProtostuffTagAssignEnum.FROM_START_VALUE == tagAssignEnum) {
+            return beginNum;
+        }
+        return AnnotationTagUtils.calcNextGroupBeginNum(beginNum, step, currentNum);
     }
 
     protected boolean canWriteAnnotationTag(PsiClassWrapper psiClassWrapper) {

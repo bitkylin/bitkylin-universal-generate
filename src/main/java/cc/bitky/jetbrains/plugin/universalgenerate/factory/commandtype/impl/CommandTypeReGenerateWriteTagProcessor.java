@@ -12,9 +12,9 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
 import com.google.common.collect.Sets;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcNextGroupBeginNum;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.generateFieldTagAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.deleteAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationForce;
@@ -30,7 +30,6 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
         this.writeContext = writeContext;
         beginNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagStartValue();
         stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
-        tagExistedSet = Sets.newHashSet();
     }
 
     @Override
@@ -62,12 +61,14 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
 
         deleteAnnotation(ModifierAnnotationEnum.TAG, fieldWrapper.getPsiField());
 
+        Set<Integer> tagExistedSet = Sets.newHashSet();
+
         selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
             Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
             tagValueOptional.ifPresent(tagExistedSet::add);
         });
 
-        AtomicInteger currentNum = initAvailableBeginNum(tagExistedSet.stream().mapToInt(Integer::intValue).min().orElse(beginNumValue));
+        AtomicInteger currentNum = initAvailableBeginNum(tagExistedSet.stream().mapToInt(Integer::intValue).min().orElse(beginNumValue), tagExistedSet);
         selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
             if (psiFieldWrapper == fieldWrapper) {
                 writeAnnotationForce(psiFileContext, ModifierAnnotationUtils.createWrapperTag(currentNum.get()), psiFieldWrapper.getPsiField());

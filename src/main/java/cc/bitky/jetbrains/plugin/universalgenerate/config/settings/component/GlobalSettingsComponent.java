@@ -215,13 +215,13 @@ public class GlobalSettingsComponent {
     }
 
     private void updateUiForScopeIntervalVisible() {
-        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
-            labelProtostuffScopeInterval.setEnabled(true);
-            spinnerProtostuffScopeInterval.setEnabled(true);
-        } else {
-            labelProtostuffScopeInterval.setEnabled(false);
-            spinnerProtostuffScopeInterval.setEnabled(false);
-        }
+//        if (radioButtonProtostuffTagAssignNonRepeatable.isSelected()) {
+//            labelProtostuffScopeInterval.setEnabled(true);
+//            spinnerProtostuffScopeInterval.setEnabled(true);
+//        } else {
+        labelProtostuffScopeInterval.setEnabled(false);
+        spinnerProtostuffScopeInterval.setEnabled(false);
+//        }
     }
 
     public int getProtostuffTagStartValue() {

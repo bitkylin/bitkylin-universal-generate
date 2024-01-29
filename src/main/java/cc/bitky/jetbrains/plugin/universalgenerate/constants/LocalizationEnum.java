@@ -63,8 +63,8 @@ public enum LocalizationEnum {
     LABEL_PROTOSTUFF_TAG_START_VALUE_TOOL_TIP("Initial value of Tag Value", "Tag Value的初始值"),
     LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL("Scope interval", "作用域间隔"),
     LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL_TOOL_TIP(
-            "When there are multiple scopes in a file, set the interval of tag values between scopes when the tag values are sorted as a whole.",
-            "当文件中存在多个作用域时，tag值从整体上顺次排序时，设置作用域之间tag value的间隔"),
+            "When there are multiple scopes in a file, set the interval of tag values between scopes when the tag values are sorted as a whole. Changes are not currently supported.",
+            "当文件中存在多个作用域时，tag值从整体上顺次排序时，设置作用域之间tag value的间隔。当前不支持变更"),
 
     // endregion
 
