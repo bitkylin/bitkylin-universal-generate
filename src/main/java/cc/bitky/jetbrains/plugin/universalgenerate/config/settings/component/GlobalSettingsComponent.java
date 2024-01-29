@@ -3,6 +3,7 @@ package cc.bitky.jetbrains.plugin.universalgenerate.config.settings.component;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * @author bitkylin
  */
-
+@Slf4j
 public class GlobalSettingsComponent {
 
     @Getter
