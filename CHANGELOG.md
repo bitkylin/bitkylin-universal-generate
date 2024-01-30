@@ -114,5 +114,6 @@
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
 - 后续会添加更多方便的功能，敬请期待吧！
 
-[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...main
-[1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...v1.0.7
+[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...main
+[1.1.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.0.7...v1.1.3
