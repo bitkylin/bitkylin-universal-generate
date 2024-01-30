@@ -34,9 +34,6 @@ public class CommandTypePopulateWriteTagProcessor extends CommandTypeAbstractWri
         stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
     }
 
-    /**
-     * todo-lml 这块逻辑有点复杂，建议重写
-     */
     @Override
     public void doWriteFile() {
         Map<String, Integer> clzMapFirstTagValue = Maps.newHashMap();
