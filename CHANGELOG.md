@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [1.2.0] - 2024-01-29
+## [1.2.1 - 2024-01-30
 
 ### Added
 
@@ -115,5 +115,6 @@
 - 后续会添加更多方便的功能，敬请期待吧！
 
 [Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...main
+[1.2.1]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...v1.2.1
 [1.1.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.0.7...v1.1.3
