@@ -120,4 +120,29 @@ public class GlobalSettingsStateHelper {
         return false;
     }
 
+    public void setProtostuffTagAssign(GlobalSettingsState.ProtostuffTagAssignEnum tagAssignEnum) {
+        this.state.setProtostuffTagAssign(tagAssignEnum.name());
+    }
+
+    public GlobalSettingsState.ProtostuffTagAssignEnum getProtostuffTagAssign() {
+        return Enums.getIfPresent(GlobalSettingsState.ProtostuffTagAssignEnum.class, this.state.getProtostuffTagAssign())
+                .or(GlobalSettingsState.ProtostuffTagAssignEnum.NON_REPEATABLE);
+    }
+
+    public void setProtostuffTagStartValue(int startValue) {
+        this.state.setProtostuffTagStartValue(startValue);
+    }
+
+    public int getProtostuffTagStartValue() {
+        return this.state.getProtostuffTagStartValue();
+    }
+
+    public void setProtostuffTagScopeInterval(int scopeInterval) {
+        this.state.setProtostuffTagScopeInterval(scopeInterval);
+    }
+
+    public int getProtostuffTagScopeInterval() {
+        return this.state.getProtostuffTagScopeInterval();
+    }
+
 }

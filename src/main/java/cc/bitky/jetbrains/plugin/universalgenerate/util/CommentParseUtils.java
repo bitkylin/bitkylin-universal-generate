@@ -104,6 +104,12 @@ public final class CommentParseUtils {
         if (CollectionUtils.size(commentList) < 1) {
             return StringUtils.EMPTY;
         }
+
+        commentList = commentList.stream()
+                .map(StringUtils::trim)
+                .map(str -> StringUtils.remove(str, "\""))
+                .toList();
+
         if (CollectionUtils.size(commentList) == 1) {
             return commentList.get(0);
         }

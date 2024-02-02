@@ -7,6 +7,9 @@ import lombok.Getter;
  */
 public enum LocalizationEnum {
 
+    /**
+     * localizationEnum
+     */
     TEST("Test", "测试"),
 
     // region --------- 通知 -----------
@@ -16,6 +19,8 @@ public enum LocalizationEnum {
     // endregion
 
     // region --------- UI -----------
+
+    // region --------- Global -----------
 
     SETTING_DISPLAY_NAME("Bitkylin Universal Generate", "Bitkylin 通用生成"),
 
@@ -39,6 +44,35 @@ public enum LocalizationEnum {
 
     INTENTION_ACTION_ENABLED("Enabled", "启用"),
 
+    // endregion
+
+    // region --------- Protostuff tab -----------
+
+    LABEL_PROTOSTUFF_TAG_ASSIGN("Tag assign strategy", "Tag分配策略"),
+    LABEL_PROTOSTUFF_TAG_ASSIGN_TOOL_TIP("Define the sorting mode of Tag Value", "指定Tag Value的排序模式"),
+    RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_NON_REPEATABLE("Non-repeatable", "不重复"),
+    RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_NON_REPEATABLE_TOOL_TIP(
+            "When there are multiple scopes in a file, the tag values are sorted in overall order and are not duplicated.",
+            "当文件中存在多个作用域时，tag值从整体上顺次排序，并且不会重复"),
+    RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_FROM_START_VALUE("From start value", "从起始值开始"),
+    RADIO_BUTTON_PROTOSTUFF_TAG_ASSIGN_FROM_START_VALUE_TOOL_TIP(
+            "The tag values in each scope are sorted from the start value.",
+            "每个作用域中tag值均从起始值开始排序"),
+
+    LABEL_PROTOSTUFF_TAG_START_VALUE("Start value", "起始值"),
+    LABEL_PROTOSTUFF_TAG_START_VALUE_TOOL_TIP("Initial value of Tag Value", "Tag Value的初始值"),
+    LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL("Scope interval", "作用域间隔"),
+    LABEL_PROTOSTUFF_TAG_SCOPE_INTERVAL_TOOL_TIP(
+            "When there are multiple scopes in a file, set the interval of tag values between scopes when the tag values are sorted as a whole. Changes are not currently supported.",
+            "当文件中存在多个作用域时，tag值从整体上顺次排序时，设置作用域之间tag value的间隔。当前不支持变更"),
+
+    // endregion
+
+    // region --------- field -> Swagger tab -----------
+
+    LABEL_SWAGGER_TAG_STAY_TUNED("Stay tuned!", "敬请期待！"),
+
+    // endregion
 
     // endregion
 

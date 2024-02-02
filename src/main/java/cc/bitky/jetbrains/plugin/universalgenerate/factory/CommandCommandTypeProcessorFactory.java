@@ -1,6 +1,5 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsState;
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
@@ -51,10 +50,10 @@ public final class CommandCommandTypeProcessorFactory {
         if (annotationAffectedSet.contains(GlobalSettingsState.AnnotationAffectedEnum.PROTOSTUFF)) {
             switch (command) {
                 case RE_GENERATE_WRITE_TAG -> {
-                    return new CommandTypeReGenerateWriteTagProcessor(writeContext, new AnnotationTagConfig());
+                    return new CommandTypeReGenerateWriteTagProcessor(writeContext);
                 }
                 case POPULATE_WRITE_TAG -> {
-                    return new CommandTypePopulateWriteTagProcessor(writeContext, new AnnotationTagConfig());
+                    return new CommandTypePopulateWriteTagProcessor(writeContext);
                 }
                 case DELETE_ANNOTATION_TAG -> {
                     return new CommandTypeDeleteAnnotationTagProcessor(writeContext);

@@ -1,6 +1,6 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
-import cc.bitky.jetbrains.plugin.universalgenerate.config.AnnotationTagConfig;
+import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
 import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
@@ -12,9 +12,9 @@ import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
 import com.google.common.collect.Sets;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.calcNextGroupBeginNum;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.generateFieldTagAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.deleteAnnotation;
 import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationForce;
@@ -26,11 +26,10 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.wri
  */
 public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractWriteTagProcessor implements ICommandTypeProcessor {
 
-    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext, AnnotationTagConfig annotationTagConfig) {
+    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext) {
         this.writeContext = writeContext;
-        beginNumValue = annotationTagConfig.getBeginNumValue();
-        stepNumValue = annotationTagConfig.getStepNumValue();
-        tagExistedSet = Sets.newHashSet();
+        beginNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagStartValue();
+        stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
     }
 
     @Override
@@ -62,12 +61,14 @@ public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractW
 
         deleteAnnotation(ModifierAnnotationEnum.TAG, fieldWrapper.getPsiField());
 
+        Set<Integer> tagExistedSet = Sets.newHashSet();
+
         selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
             Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
             tagValueOptional.ifPresent(tagExistedSet::add);
         });
 
-        AtomicInteger currentNum = initAvailableBeginNum(tagExistedSet.stream().mapToInt(Integer::intValue).min().orElse(beginNumValue));
+        AtomicInteger currentNum = initAvailableBeginNum(tagExistedSet.stream().mapToInt(Integer::intValue).min().orElse(beginNumValue), tagExistedSet);
         selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
             if (psiFieldWrapper == fieldWrapper) {
                 writeAnnotationForce(psiFileContext, ModifierAnnotationUtils.createWrapperTag(currentNum.get()), psiFieldWrapper.getPsiField());

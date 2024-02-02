@@ -22,7 +22,10 @@ import java.util.List;
 @Setter
 public class GlobalSettingsState implements PersistentStateComponent<GlobalSettingsState> {
 
-    private String language = "ENGLISH";
+    public static final int DEFAULT_PROTOSTUFF_TAG_START_VALUE = 100;
+    public static final int DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL = 100;
+
+    private String language = LanguageEnum.ENGLISH.name();
 
     private List<String> annotationAffectedList = Lists.newArrayList(
             AnnotationAffectedEnum.SWAGGER.name(),
@@ -32,6 +35,12 @@ public class GlobalSettingsState implements PersistentStateComponent<GlobalSetti
     private Boolean contextMenuShowed = true;
 
     private Boolean intentionActionEnabled = true;
+
+    private String protostuffTagAssign = ProtostuffTagAssignEnum.NON_REPEATABLE.name();
+
+    private Integer protostuffTagStartValue = DEFAULT_PROTOSTUFF_TAG_START_VALUE;
+
+    private Integer protostuffTagScopeInterval = DEFAULT_PROTOSTUFF_TAG_SCOPE_INTERVAL;
 
     @Override
     public GlobalSettingsState getState() {
@@ -45,14 +54,44 @@ public class GlobalSettingsState implements PersistentStateComponent<GlobalSetti
 
 
     public enum LanguageEnum {
+
+        /**
+         * 英文
+         */
         ENGLISH,
+
+        /**
+         * 中文
+         */
         CHINESE,
         ;
     }
 
     public enum AnnotationAffectedEnum {
+
+        /**
+         * swagger
+         */
         SWAGGER,
+
+        /**
+         * protostuff
+         */
         PROTOSTUFF,
+        ;
+    }
+
+    public enum ProtostuffTagAssignEnum {
+
+        /**
+         * 不重复的
+         */
+        NON_REPEATABLE,
+
+        /**
+         * 从初始值开始
+         */
+        FROM_START_VALUE,
         ;
     }
 
