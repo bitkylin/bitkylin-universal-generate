@@ -33,7 +33,7 @@ public final class CommentQueryUtils {
         if (StringUtils.isBlank(elementName)) {
             return Lists.newArrayList();
         }
-        Collection<PsiField> psiFieldList = JavaFieldNameIndex.getInstance().get(
+        Collection<PsiField> psiFieldList = JavaFieldNameIndex.getInstance().getFields(
                 elementName,
                 psiFileContext.getProject(),
                 GlobalSearchScope.projectScope(psiFileContext.getProject())
