@@ -19,7 +19,7 @@ public class WriteCommand {
         RE_GENERATE_WRITE_SWAGGER,
         POPULATE_WRITE_SWAGGER,
 
-        RE_GENERATE_WRITE_TAG,
+//        RE_GENERATE_WRITE_TAG,
         POPULATE_WRITE_TAG,
 
         RE_GENERATE_SWAGGER_TO_JAVA_DOC,

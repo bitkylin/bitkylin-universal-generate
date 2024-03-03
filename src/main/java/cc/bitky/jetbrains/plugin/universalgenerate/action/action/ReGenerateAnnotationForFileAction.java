@@ -32,7 +32,12 @@ public class ReGenerateAnnotationForFileAction extends AbstractUniversalGenerate
 
         WriteCommandActionUtils.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeFile();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeFile();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeFile();
+        });
+
+        WriteContext writeContextRefreshed = WriteContextActionBuilder.create(anActionEvent);
+        WriteCommandActionUtils.runWriteCommandAction(writeContext.fetchProject(), () -> {
+            CommandCommandTypeProcessorFactory.decide(writeContextRefreshed, WriteCommand.Command.POPULATE_WRITE_TAG).writeFile();
         });
     }
 

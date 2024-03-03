@@ -134,10 +134,10 @@ public class TestController {
 ## Installation
 
 - Using the IDE built-in plugin system:
-  
+
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Bitkylin Universal Generate"</kbd> >
   <kbd>Install</kbd>
-  
+
 - Manually:
 
   Download the [latest release](https://github.com/bitkylin/bitkylin-universal-generate/releases/latest) and install it manually using

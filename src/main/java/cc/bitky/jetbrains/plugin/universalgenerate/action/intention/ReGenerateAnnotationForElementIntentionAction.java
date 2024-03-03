@@ -42,7 +42,7 @@ public class ReGenerateAnnotationForElementIntentionAction extends AbstractUnive
             return;
         }
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeElement();
-        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeElement();
+        // 未处理Tag元素，请知悉
     }
 
     @Override

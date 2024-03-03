@@ -38,7 +38,7 @@ public class ReGenerateAnnotationForFileIntentionAction extends AbstractUniversa
     public void doInvoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
         WriteContext writeContext = WriteContextIntentionBuilder.create(project, editor, element);
         CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeFile();
-        CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeFile();
+        // 未处理Tag元素，请知悉
     }
 
     @Override

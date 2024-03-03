@@ -72,7 +72,7 @@ public class WriteContextUtils {
             return;
         }
 
-        psiClassWrapper.setInnerClassList(Arrays.stream(psiClass.getAllInnerClasses())
+        psiClassWrapper.setInnerClassList(Arrays.stream(psiClass.getInnerClasses())
                 .map(psiClassItem -> createPsiClassWrapper(psiClassItem, writeContext.getPsiFileContext()))
                 .toList());
 

@@ -32,7 +32,11 @@ public class ReGenerateAnnotationForElementAction extends AbstractUniversalGener
 
         WriteCommandActionUtils.runWriteCommandAction(writeContext.fetchProject(), () -> {
             CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_SWAGGER).writeElement();
-            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.RE_GENERATE_WRITE_TAG).writeElement();
+            CommandCommandTypeProcessorFactory.decide(writeContext, WriteCommand.Command.DELETE_ANNOTATION_TAG).writeElement();
+        });
+        WriteContext writeContextRefreshed = WriteContextActionBuilder.create(anActionEvent);
+        WriteCommandActionUtils.runWriteCommandAction(writeContext.fetchProject(), () -> {
+            CommandCommandTypeProcessorFactory.decide(writeContextRefreshed, WriteCommand.Command.POPULATE_WRITE_TAG).writeElement();
         });
     }
 

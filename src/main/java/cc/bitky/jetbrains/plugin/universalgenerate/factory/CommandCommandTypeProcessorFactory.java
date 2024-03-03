@@ -49,11 +49,6 @@ public final class CommandCommandTypeProcessorFactory {
 
         if (annotationAffectedSet.contains(GlobalSettingsState.AnnotationAffectedEnum.PROTOSTUFF)) {
             switch (command) {
-                case RE_GENERATE_WRITE_TAG -> {
-                    CommandTypePopulateWriteTagProcessor populateWriteTagProcessor = new CommandTypePopulateWriteTagProcessor(writeContext);
-                    CommandTypeDeleteAnnotationTagProcessor deleteAnnotationTagProcessor = new CommandTypeDeleteAnnotationTagProcessor(writeContext);
-                    return new CommandTypeReGenerateWriteTagProcessor(writeContext, populateWriteTagProcessor, deleteAnnotationTagProcessor);
-                }
                 case POPULATE_WRITE_TAG -> {
                     return new CommandTypePopulateWriteTagProcessor(writeContext);
                 }

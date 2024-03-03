@@ -1,0 +1,16 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient y2="1.1167" x2="1.05554" y1="0.02811" x1="-0.03306" id="paint0_linear">
+            <stop stop-color="#6B57FF" offset="0.15937"/>
+            <stop stop-color="#3C9900" offset="0.93739"/>
+        </linearGradient>
+    </defs>
+    <g>
+        <title>Layer 1</title>
+        <path stroke="null" id="svg_1" fill="url(#paint0_linear)" d="m3.69072,6.1289l0,30.28347l12.0044,0l0,-5.18913c0.0014,-1.37511 0.423,-2.69321 1.1722,-3.66494c0.7492,-0.97158 1.7646,-1.51732 2.8234,-1.51732c1.0588,0 2.0743,0.54573 2.8234,1.51732c0.7492,0.97173 1.1708,2.28983 1.1722,3.66494l0,5.18913l12.0044,0l-0.10309,-30.41737l-15.94846,4.17273l-15.94845,-4.03883z"/>
+        <text opacity="0.05" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="2" stroke-width="0" id="svg_2" y="24.3299" x="16.59794" fill="#000000">bitkylin</text>
+        <text stroke-width="0" style="cursor: move;" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="2" id="svg_5" y="18.96907" x="11.85567" fill="url(#paint0_linear)"/>
+        <path id="svg_8" d="m27.01031,19.07216l1.23711,-1.13402l-1.23711,1.13402z" opacity="NaN" stroke="null" fill="url(#paint0_linear)"/>
+        <text style="cursor: move;" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="2" id="svg_9" y="34.02062" x="5.7732" stroke-width="0" fill="url(#paint0_linear)">universal                            generate</text>
+    </g>
+</svg>
