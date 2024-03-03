@@ -4,25 +4,25 @@
 
 ## [Unreleased]
 
-## [1.2.3 - 2024-03-03
+## [1.2.4] - 2024-03-03
 
-### Added
-
-- feature: more option for protostuff
+### Changed
+Modify deprecated methods - com.intellij.psi.impl.java.stubs.index.JavaFieldNameIndex#get
+@Tag annotation supports parent classes
+update intellij-platform-plugin-template v1.11.3
 
 ### Fixed
+fix problem: delete annotation affects other files
 
-- Java doc contain 「"」, swagger annotation error
-
-### 添加
-
-- protostuff新增更多配置项
+### 变更
+修正已废弃的方法 - com.intellij.psi.impl.java.stubs.index.JavaFieldNameIndex#get
+@Tag注解支持对父类的判定
+更新到 intellij-platform-plugin-template v1.11.3
 
 ### 修复
+修复一个问题：删除注解时影响到了其他文件
 
-- JavaDoc中包含「"」时，Swagger注解错误
-
-## [1.2.1 - 2024-01-30
+## [1.2.1] - 2024-01-30
 
 ### Added
 
@@ -132,8 +132,8 @@
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
 - 后续会添加更多方便的功能，敬请期待吧！
 
-[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.3...main
-[1.2.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.1...v1.2.3
+[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.4...main
+[1.2.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.1...v1.2.4
 [1.2.1]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...v1.2.1
 [1.1.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.0.7...v1.1.3
