@@ -1,23 +1,9 @@
 package cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.impl;
 
 import cc.bitky.jetbrains.plugin.universalgenerate.config.settings.state.GlobalSettingsStateHelper;
-import cc.bitky.jetbrains.plugin.universalgenerate.constants.ModifierAnnotationEnum;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.ICommandTypeProcessor;
 import cc.bitky.jetbrains.plugin.universalgenerate.factory.commandtype.base.CommandTypeAbstractWriteTagProcessor;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiClassWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.PsiFieldWrapper;
-import cc.bitky.jetbrains.plugin.universalgenerate.pojo.SelectWrapper;
 import cc.bitky.jetbrains.plugin.universalgenerate.pojo.WriteContext;
-import cc.bitky.jetbrains.plugin.universalgenerate.util.ModifierAnnotationUtils;
-import com.google.common.collect.Sets;
-
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.AnnotationTagUtils.generateFieldTagAnnotation;
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.deleteAnnotation;
-import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.writeAnnotationForce;
 
 /**
  * Tag注解强制写处理器
@@ -26,59 +12,28 @@ import static cc.bitky.jetbrains.plugin.universalgenerate.util.GenerateUtils.wri
  */
 public class CommandTypeReGenerateWriteTagProcessor extends CommandTypeAbstractWriteTagProcessor implements ICommandTypeProcessor {
 
-    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext) {
+    private final CommandTypePopulateWriteTagProcessor populateWriteTagProcessor;
+    private final CommandTypeDeleteAnnotationTagProcessor deleteAnnotationTagProcessor;
+
+    public CommandTypeReGenerateWriteTagProcessor(WriteContext writeContext,
+                                                  CommandTypePopulateWriteTagProcessor populateWriteTagProcessor,
+                                                  CommandTypeDeleteAnnotationTagProcessor deleteAnnotationTagProcessor) {
         this.writeContext = writeContext;
+        this.populateWriteTagProcessor = populateWriteTagProcessor;
+        this.deleteAnnotationTagProcessor = deleteAnnotationTagProcessor;
         beginNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagStartValue();
         stepNumValue = GlobalSettingsStateHelper.getInstance().getProtostuffTagScopeInterval();
     }
 
     @Override
     public void doWriteFile() {
-        int num = beginNumValue;
-        for (PsiClassWrapper psiClassWrapper : writeContext.getClzList()) {
-            if (!canWriteAnnotationTag(psiClassWrapper)) {
-                continue;
-            }
-            for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getFieldList()) {
-                generateFieldTagAnnotation(writeContext.getPsiFileContext(), psiFieldWrapper, num++);
-            }
-            num = calcNextGroupBeginNum(beginNumValue, stepNumValue, num);
-        }
+        deleteAnnotationTagProcessor.doWriteFile();
+        populateWriteTagProcessor.doWriteFile();
     }
 
     @Override
     public void doWriteElement() {
-        WriteContext.PsiFileContext psiFileContext = writeContext.getPsiFileContext();
-        SelectWrapper selectWrapper = writeContext.getSelectWrapper();
-        PsiFieldWrapper fieldWrapper = selectWrapper.getField();
-        PsiClassWrapper selectedPsiClassWrapper = selectWrapper.getSelectedPsiClassWrapper();
-        if (!canWriteAnnotationTag(selectedPsiClassWrapper)) {
-            return;
-        }
-        if (fieldWrapper == null) {
-            return;
-        }
-
-        deleteAnnotation(ModifierAnnotationEnum.TAG, fieldWrapper.getPsiField());
-
-        Set<Integer> tagExistedSet = Sets.newHashSet();
-
-        selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
-            Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
-            tagValueOptional.ifPresent(tagExistedSet::add);
-        });
-
-        AtomicInteger currentNum = initAvailableBeginNum(tagExistedSet.stream().mapToInt(Integer::intValue).min().orElse(beginNumValue), tagExistedSet);
-        selectedPsiClassWrapper.getFieldList().forEach(psiFieldWrapper -> {
-            if (psiFieldWrapper == fieldWrapper) {
-                writeAnnotationForce(psiFileContext, ModifierAnnotationUtils.createWrapperTag(currentNum.get()), psiFieldWrapper.getPsiField());
-                return;
-            }
-            Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
-            if (tagValueOptional.isPresent()) {
-                Integer psiFieldTagValue = tagValueOptional.get();
-                updateCurrentNum(currentNum, psiFieldTagValue, tagExistedSet);
-            }
-        });
+        deleteAnnotationTagProcessor.doWriteElement();
+        populateWriteTagProcessor.doWriteElement();
     }
 }

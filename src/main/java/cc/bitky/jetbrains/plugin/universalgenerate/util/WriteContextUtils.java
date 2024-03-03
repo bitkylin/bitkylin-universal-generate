@@ -10,10 +10,13 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.psi.impl.source.PsiFieldImpl;
 import com.intellij.psi.impl.source.PsiMethodImpl;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Stream;
 
 /**
@@ -87,6 +90,7 @@ public class WriteContextUtils {
     private static PsiClassWrapper createPsiClassWrapper(PsiClass psiClass, WriteContext.PsiFileContext psiFileContext) {
         PsiClassWrapper psiClassWrapper = new PsiClassWrapper();
         psiClassWrapper.setPsiClass(psiClass);
+        psiClassWrapper.setSupperFieldList(calcSupperClzFieldList(psiClass));
         psiClassWrapper.setFieldList(Stream.of(psiClass.getFields())
                 .map(BitkylinPsiParseUtils::parsePsiField)
                 .filter(WriteContextUtils::filterSpecialPsiField)
@@ -97,6 +101,23 @@ public class WriteContextUtils {
                 .toList());
         DecisionUtils.assembleRoleAndLocation(psiClassWrapper, psiFileContext);
         return psiClassWrapper;
+    }
+
+    private static List<PsiFieldWrapper> calcSupperClzFieldList(PsiClass psiClass) {
+        List<PsiFieldWrapper> supperFieldList = Lists.newArrayList();
+        LongAdder adder = new LongAdder();
+        while (adder.longValue() < 10) {
+            adder.increment();
+            psiClass = psiClass.getSuperClass();
+            if (psiClass == null) {
+                return supperFieldList;
+            }
+            supperFieldList.addAll(Stream.of(psiClass.getFields())
+                    .map(BitkylinPsiParseUtils::parsePsiField)
+                    .filter(WriteContextUtils::filterSpecialPsiField)
+                    .toList());
+        }
+        return supperFieldList;
     }
 
     private static boolean filterSpecialPsiField(PsiFieldWrapper psiFieldWrapper) {

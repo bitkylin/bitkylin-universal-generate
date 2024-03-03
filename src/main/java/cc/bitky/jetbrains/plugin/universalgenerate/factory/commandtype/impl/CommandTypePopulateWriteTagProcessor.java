@@ -54,6 +54,10 @@ public class CommandTypePopulateWriteTagProcessor extends CommandTypeAbstractWri
                     nextGroupTagBeginNum.set(Math.max(nextGroupTagBeginNum.get(), tagValue));
                 });
             }
+            for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getSupperFieldList()) {
+                Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
+                tagValueOptional.ifPresent(tagExistedSet::add);
+            }
         }
 
         if (MapUtils.isNotEmpty(clzMapFirstTagValue)) {
@@ -118,6 +122,10 @@ public class CommandTypePopulateWriteTagProcessor extends CommandTypeAbstractWri
                     clzMapFirstTagValue.putIfAbsent(psiClass.getQualifiedName(), tagValue);
                     nextGroupTagBeginNum.set(Math.max(nextGroupTagBeginNum.get(), tagValue));
                 });
+            }
+            for (PsiFieldWrapper psiFieldWrapper : psiClassWrapper.getSupperFieldList()) {
+                Optional<Integer> tagValueOptional = psiFieldWrapper.fetchTagValue();
+                tagValueOptional.ifPresent(tagExistedSet::add);
             }
         }
 

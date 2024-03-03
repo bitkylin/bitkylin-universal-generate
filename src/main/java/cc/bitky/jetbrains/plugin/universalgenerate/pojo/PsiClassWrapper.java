@@ -19,6 +19,8 @@ public class PsiClassWrapper {
 
     private ClassRoleEnum classRole;
 
+    private List<PsiFieldWrapper> supperFieldList;
+
     private List<PsiFieldWrapper> fieldList;
 
     private List<PsiMethodWrapper> methodList;
