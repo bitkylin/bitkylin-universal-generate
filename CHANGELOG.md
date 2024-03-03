@@ -4,6 +4,24 @@
 
 ## [Unreleased]
 
+## [1.2.3 - 2024-03-03
+
+### Added
+
+- feature: more option for protostuff
+
+### Fixed
+
+- Java doc contain 「"」, swagger annotation error
+
+### 添加
+
+- protostuff新增更多配置项
+
+### 修复
+
+- JavaDoc中包含「"」时，Swagger注解错误
+
 ## [1.2.1 - 2024-01-30
 
 ### Added
@@ -114,7 +132,8 @@
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
 - 后续会添加更多方便的功能，敬请期待吧！
 
-[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...main
+[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.3...main
+[1.2.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.1...v1.2.3
 [1.2.1]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.4...v1.2.1
 [1.1.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.0.7...v1.1.3
