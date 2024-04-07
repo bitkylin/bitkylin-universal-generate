@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [1.2.8] - 2024-04-08
+
+### Added
+
+- Support for IntelliJ IDEA 2024.1
+
+### 添加
+
+- 支持 IntelliJ IDEA 2024.1
+
 ## [1.2.7] - 2024-03-03
 
 ### Changed
