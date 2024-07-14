@@ -4,15 +4,15 @@
 
 ## [Unreleased]
 
-## [1.3.3] - 2024-06-30
+## [1.3.4] - 2024-07-14
 
 ### Added
 
-- Update to intellij-platform-plugin-template v1.14.1
+- Update to intellij-platform-plugin-template v1.14.2
 
 ### 添加
 
-- 更新到 intellij-platform-plugin-template v1.14.1
+- 更新到 intellij-platform-plugin-template v1.14.2
 
 ## [1.2.10] - 2024-06-20
 
@@ -167,9 +167,9 @@
 - 作用于Controller类或POJO类，你可以很方便的一键生成Protostuff注解「@Tag」，并且可以直接将JavaDoc转换为Swagger2.0注解。反过来，你也可以方便的一键将Swagger2.0注解转换为JavaDoc。
 - 后续会添加更多方便的功能，敬请期待吧！
 
-[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.3.3...main
+[Unreleased]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.3.4...main
 
-[1.3.3]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.9...v1.3.3
+[1.3.4]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.9...v1.3.4
 
 [1.2.9]: https://github.com/bitkylin/bitkylin-universal-generate/compare/v1.2.7...v1.2.9
 
