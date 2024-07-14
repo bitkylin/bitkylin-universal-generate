@@ -21,7 +21,7 @@ repositories {
     mavenCentral()
 }
 
-val lombokVersion = "1.18.32"
+val lombokVersion = "1.18.34"
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
     // lombok
